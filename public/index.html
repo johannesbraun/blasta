@@ -1,20 +1,20 @@
 <!doctype html>
 <html>
 <head>
-	<link rel="shortcut icon" href="public/img/gb.ico">
+	<link rel="shortcut icon" href="img/gb.ico">
 	<title>blasta.me</title> 
 	<meta name="viewport" content="width=device-width">
-	<link rel="apple-touch-icon" href="public/img/gogb1.gif">
+	<link rel="apple-touch-icon" href="img/gogb1.gif">
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-status-bar-style" content="white">
 	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
 	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
 	<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-	<link href="public/css/style.css" rel="stylesheet" type="text/css" media="screen and (min-width: 481px)" >
-	<link href="public/css/mobile.css" rel="stylesheet" type="text/css" media="only screen and (max-width: 480px)" />
+	<link href="css/style.css" rel="stylesheet" type="text/css" media="screen and (min-width: 481px)" >
+	<link href="css/mobile.css" rel="stylesheet" type="text/css" media="only screen and (max-width: 480px)" />
 	<!--<script type="text/javascript" src="https://w.soundcloud.com/player/api.js"></script>-->
-	<script type="text/javascript" src="public/js/api.js"></script>
-	<script type="text/javascript" src="public/js/sdk.js"></script>
+	<script type="text/javascript" src="js/api.js"></script>
+	<script type="text/javascript" src="js/sdk.js"></script>
 	<script>
 		function searchSC(query){
   			var client_id= '17089d3c7d05cb2cfdffe46c2e486ff0';
@@ -98,7 +98,7 @@
 			$("#station").html('<a class="station">'+t+'</a>');
 			localStorage.radio=localStorage.track;
 			$("#radio").show();
-			$("#radiobutton").html('<img class="control" src="public/img/icons/graystartradio.png" width="50" alt="radio">');
+			$("#radiobutton").html('<img class="control" src="img/icons/graystartradio.png" width="50" alt="radio">');
 		};
 	</script>
 	<script>
@@ -106,7 +106,7 @@
 			$("#radio").hide();
 			$("#station").text("");
 			delete localStorage.radio;
-			$("#radiobutton").html('<img class="control" src="public/img/icons/black_radio.png" width="50" alt="redio">');
+			$("#radiobutton").html('<img class="control" src="img/icons/black_radio.png" width="50" alt="redio">');
 		};
 	</script>
 	<script>
@@ -213,7 +213,7 @@
 		<div>
 			<!--<img class="icon" src="img/gogb.gif" width="60" alt="Blasta.me icon">-->
 			<img class="logo" src="img/black_logo.gif" width="200" alt="Blasta.me Logo">
-			<a href="#" class="profile"><img class="profile" src="public/img/icons/black_profile.png" alt="Profile"></a>
+			<a href="#" class="profile"><img class="profile" src="img/icons/black_profile.png" alt="Profile"></a>
 			<!--<h1>blasta.me</h1> Bauhaus93 not supported on the iphone-->
 		</div>
 	</header>
@@ -226,7 +226,7 @@
 		</form>
 		
 		<div id="radio">
-		<img class="speaker" src="public/img/grayboomblasta.png" width="40" alt="Listening to:">
+		<img class="speaker" src="img/grayboomblasta.png" width="40" alt="Listening to:">
 		<!--<img class="speaker" src="img/gray_speaker.png" width="12" alt="Listening to station:">-->
 		<span id="station">
 			<a class="station"> Digitalism </a>
@@ -234,13 +234,13 @@
 		</div>
 		<br>
 
-		<a href="#" class="love"><img class="control" src="public/img/icons/like.png" width="50" alt="love it"></a>
-		<a href="#" class="hate"><img class="control" src="public/img/icons/dislike.png" width="50" alt="hate it"></a>
-		<a href="#" class="next"><img class="control" src="public/img/icons/onext.png" width="50" alt="next"></a>
+		<a href="#" class="love"><img class="control" src="img/icons/like.png" width="50" alt="love it"></a>
+		<a href="#" class="hate"><img class="control" src="img/icons/dislike.png" width="50" alt="hate it"></a>
+		<a href="#" class="next"><img class="control" src="img/icons/onext.png" width="50" alt="next"></a>
 		
 		<a href="#" class="radio">
 			<span id="radiobutton">
-				<img class="control" src="public/img/icons/black_radio.png" width="50" alt="radio">
+				<img class="control" src="img/icons/black_radio.png" width="50" alt="radio">
 			</span>
 		</a>
 		
@@ -253,14 +253,14 @@
 			<div class="music" id="music">
 				
 				
-				<img src="public/img/screenshot.png" width="600" alt="soundcloud"><br>
-				<!--
+				<!--<img src="img/screenshot.png" width="600" alt="soundcloud"><br>-->
+				
 					<iframe id="soundcloud_widget"
 	     			src="http://w.soundcloud.com/player/?url=https://api.soundcloud.com/tracks/38843238&amp;auto_play=false&amp;hide_related=true&amp;show_comments=false&amp;show_user=false&amp;show_reposts=false&amp;visual=false&show_artwork=true&liking=false&sharing=false&auto_play=false&show_playcount=false&singleplay=true&color=FF7538"
 	     			width="600"
 	     			height="200"
 	     			frameborder="no"></iframe>
-	     		-->
+	     		
 	 			
 			</div>
 		</music>
