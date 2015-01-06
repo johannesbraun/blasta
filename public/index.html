@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width">
 	<link rel="apple-touch-icon" href="img/gogb1.gif">
 	<meta name="apple-mobile-web-app-capable" content="yes">
-	<meta name="apple-mobile-web-app-status-bar-style" content="white">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
 	<link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
 	<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
 	<script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
@@ -98,15 +98,19 @@
 			$("#station").html('<a class="station">'+t+'</a>');
 			localStorage.radio=localStorage.track;
 			$("#radio").show();
-			$("#radiobutton").html('<img class="control" src="img/icons/graystartradio.png" width="50" alt="radio">');
+			$("#black_radiobutton").css("display","none");
+			$("#gray_radiobutton").css("display","inline");
+			/*$("#radiobutton").html('<img class="control" src="img/icons/graystartradio.png" width="50" alt="radio">');*/
 		};
 	</script>
 	<script>
 		function stopRadio(){
 			$("#radio").hide();
+			$("#gray_radiobutton").css("display","none");
+			$("#black_radiobutton").css("display","inline");
 			$("#station").text("");
 			delete localStorage.radio;
-			$("#radiobutton").html('<img class="control" src="img/icons/black_radio.png" width="50" alt="redio">');
+			/*$("#radiobutton").html('<img class="control" src="img/icons/black_radio.png" width="50" alt="redio">');*/
 		};
 	</script>
 	<script>
@@ -115,7 +119,7 @@
 			var track_id =  38843238;
 			var client_id = "17089d3c7d05cb2cfdffe46c2e486ff0";
 
-			playSong(track_id);
+			//playSong(track_id);
 			$("#loves").text(localStorage.loves);
 			$("#hates").text(localStorage.hates);
 			$("#history").text(localStorage.hist);
@@ -162,6 +166,9 @@
  			$("#search-form").submit(function(){ // if entered add to history
 					clear();
 					var query = $("#search").val();
+					$("#search").blur();
+					$("#search").css("color","gray"); 
+					$("#search").css("font-family","Courier");
 					searchSC(query);
 					//$("#search-form").toggle();
 					//$("#history").append(query+" <br>");
@@ -222,7 +229,7 @@
 
 	<main>
 		<form id="search-form">
-			<input type="search" id="search" placeholder="Song or Artist">
+			<input type="search" id="search" placeholder="Song or Artist" style = "font-family: Courier;");>
 		</form>
 		
 		<div id="radio">
@@ -239,8 +246,11 @@
 		<a href="#" class="next"><img class="control" src="img/icons/onext.png" width="50" alt="next"></a>
 		
 		<a href="#" class="radio">
-			<span id="radiobutton">
+			<span id="black_radiobutton">
 				<img class="control" src="img/icons/black_radio.png" width="50" alt="radio">
+			</span>
+			<span id="gray_radiobutton" style="display:none;">
+				<img class="control" src="img/icons/graystartradio.png" width="50" alt="radio">
 			</span>
 		</a>
 		
@@ -253,13 +263,15 @@
 			<div class="music" id="music">
 				
 				
-				<!--<img src="img/screenshot.png" width="600" alt="soundcloud"><br>-->
+					<img src="img/screenshot.png" width="600" alt="soundcloud"><br>
 				
+				<!--
 					<iframe id="soundcloud_widget"
 	     			src="https://w.soundcloud.com/player/?url=https://api.soundcloud.com/tracks/38843238&amp;auto_play=false&amp;hide_related=true&amp;show_comments=false&amp;show_user=false&amp;show_reposts=false&amp;visual=false&show_artwork=true&liking=false&sharing=false&auto_play=false&show_playcount=false&singleplay=true&color=FF7538"
 	     			width="600"
 	     			height="200"
 	     			frameborder="no"></iframe>
+	     		-->
 	     		
 	 			
 			</div>
