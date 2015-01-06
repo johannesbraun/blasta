@@ -1,0 +1,133 @@
+
+.ui-page {
+	background:white;
+	padding: 5px;
+	padding-left: 20px;
+}
+
+header{
+	width: 610px;
+	padding-left: 0px;
+}
+
+hr {
+	border-width:0;
+	height: 3px;
+	background-color: #FF6600;
+}
+
+.ui-input-search { 
+	padding: 5 5; 
+	width: 82%; 
+	padding-left: 5px;
+	height: 30px;
+	font-size: 14px;
+	/*background-position: 8px 50%; 
+	background-repeat: no-repeat; 
+	position: relative; */
+}
+
+body{
+	color: #FF6600;
+	/*padding-left: 30px;
+	/*font-family: "Bauhaus93";*/
+	font-family: "Courier";
+	font-size: 10px;
+}
+
+main{
+	width: 680px;
+	padding-left: 0px;
+}
+
+
+
+.search_results{
+	color:gray;
+	font-family: "Courier";
+	font-size: 10px;
+}
+
+footer{
+	color: gray;
+	/*padding: 10px;*/
+	font-family: "Courier";
+	font-size: 10px;
+}
+
+
+a.station{
+	vertical-align: text-bottom;
+	font-size: 18px;
+	color: grey;
+	padding-top: 15px;
+	/*padding-bottom: 50px; */
+}
+
+img.icon{
+	float: left;
+	padding-left: 10px;
+	padding-top: 5px;
+	margin: 0;
+}
+
+img.logo{
+	/*float: left;*/
+	padding-left: -10px;
+	padding-top: 17px;
+	margin: 0;
+	width: 210px;
+}
+
+
+img.profile{
+	float: right;
+	width: 40px;
+	padding-top: 5px;
+	margin: 0;
+	padding-right: 10px;
+}
+
+img.speaker{
+	padding-top: 10px;
+	padding-left: 0px;
+	
+}
+
+img.control{
+	padding-left: 5px;
+	padding-right: 10px;
+	padding-bottom: 10px;
+	margin: 0;
+}
+
+.music{
+	/*float: right;
+	padding-left: 10px; 
+	/*width: 285px; for overlaying*/
+}
+
+
+h1{
+	font-weight: normal;
+	font-size: 45px;
+	color: #FF6600;
+	padding-top: 5px;
+	padding-left: 85px;
+	margin: 0;
+}
+
+
+p{
+	color: #FF6600;
+	padding: 0px;
+	font-family: "Bauhaus93"; 
+}
+
+iframe.hidden
+{
+	display:none
+}
+
+
+

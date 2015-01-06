@@ -1,0 +1,128 @@
+
+body{
+	color: #FF6600;
+	padding: 10px;
+	/*font-family: "Bauhaus93";*/
+	font-family: "Courier";
+
+}
+
+.ui-page {
+	background:white;
+	padding: 5px;
+	padding-left: 10px;
+}
+
+.ui-input-search { 
+	padding: 0 0; 
+	width: 95%; 
+	/*background-position: 8px 50%; 
+	background-repeat: no-repeat; 
+	position: relative; */
+}
+
+/*.hidden {
+    display: none;
+}*/
+
+a.station{
+	vertical-align: text-bottom;
+	font-size: 18px;
+	color: grey;
+	padding-top: 15px;
+	/*padding-bottom: 50px; */
+}
+
+
+img.icon{
+	float: left;
+	padding-left: 10px;
+	padding-top: 5px;
+	margin: 0;
+}
+
+img.logo{
+	/*float: left;*/
+	padding-left: 0px;
+	padding-top: 20px;
+	margin: 0;
+	width:190px;
+}
+
+img.control{
+	padding-left: 6px;
+	padding-bottom: 10px;
+	padding-right: 10px;
+	margin: 0;
+}
+
+img.profile{
+	float: right;
+	width: 30px;
+	padding-top: 5px;
+	margin: 0;
+	padding-right: 12px;
+}
+
+img.speaker{
+	padding-top: 0px;
+	padding-top: 15px;
+}
+
+header{
+	width: 320px;
+}
+
+main{
+	width: 330px;
+}
+
+/*music{
+	float: right;
+	/*padding-right: 100px; /*of main.width*/
+	/*width: 285px; for overlaying
+}*/
+
+
+search_results{
+	color:gray;
+	font-family: "Courier";
+	font-size: 10px;
+}
+
+h1{
+	font-weight: normal;
+	font-size: 45px;
+	color: #FF6600;
+	padding-top: 5px;
+	padding-left: 85px;
+	margin: 0;
+}
+
+
+footer{
+	color: gray;
+	padding: 10px;
+	font-family: "Courier";
+	font-size: 10px;
+}
+
+hr {
+	border-width:0;
+	height: 3px;
+	background-color: #FF6600;
+}
+
+p{
+	color: #FF6600;
+	padding: 0px;
+	font-family: "Bauhaus93"; 
+}
+
+iframe.hidden
+{
+	display:none
+}
+
+
+

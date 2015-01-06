@@ -1,0 +1,300 @@
+<!doctype html>
+<html>
+<head>
+	<link rel="shortcut icon" href="img/gb.ico">
+	<title>blasta.me</title> 
+	<meta name="viewport" content="width=device-width">
+	<link rel="apple-touch-icon" href="img/gogb1.gif">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="white">
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+	<link href="css/style.css" rel="stylesheet" type="text/css" media="screen and (min-width: 481px)" >
+	<link href="css/mobile.css" rel="stylesheet" type="text/css" media="only screen and (max-width: 480px)" />
+	<!--<script type="text/javascript" src="https://w.soundcloud.com/player/api.js"></script>-->
+	<script type="text/javascript" src="js/api.js"></script>
+	<script type="text/javascript" src="js/sdk.js"></script>
+	<script>
+		function searchSC(query){
+  			var client_id= '17089d3c7d05cb2cfdffe46c2e486ff0';
+			// find all sounds of query 
+			// TODO: move api call to backend
+
+			url = "http://api.soundcloud.com/tracks?q="+query+"&client_id="+client_id+"&format=json&_status_code_map[302]=200"
+		
+			$.getJSON(url, function(data){
+				console.log(data);
+				var l = data.length
+				console.log(l);
+				$("#Results").html("<h3>"+l+" results for '"+query+"':</h3>");
+				for (i=0; i<l; i++){
+					var title = data[i].title;
+					var track_id = data[i].id;
+					$("#SRP").append("<a href=\"javascript:playSong("+track_id+");\">"+title+"</a><br>"); // how to link to play?
+				}
+			});
+		};
+	</script>
+	<script>
+		function playSong(track_id){
+
+		var width = 600;
+		var height = 200;
+
+		if(navigator.platform !=="MacIntel"){
+			//alert('iphone');
+			width = 300;
+			height = 150;
+		}
+
+		var artwork = "false";
+		var comments = "true";
+
+		var iframe = "<iframe id=\"soundcloud_widget\" src=\"http://w.soundcloud.com/player/?url=https://api.soundcloud.com/tracks/"+track_id+"&amp;auto_play=true&amp;hide_related=true&amp;show_comments="+comments+"&amp;show_user=false&amp;show_reposts=false&amp;visual=false&show_artwork="+artwork+"&liking=false&sharing=false&download=false&buying=false&show_playcount=false&singleplay=true&color=FF7538\" width=\""+width+"\" height=\""+height+"\" frameborder=\"no\"></iframe>";
+		$("#music").html(iframe);
+
+		stopRadio();
+		getInfo(track_id);
+		}
+	</script>
+	<script>
+		function getInfo(track_id){
+			// TODO: move api call to backend
+			console.log('getInfo');
+			var client_id = "17089d3c7d05cb2cfdffe46c2e486ff0";
+			var url = "http://api.soundcloud.com/tracks/"+track_id+".json?client_id="+client_id;
+
+			var timeInMs = Date.now();
+
+			$.getJSON(url, function(data){
+				console.log(data);
+				var art = data.artwork_url;
+				var title = data.title;
+				localStorage.track=JSON.stringify({time: timeInMs, id: track_id, name: title}); 
+				$("#current_track").append(localStorage.track);
+				$("#history").append(localStorage.track);
+				var hist = [];
+				if (typeof localStorage.hist !== 'undefined'){ 
+					hist = JSON.parse(localStorage.hist);
+				}
+				hist.push(localStorage.track);
+				localStorage.hist = JSON.stringify(hist)
+				//var large = art.replace("large", "t500x500");
+			});
+			
+		}
+	</script>
+	<script>
+		function clear(){
+			$("#SRP").text("")
+		};
+	</script>
+	<script>
+		function startRadio(id){
+			var t = JSON.parse(localStorage.track).name;
+			$("#current_radio").append(localStorage.track);
+			console.log(t)
+			$("#station").html('<a class="station">'+t+'</a>');
+			localStorage.radio=localStorage.track;
+			$("#radio").show();
+			$("#radiobutton").html('<img class="control" src="img/icons/graystartradio.png" width="50" alt="radio">');
+		};
+	</script>
+	<script>
+		function stopRadio(){
+			$("#radio").hide();
+			$("#station").text("");
+			delete localStorage.radio;
+			$("#radiobutton").html('<img class="control" src="img/icons/black_radio.png" width="50" alt="redio">');
+		};
+	</script>
+	<script>
+		$(document).ready(function() {
+			
+			var track_id =  38843238;
+			var client_id = "17089d3c7d05cb2cfdffe46c2e486ff0";
+
+			playSong(track_id);
+			$("#loves").text(localStorage.loves);
+			$("#hates").text(localStorage.hates);
+			$("#history").text(localStorage.hist);
+			/*var pretty_history = "";
+			var history = JSON.parse(localStorage.hist);
+			for (i=0; i<history.length; i++){
+				pretty_history = pretty_history + history[i] + "<br>";
+			}
+			$("#history").html(pretty_history);*/
+
+
+
+			/* jquery selectors p.112
+			$("*"); // selects all elements in the document
+			$("h1"); // selects all of the h1 elements
+			$("p"); // selects all paragraph elements 
+			$("p .first"); selects all paragraph elements with the class 'first'
+			$(".first"); // selects all elements with the class 'first'
+			$("p:nth-child(3)"); // selects all paragraph elements that are the third child
+			*/
+
+
+			//var url = "http://api.soundcloud.com/tracks/"+track_id+".json?client_id="+client_id;
+
+			//console.log(url);
+
+			/*$.getJSON(url, function(data){
+				//console.log(data);
+				var art = data.artwork_url;
+				var large = art.replace("large", "t500x500");
+				console.log(large);
+			});
+
+			var widget = SC.Widget(document.getElementById('soundcloud_widget'));
+			widget.bind(SC.Widget.Events.READY, function() {
+				console.log('Ready...');
+			});
+			$('button').click(function() {
+				widget.toggle();
+			});*/
+			
+			
+
+ 			$("#search-form").submit(function(){ // if entered add to history
+					clear();
+					var query = $("#search").val();
+					searchSC(query);
+					//$("#search-form").toggle();
+					//$("#history").append(query+" <br>");
+					return false;
+			});
+
+			$(".next").on("click", function (event) { 
+				//alert("next");
+				//TODO: note the time listened to the song 
+				//check if we are ona radio or search results
+				playSong(37032471);
+			});
+			$(".love").on("click", function (event) { 
+				//TODO: save only id in localStorage.hist etc. and either store titles in localStorage.titles or get them fom api
+				$("#loves").append(localStorage.track);
+				var favs = [];
+				if (typeof localStorage.loves !== 'undefined'){ 
+					favs = JSON.parse(localStorage.loves);
+				}
+				favs.push(localStorage.track);
+				localStorage.loves = JSON.stringify(favs);
+			});
+			$(".hate").on("click", function (event) { 
+				//alert("hate it");
+				$("#hates").append(localStorage.track);
+				var boos = [];
+				if (typeof localStorage.hates !== 'undefined'){ 
+					boos = JSON.parse(localStorage.hates);
+				}
+				boos.push(localStorage.track);
+				localStorage.hates = JSON.stringify(boos);
+			});
+			$(".profile").on("click", function (event) { 
+				/*alert('profile');*/
+			});
+			$(".radio").on("click", function (event) { 
+
+				if (localStorage.radio !== undefined){
+					stopRadio();
+				}else {
+					startRadio()
+				};
+			});
+		});
+	</script>
+</head>
+<body>
+	<header> 
+		<div>
+			<!--<img class="icon" src="img/gogb.gif" width="60" alt="Blasta.me icon">-->
+			<img class="logo" src="img/black_logo.gif" width="200" alt="Blasta.me Logo">
+			<a href="#" class="profile"><img class="profile" src="img/icons/black_profile.png" alt="Profile"></a>
+			<!--<h1>blasta.me</h1> Bauhaus93 not supported on the iphone-->
+		</div>
+	</header>
+	<!--<hr>-->
+	
+
+	<main>
+		<form id="search-form">
+			<input type="search" id="search" placeholder="Song or Artist">
+		</form>
+		
+		<div id="radio">
+		<img class="speaker" src="img/grayboomblasta.png" width="40" alt="Listening to:">
+		<!--<img class="speaker" src="img/gray_speaker.png" width="12" alt="Listening to station:">-->
+		<span id="station">
+			<a class="station"> Digitalism </a>
+		</span>
+		</div>
+		<br>
+
+		<a href="#" class="love"><img class="control" src="img/icons/like.png" width="50" alt="love it"></a>
+		<a href="#" class="hate"><img class="control" src="img/icons/dislike.png" width="50" alt="hate it"></a>
+		<a href="#" class="next"><img class="control" src="img/icons/onext.png" width="50" alt="next"></a>
+		
+		<a href="#" class="radio">
+			<span id="radiobutton">
+				<img class="control" src="img/icons/black_radio.png" width="50" alt="radio">
+			</span>
+		</a>
+		
+
+
+		<music>
+			<div class="hidden" id="track">
+				<!--could write here if no localStoarge-->
+			</div>
+			<div class="music" id="music">
+				
+				
+				<img src="img/screenshot.png" width="600" alt="soundcloud"><br>
+				<!--
+					<iframe id="soundcloud_widget"
+	     			src="http://w.soundcloud.com/player/?url=https://api.soundcloud.com/tracks/38843238&amp;auto_play=false&amp;hide_related=true&amp;show_comments=false&amp;show_user=false&amp;show_reposts=false&amp;visual=false&show_artwork=true&liking=false&sharing=false&auto_play=false&show_playcount=false&singleplay=true&color=FF7538"
+	     			width="600"
+	     			height="200"
+	     			frameborder="no"></iframe>
+	     		-->
+	 			
+			</div>
+		</music>
+		<br>
+		<div class="heading" id="Results"></div>
+		<div class="search_results" id="SRP">
+		</div>
+		
+	</main>
+
+	<footer>
+
+		<div class="h2" id="profile_heading">History</div>
+		<div class="profile_element" id="history">
+		</div>
+
+		<div class="h2" id="profile_heading">Profile</div>
+		<div id="profile_body">
+			<div class="h3" id="profile_element_heading">Loves:</div>
+				<div class="profile_element" id="loves">
+				</div>
+			<div class="h3" id="profile_element_heading">Hates:</div>
+				<div class="profile_element" id="hates">
+				</div>
+			<div class="h3" id="profile_element_heading">Radio:</div>
+				<div class="profile_element" id="current_radio">
+				</div>
+			<div class="h3" id="profile_element_heading">Track:</div>
+				<div class="profile_element" id="current_track">
+				</div>
+
+	</footer>
+
+
+
+</body>
+</html>
