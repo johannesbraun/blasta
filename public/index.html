@@ -7,9 +7,9 @@
 	<link rel="apple-touch-icon" href="img/gogb1.gif">
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-status-bar-style" content="white">
-	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
-	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
-	<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+	<link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+	<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+	<script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 	<link href="css/style.css" rel="stylesheet" type="text/css" media="screen and (min-width: 481px)" >
 	<link href="css/mobile.css" rel="stylesheet" type="text/css" media="only screen and (max-width: 480px)" />
 	<!--<script type="text/javascript" src="https://w.soundcloud.com/player/api.js"></script>-->
@@ -21,7 +21,7 @@
 			// find all sounds of query 
 			// TODO: move api call to backend
 
-			url = "http://api.soundcloud.com/tracks?q="+query+"&client_id="+client_id+"&format=json&_status_code_map[302]=200"
+			url = "https://api.soundcloud.com/tracks?q="+query+"&client_id="+client_id+"&format=json&_status_code_map[302]=200"
 		
 			$.getJSON(url, function(data){
 				console.log(data);
@@ -51,7 +51,7 @@
 		var artwork = "false";
 		var comments = "true";
 
-		var iframe = "<iframe id=\"soundcloud_widget\" src=\"http://w.soundcloud.com/player/?url=https://api.soundcloud.com/tracks/"+track_id+"&amp;auto_play=true&amp;hide_related=true&amp;show_comments="+comments+"&amp;show_user=false&amp;show_reposts=false&amp;visual=false&show_artwork="+artwork+"&liking=false&sharing=false&download=false&buying=false&show_playcount=false&singleplay=true&color=FF7538\" width=\""+width+"\" height=\""+height+"\" frameborder=\"no\"></iframe>";
+		var iframe = "<iframe id=\"soundcloud_widget\" src=\"https://w.soundcloud.com/player/?url=https://api.soundcloud.com/tracks/"+track_id+"&amp;auto_play=true&amp;hide_related=true&amp;show_comments="+comments+"&amp;show_user=false&amp;show_reposts=false&amp;visual=false&show_artwork="+artwork+"&liking=false&sharing=false&download=false&buying=false&show_playcount=false&singleplay=true&color=FF7538\" width=\""+width+"\" height=\""+height+"\" frameborder=\"no\"></iframe>";
 		$("#music").html(iframe);
 
 		stopRadio();
@@ -63,7 +63,7 @@
 			// TODO: move api call to backend
 			console.log('getInfo');
 			var client_id = "17089d3c7d05cb2cfdffe46c2e486ff0";
-			var url = "http://api.soundcloud.com/tracks/"+track_id+".json?client_id="+client_id;
+			var url = "https://api.soundcloud.com/tracks/"+track_id+".json?client_id="+client_id;
 
 			var timeInMs = Date.now();
 
@@ -256,7 +256,7 @@
 				<!--<img src="img/screenshot.png" width="600" alt="soundcloud"><br>-->
 				
 					<iframe id="soundcloud_widget"
-	     			src="http://w.soundcloud.com/player/?url=https://api.soundcloud.com/tracks/38843238&amp;auto_play=false&amp;hide_related=true&amp;show_comments=false&amp;show_user=false&amp;show_reposts=false&amp;visual=false&show_artwork=true&liking=false&sharing=false&auto_play=false&show_playcount=false&singleplay=true&color=FF7538"
+	     			src="https://w.soundcloud.com/player/?url=https://api.soundcloud.com/tracks/38843238&amp;auto_play=false&amp;hide_related=true&amp;show_comments=false&amp;show_user=false&amp;show_reposts=false&amp;visual=false&show_artwork=true&liking=false&sharing=false&auto_play=false&show_playcount=false&singleplay=true&color=FF7538"
 	     			width="600"
 	     			height="200"
 	     			frameborder="no"></iframe>
