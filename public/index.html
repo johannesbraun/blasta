@@ -29,7 +29,7 @@
 		<div>
 			<!--<img class="icon" src="img/gogb.gif" width="60" alt="Blasta.me icon">-->
 			<img class="logo" src="img/black_logo.gif" width="200" alt="Blasta.me Logo">
-			<a href="#" class="profile_toggle"><img class="profile_pic" src="img/icons/black_profile.png" width="40" alt="Profile"></a>
+			<a href="javascript:showProfile()" class="profile_toggle"><img class="profile_pic" src="img/icons/black_profile.png" width="40" alt="Profile"></a>
 			<!--<h1>blasta.me</h1> Bauhaus93 not supported on the iphone-->
 		</div>
 	</header>
@@ -52,9 +52,9 @@
 		<script>$("#radio_section").hide();</script>
 		<br>
 
-		<a href="#" class="love"><img class="control" src="img/icons/like.png" width="50" alt="love it"></a>
-		<a href="#" class="hate"><img class="control" src="img/icons/dislike.png" width="50" alt="hate it"></a>
-		<a href="#" class="next"><img class="control" src="img/icons/onext.png" width="50" alt="next"></a>
+		<a href="javascript:love()" class="love"><img class="control" src="img/icons/like.png" width="50" alt="love it"></a>
+		<a href="javascript:hate()" class="hate"><img class="control" src="img/icons/dislike.png" width="50" alt="hate it"></a>
+		<a href="javascript:next()" class="next"><img class="control" src="img/icons/onext.png" width="50" alt="next"></a>
 		
 		<span id="black_radiobutton">
 		<a href="javascript:startRadio()" class="radio_button"><img class="control" src="img/icons/black_radio.png" width="50" alt="radio"></a>
@@ -93,7 +93,7 @@
 
 
 	<section class="profile_section" id ="profile_section">
-		<div class="h2" id="history_heading"><u>History:</u></div>
+		<div class="h2" id="history_heading"><u>History:</u> <a href="javascript:clearHistory()">[clear all]</a></div>
 			<div class="h3" id="track_history_heading">Track history:</div>
 				<div class="profile_element" id="track_history"></div>
 			<div class="h3" id="search_history_heading">Search history:</div>

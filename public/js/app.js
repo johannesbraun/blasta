@@ -40,7 +40,7 @@ function insertInfoIntoLS(data, track_id, timeInMs){
 		setLS("current_track",JSON.stringify({time: timeInMs, id: track_id, name: title}));
 		$("#current_track").text(localStorage.current_track);
 		//TODO: pretty history, unique?, group?
-		$("#track_history").prepend(localStorage.current_track);
+		$("#track_history").prepend(localStorage.current_track+"<br>");
 		addToLS("track_history",localStorage.current_track);
 }
 
@@ -92,7 +92,7 @@ function stopRadio(){
 function insertResultsIntoDOM (data, query) {
 		console.log("insertResultsIntoDOM(data, "+query+")");
         var l = data.length;
-        $("#search_heading").html("<h3>"+l+" results for '"+query+"':</h3>");
+        $("#search_heading").html("<h3>"+l+" results for '"+query+"': "+"<a href=\"javascript:hideSearch()\">[x]</a></h3>");
         var i=0;
         for (i=0; i<l; i++) {
            var title = data[i].title;
@@ -100,6 +100,7 @@ function insertResultsIntoDOM (data, query) {
            //console.log(title);
            $("#search_results").append("<a href=\"javascript:playSong("+track_id+");\">"+title+"</a><br>"); // how to link to play?
         }
+        $("#search_section").show();
     };
 
 // takes item and appends it to localStorage.name
@@ -132,7 +133,7 @@ function htmlAdd(name, item){
 
 
 function dropFromLS(name){
-	console.log("dropFromLS("+name+"");
+	console.log("dropFromLS("+name+")");
 	delete localStorage[name];
 }
 
@@ -140,6 +141,52 @@ function clear(){
 			$("#search_heading").text("");
 			$("#search_results").text("")
 		};
+
+function love(){
+	console.log("love()");
+	$("#loves").prepend(localStorage.current_track);
+	addToLS("loves", localStorage.current_track);
+}
+
+function hate(){
+	console.log("hate()");
+	$("#hates").prepend(localStorage.current_track);
+	addToLS("hates", localStorage.current_track);
+}
+
+function next(){
+	console.log("next()");
+	playSong(37032471);
+}
+
+function showProfile(){
+	console.log("profile_toggle()");
+	if (localStorage.profile === "visible"){
+		$("#profile_section").hide();
+		setLS("profile","hidden"); 
+	}else {
+		$("#profile_section").show();
+		setLS("profile","visible"); 
+	};
+}
+
+function hideSearch(){
+	console.log("hideSearch()");
+	$("#search_section").hide();
+}
+
+function clearHistory(){
+	dropFromLS("loves");
+	dropFromLS("hates");
+	dropFromLS("radio_history");
+	dropFromLS("search_history");
+	$("#loves").text("");
+	$("#hates").text("");
+	$("#search_history").text("");
+	$("#radio_history").text("");
+	setLS("track_history",localStorage.current_track);
+	$("#track_history").text(localStorage.current_track);
+}
 
 
 var main = function () {
@@ -182,7 +229,7 @@ var main = function () {
 					return false;
 			});
 
-			$(".next").on("click", function (event) { 
+			/*$(".next").on("click", function (event) { 
 				console.log("next()");
 				//TODO: note the time listened to the song 
 				//check if we are ona radio or search results
@@ -202,13 +249,13 @@ var main = function () {
 			$(".profile_toggle").on("click", function (event) { 
 				console.log("profile_toggle()");
 				if (localStorage.profile === "visible"){
-					$("#profile").hide();
+					$("#profile_section").hide();
 					setLS("profile","hidden"); 
 				}else {
-					$("#profile").show();
+					$("#profile_section").show();
 					setLS("profile","visible"); 
 				};
-			});
+			});*/
 		});
 };
 
