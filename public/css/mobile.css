@@ -1,17 +1,21 @@
 
-body{
-	color: #FF6600;
-	padding: 10px;
-	/*font-family: "Bauhaus93";*/
-	font-family: "Courier";
-
-}
-
 .ui-page {
 	background:white;
 	padding: 5px;
 	padding-left: 10px;
 }
+
+header{
+	width: 320px;
+}
+
+
+hr {
+	border-width:0;
+	height: 3px;
+	background-color: #FF6600;
+}
+
 
 .ui-input-search { 
 	padding: 0 0; 
@@ -21,9 +25,36 @@ body{
 	position: relative; */
 }
 
-/*.hidden {
-    display: none;
-}*/
+
+
+
+body{
+	color: #FF6600;
+	padding: 10px;
+	/*font-family: "Bauhaus93";*/
+	font-family: "Courier";
+}
+
+main{
+	width: 330px;
+}
+
+
+
+
+.search_results{
+	color:gray;
+	font-family: "Courier";
+	font-size: 10px;
+}
+
+.profile{
+	color: gray;
+	padding: 10px;
+	font-family: "Courier";
+	font-size: 10px;
+}
+
 
 a.station{
 	vertical-align: text-bottom;
@@ -32,7 +63,6 @@ a.station{
 	padding-top: 15px;
 	/*padding-bottom: 50px; */
 }
-
 
 img.icon{
 	float: left;
@@ -49,14 +79,8 @@ img.logo{
 	width:190px;
 }
 
-img.control{
-	padding-left: 6px;
-	padding-bottom: 10px;
-	padding-right: 10px;
-	margin: 0;
-}
 
-img.profile{
+img.profile_pic{
 	float: right;
 	width: 30px;
 	padding-top: 5px;
@@ -69,26 +93,14 @@ img.speaker{
 	padding-top: 15px;
 }
 
-header{
-	width: 320px;
+
+img.control{
+	padding-left: 6px;
+	padding-bottom: 10px;
+	padding-right: 10px;
+	margin: 0;
 }
 
-main{
-	width: 330px;
-}
-
-/*music{
-	float: right;
-	/*padding-right: 100px; /*of main.width*/
-	/*width: 285px; for overlaying
-}*/
-
-
-search_results{
-	color:gray;
-	font-family: "Courier";
-	font-size: 10px;
-}
 
 h1{
 	font-weight: normal;
@@ -99,19 +111,6 @@ h1{
 	margin: 0;
 }
 
-
-footer{
-	color: gray;
-	padding: 10px;
-	font-family: "Courier";
-	font-size: 10px;
-}
-
-hr {
-	border-width:0;
-	height: 3px;
-	background-color: #FF6600;
-}
 
 p{
 	color: #FF6600;

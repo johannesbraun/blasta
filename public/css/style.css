@@ -48,7 +48,7 @@ main{
 	font-size: 10px;
 }
 
-footer{
+.profile{
 	color: gray;
 	/*padding: 10px;*/
 	font-family: "Courier";
@@ -80,7 +80,7 @@ img.logo{
 }
 
 
-img.profile{
+img.profile_pic{
 	float: right;
 	width: 40px;
 	padding-top: 5px;
@@ -99,12 +99,6 @@ img.control{
 	padding-right: 10px;
 	padding-bottom: 10px;
 	margin: 0;
-}
-
-.music{
-	/*float: right;
-	padding-left: 10px; 
-	/*width: 285px; for overlaying*/
 }
 
 
