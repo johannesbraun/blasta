@@ -29,7 +29,7 @@
 		<div>
 			<!--<img class="icon" src="img/gogb.gif" width="60" alt="Blasta.me icon">-->
 			<img class="logo" src="img/black_logo.gif" width="200" alt="Blasta.me Logo">
-			<a href="#" class="profile_toggle"><img class="profile_pic" src="img/icons/black_profile.png" alt="Profile"></a>
+			<a href="#" class="profile_toggle"><img class="profile_pic" src="img/icons/black_profile.png" width="40" alt="Profile"></a>
 			<!--<h1>blasta.me</h1> Bauhaus93 not supported on the iphone-->
 		</div>
 	</header>
@@ -37,43 +37,42 @@
 	
 
 	<main>
+
 		<form id="search-form">
-			<input type="search" id="search" placeholder="Song or Artist" style = "font-family: Courier;");>
+			<input type="search" id="search_input" placeholder="Song or Artist" style = "font-family: Courier;");>
 		</form>
 		
-		<div id="radio">
-		<img class="speaker" src="img/grayboomblasta.png" width="40" alt="Listening to:">
-		<!--<img class="speaker" src="img/gray_speaker.png" width="12" alt="Listening to station:">-->
-		<span id="station">
-			<a class="station"> Digitalism </a>
-		</span>
-		</div>
+		<section id="radio_section">
+			<img class="speaker" src="img/grayboomblasta.png" width="40" alt="Listening to:">
+			<!--<img class="speaker" src="img/gray_speaker.png" width="12" alt="Listening to station:">-->
+			<span id="current_radio_name">
+				<a class="radio_name"> Digitalism </a>
+			</span>
+		</section>
+		<script>$("#radio_section").hide();</script>
 		<br>
 
 		<a href="#" class="love"><img class="control" src="img/icons/like.png" width="50" alt="love it"></a>
 		<a href="#" class="hate"><img class="control" src="img/icons/dislike.png" width="50" alt="hate it"></a>
 		<a href="#" class="next"><img class="control" src="img/icons/onext.png" width="50" alt="next"></a>
 		
-		<a href="#" class="radio">
-			<span id="black_radiobutton">
-				<img class="control" src="img/icons/black_radio.png" width="50" alt="radio">
-			</span>
-			<span id="gray_radiobutton" style="display:none;">
-				<img class="control" src="img/icons/graystartradio.png" width="50" alt="radio">
-			</span>
-		</a>
+		<span id="black_radiobutton">
+		<a href="javascript:startRadio()" class="radio_button"><img class="control" src="img/icons/black_radio.png" width="50" alt="radio"></a>
+		</span>
+
+		<span id ="gray_radiobutton">
+		<a href="javascript:stopRadio()" class="radio_button"><img class="control" src="img/icons/graystartradio.png" width="50" alt="radio"></a></a>
+		</span>
+		<script>$("#gray_radiobutton").hide();</script>
 		
 
-
-		<section class="music" id ="music">
-			<div class="hidden" id="track">
+		<section class="music_section" id ="music_section">
+			<div class="hidden" id="hidden_div">
 				<!--could write here if no localStoarge-->
 			</div>
-			<div class="music" id="music">
+			<div class="music_frame" id="music_frame">
 				
-				
-					<img src="img/screenshot.png" width="600" alt="soundcloud"><br>
-				
+				<img src="img/screenshot.png" width="600" alt="soundcloud"><br>
 				<!--
 					<iframe id="soundcloud_widget"
 	     			src="https://w.soundcloud.com/player/?url=https://api.soundcloud.com/tracks/38843238&amp;auto_play=false&amp;hide_related=true&amp;show_comments=false&amp;show_user=false&amp;show_reposts=false&amp;visual=false&show_artwork=true&liking=false&sharing=false&auto_play=false&show_playcount=false&singleplay=true&color=FF7538"
@@ -81,36 +80,35 @@
 	     			height="200"
 	     			frameborder="no"></iframe>
 	     		-->
-	     		
-	 			
 			</div>
 		</section>
 		<br>
 	</main>
 
-	<section class="search" id="search">
-		<div class="heading" id="Results"></div>
-		<div class="search_results" id="SRP"></div>
+
+	<section class="search_section" id="search_section">
+		<div class="search_heading" id="search_heading"></div>
+		<div class="search_results" id="search_results"></div>
 	</section>
 
 
-	<section class="profile" id ="profile">
-		<div class="h2" id="profile_heading"><u>History:</u></div>
-			<div class="h3" id="profile_element_heading">Track history:</div>
+	<section class="profile_section" id ="profile_section">
+		<div class="h2" id="history_heading"><u>History:</u></div>
+			<div class="h3" id="track_history_heading">Track history:</div>
 				<div class="profile_element" id="track_history"></div>
-			<div class="h3" id="profile_element_heading">Search history:</div>
+			<div class="h3" id="search_history_heading">Search history:</div>
 				<div class="profile_element" id="search_history"></div>
+			<div class="h3" id="previous_radios_heading">Previous radios:</div>
+				<div class="profile_element" id="radio_history"></div>
 		<div class="h2" id="profile_heading"><u>Profile:</u></div>
-			<div class="h3" id="profile_element_heading">Loves:</div>
+			<div class="h3" id="loves_heading">Loves:</div>
 				<div class="profile_element" id="loves"></div>
-			<div class="h3" id="profile_element_heading">Hates:</div>
+			<div class="h3" id="hates_heading">Hates:</div>
 				<div class="profile_element" id="hates"></div>
-			<div class="h3" id="profile_element_heading">Previous Radios:</div>
-				<div class="profile_element" id="stations"></div>
-		<div class="h2" id="profile_heading"><u>Current:</u></div>
-			<div class="h3" id="profile_element_heading">Track:</div>
+		<div class="h2" id="current_heading"><u>Current:</u></div>
+			<div class="h3" id="current_track_heading">Track:</div>
 				<div class="profile_element" id="current_track"></div>
-			<div class="h3" id="profile_element_heading">Radio:</div>
+			<div class="h3" id="current_radio_heading">Radio:</div>
 				<div class="profile_element" id="current_radio"></div>
 	</section>
 

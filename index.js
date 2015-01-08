@@ -30,9 +30,9 @@ app.get("/goodbye", function (req, res) {
 app.post("/search", function (req, res) {
     // res.json returns the entire object as a JSON file
       query = req.body.q;
-        console.log(query);
+      //console.log(query);
       var url = "http://api.soundcloud.com/tracks?q="+query+"&client_id="+credentials.client_id+"&format=json&_status_code_map[302]=200";
-    console.log(url);
+      console.log("Search: " + url);
         
     request(url, function (error, response, body) {
         if (!error && response.statusCode == 200) {
@@ -46,7 +46,7 @@ app.post("/search", function (req, res) {
 app.post("/getTrackInfo", function (req, res) {
       track_id = req.body.id;
       var url = "https://api.soundcloud.com/tracks/"+track_id+".json?client_id="+credentials.client_id;
-      console.log(url);
+      console.log("getInfo: " + url);
         
       request(url, function (error, response, body) {
         if (!error && response.statusCode == 200) {
@@ -61,5 +61,5 @@ app.post("/getTrackInfo", function (req, res) {
 //Create our Express-powered HTTP server: http.createServer(app).listen(port);
 
 app.listen(port, function () { 
-   console.log('Our app is running on http;//localhost:' +port);
+   console.log('Our app is running on http://localhost:' +port);
 });
