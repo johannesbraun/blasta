@@ -45,7 +45,7 @@ function startRadio(id){
 			console.log(t)
 			$("#station").html('<a class="station">'+t+'</a>');
 			localStorage.radio=localStorage.track;
-			addToLS(localStorage.track, "stations");
+			addToLS(localStorage.track, "radio");
 			$("#radio").show();
 			//TODO: work with css class hidden p. 139 and jQuery removeClass/addClass
 			$("#black_radiobutton").css("display","none");
@@ -59,6 +59,8 @@ function stopRadio(){
 			$("#gray_radiobutton").css("display","none");
 			$("#black_radiobutton").css("display","inline");
 			$("#station").text("");
+			$("#stations").prepend(localStorage.radio);
+			addToLS(localStorage.track, "stations");
 			delete localStorage.radio;
 			/*$("#radiobutton").html('<img class="control" src="img/icons/black_radio.png" width="50" alt="redio">');*/
 };
@@ -107,7 +109,7 @@ var main = function () {
 			$("#hates").text(localStorage.hates);
 			$("#track_history").text(localStorage.track_hist);
 			$("#search_history").text(localStorage.search_hist);
-			$("#stations").text(localStorage.statios);
+			$("#stations").text(localStorage.stations);
 			
 
  			$("#search-form").submit(function(){ // TODO: store search history
