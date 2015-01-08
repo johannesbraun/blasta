@@ -3,9 +3,11 @@ function playSong(track_id){
 
 		var width = 600;
 		var height = 200;
+		var iphone = false;
 
 		if(navigator.platform !=="MacIntel"){
 			//alert('iphone');
+			iphone = true;
 			width = 300;
 			height = 150;
 		}
@@ -15,6 +17,10 @@ function playSong(track_id){
 
 		var iframe = "<iframe id=\"soundcloud_widget\" src=\"https://w.soundcloud.com/player/?url=https://api.soundcloud.com/tracks/"+track_id+"&amp;auto_play=true&amp;hide_related=true&amp;show_comments="+comments+"&amp;show_user=false&amp;show_reposts=false&amp;visual=false&show_artwork="+artwork+"&liking=false&sharing=false&download=false&buying=false&show_playcount=false&singleplay=true&color=FF7538\" width=\""+width+"\" height=\""+height+"\" frameborder=\"no\"></iframe>";
 		$("#music_frame").html(iframe);
+
+		if(iphone) {
+			play();
+		}
 
 		if(localStorage.current_radio !== undefined){
 			stopRadio();//TODO: move
@@ -141,6 +147,16 @@ function clear(){
 			$("#search_heading").text("");
 			$("#search_results").text("")
 		};
+
+function play(){
+	console.log("play()");
+	var widget = SC.Widget(document.getElementById('soundcloud_widget'));
+	setTimeout(function (){
+		console.log("go");
+		widget.toggle();
+	},3000);
+}
+
 
 function love(){
 	console.log("love()");
