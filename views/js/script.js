@@ -23,11 +23,11 @@ var main = function () {
 $('a.play').click(function(e) {
     console.log('play');
     e.preventDefault();
-    SC.connect(function() {
+    //SC.connect(function() {
       SC.stream("/tracks/38843238", function(sound){
       sound.play();
       });    
-    })  ;
+    //})  ;
   });
   
 
