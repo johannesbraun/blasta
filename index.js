@@ -33,6 +33,10 @@ app.get("/callback", function (req, res) {
    res.render("callback.html");
 });
 
+app.get("/mobileplayer", function (req, res) { 
+   res.render("mobileplayer.html");
+});
+
 app.get("/player", function (req, res) { 
    res.render("player.html");
 });
