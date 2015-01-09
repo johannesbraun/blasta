@@ -1,0 +1,164 @@
+
+.ui-page {
+	background:white;
+	padding: 5px;
+	padding-left: 10px;
+}
+
+header{
+	width: 310px;
+}
+
+
+hr {
+	border-width:0;
+	height: 3px;
+	background-color: #FF6600;
+}
+
+
+.ui-input-search { 
+	padding: 0 0; 
+	width: 90%; 
+	/*background-position: 8px 50%; 
+	background-repeat: no-repeat; 
+	position: relative; */
+}
+
+
+body{
+	color: #FF6600;
+	padding: 10px;
+	/*font-family: "Bauhaus93";*/
+	font-family: "Courier";
+}
+
+main{
+	width: 330px;
+}
+
+.music_section{
+	width: 300px;
+	height: 450px;
+	position: relative;
+}
+
+.whitebox{
+    width: 100%;
+    height: 20%;
+    position: absolute;
+    top:166px;
+    left: 0;
+}
+
+.music_frame {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0px;
+}
+
+.search_frame{
+	width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 166px;
+    left: 0px;
+}
+
+.profile_frame{
+	width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 176px;
+    left: 0px;
+    color:gray;
+	font-family: "Courier";
+	font-size: 10px;
+}
+
+
+.search_results{
+	color:gray;
+	font-family: "Courier";
+	font-size: 10px;
+}
+
+.profile{
+	color: gray;
+	padding: 10px;
+	font-family: "Courier";
+	font-size: 10px;
+}
+
+
+a.radio_name{
+	vertical-align: text-bottom;
+	font-size: 18px;
+	color: grey;
+	padding-top: 15px;
+	/*padding-bottom: 50px; */
+}
+
+img.icon{
+	float: left;
+	padding-left: 10px;
+	padding-top: 5px;
+	margin: 0;
+}
+
+img.logo{
+	/*float: left;*/
+	padding-left: 0px;
+	padding-top: 20px;
+	margin: 0;
+	width:190px;
+}
+
+
+img.profile_pic{
+	float: right;
+	width: 30px;
+	padding-top: 5px;
+	margin: 0;
+	padding-right: 12px;
+}
+
+img.speaker{
+	padding-top: 0px;
+	padding-top: 15px;
+}
+
+
+img.control{
+	padding-left: 5px;
+	padding-bottom: 10px;
+	padding-right: 12px;
+	margin: 0;
+}
+
+
+h1{
+	font-weight: normal;
+	font-size: 45px;
+	color: #FF6600;
+	padding-top: 5px;
+	padding-left: 85px;
+	margin: 0;
+}
+
+
+p{
+	color: #FF6600;
+	padding: 0px;
+	font-family: "Bauhaus93"; 
+}
+
+iframe.hidden
+{
+	display:none
+}
+
+
+

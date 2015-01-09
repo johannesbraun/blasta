@@ -1,0 +1,124 @@
+<!doctype html>
+<html>
+<head>
+		<!--mobile:-->
+	<meta name="viewport" content="width=device-width">
+	<link rel="apple-touch-icon" href="img/gogb1.gif">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="white">
+	<link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+	
+	<!--custom css:-->
+	<link href="css/style.css" rel="stylesheet" type="text/css" media="screen and (min-width: 481px)" >
+	<link href="css/mobile.css" rel="stylesheet" type="text/css" media="only screen and (max-width: 480px)" />
+	<!-- jquery-->
+	<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+	<script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+	<!-- soundcloud api
+	<script type="text/javascript" src="https://w.soundcloud.com/player/api.js"></script>
+	-->
+	<script type="text/javascript" src="js/api.js"></script>
+	<script type="text/javascript" src="js/sdk.js"></script>
+	<script type="text/javascript" src="js/stratus.js"></script>
+
+
+	<!--functionality-->
+	<script type="text/javascript" src="js/app.js"></script>
+</head>
+<body>
+	<header> 
+		<div>
+			<!--<img class="icon" src="img/gogb.gif" width="60" alt="Blasta.me icon">-->
+			<img class="logo" src="img/black_logo.gif" width="200" alt="Blasta.me Logo">
+			<a href="javascript:toggleProfile()" class="profile_toggle"><img class="profile_pic" src="img/icons/black_profile.png" width="40" alt="Profile"></a>
+			<!--<h1>blasta.me</h1> Bauhaus93 not supported on the iphone-->
+		</div>
+	</header>
+	<!--<hr>-->
+	
+
+	<main>
+
+		<form id="search-form">
+			<input type="search" id="search_input" placeholder="Song or Artist" style = "font-family: Courier;");>
+		</form>
+		
+		<section id="radio_section">
+			<img class="speaker" src="img/grayboomblasta.png" width="40" alt="Listening to:">
+			<!--<img class="speaker" src="img/gray_speaker.png" width="12" alt="Listening to station:">-->
+			<span id="current_radio_name">
+				<a class="radio_name"> Digitalism </a>
+			</span>
+		</section>
+		<script>$("#radio_section").hide();</script>
+		<br>
+
+		<a href="javascript:love()" class="love"><img class="control" src="img/icons/like.png" width="50" alt="love it"></a>
+		<a href="javascript:hate()" class="hate"><img class="control" src="img/icons/dislike.png" width="50" alt="hate it"></a>
+		<a href="javascript:next()" class="next"><img class="control" src="img/icons/onext.png" width="50" alt="next"></a>
+		
+		<span id="black_radiobutton">
+		<a href="javascript:startRadio()" class="radio_button"><img class="control" src="img/icons/black_radio.png" width="50" alt="radio"></a>
+		</span>
+
+		<span id ="gray_radiobutton">
+		<a href="javascript:stopRadio()" class="radio_button"><img class="control" src="img/icons/graystartradio.png" width="50" alt="radio"></a></a>
+		</span>
+		<script>$("#gray_radiobutton").hide();</script>
+		
+		<!--
+		<a href="javascript:play()"class="play"><img class="control" src="img/icons/roplay.png" width="50" alt="love it"></a>
+		-->
+
+
+		<div class="music_section" id ="music_section">
+			<div class="hidden" id="hidden_div">
+				<!--could write here if no localStoarge-->
+			</div>
+			<div class="music_frame" id="music_frame">
+				
+				<img src="img/screenshot.png" width="600" alt="soundcloud"><br>
+				<!--
+					<iframe id="soundcloud_widget"
+	     			src="https://w.soundcloud.com/player/?url=https://api.soundcloud.com/tracks/38843238&amp;auto_play=false&amp;hide_related=true&amp;show_comments=false&amp;show_user=false&amp;show_reposts=false&amp;visual=false&show_artwork=true&liking=false&sharing=false&auto_play=false&show_playcount=false&singleplay=true&color=FF7538"
+	     			width="600"
+	     			height="200"
+	     			frameborder="no"></iframe>
+	     		-->
+			</div>
+			<div class="whitebox" id="whitebox">
+				
+			</div>
+
+			<div class="search_frame" id="search_frame">
+				<div class="search_heading" id="search_heading"></div>
+				<div class="search_results" id="search_results"></div>
+			</div>
+
+
+			<div class="profile_frame" id ="profile_frame">
+				<div class="h2" id="history_heading"><u>History:</u> <a href="javascript:clearHistory()">[clear all]</a></div>
+					<div class="h3" id="track_history_heading">Track history:</div>
+						<div class="profile_element" id="track_history"></div>
+					<div class="h3" id="search_history_heading">Search history:</div>
+						<div class="profile_element" id="search_history"></div>
+					<div class="h3" id="previous_radios_heading">Previous radios:</div>
+						<div class="profile_element" id="radio_history"></div>
+				<div class="h2" id="profile_heading"><u>Profile:</u></div>
+					<div class="h3" id="loves_heading">Loves:</div>
+						<div class="profile_element" id="loves"></div>
+					<div class="h3" id="hates_heading">Hates:</div>
+						<div class="profile_element" id="hates"></div>
+				<div class="h2" id="current_heading"><u>Current:</u></div>
+					<div class="h3" id="current_track_heading">Track:</div>
+						<div class="profile_element" id="current_track"></div>
+					<div class="h3" id="current_radio_heading">Radio:</div>
+						<div class="profile_element" id="current_radio"></div>
+			</div>
+			<script>$("#profile_frame").hide();</script>
+		</div>
+	</main>
+
+</body>
+</html>
