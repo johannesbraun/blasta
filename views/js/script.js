@@ -21,6 +21,7 @@ var main = function () {
 
 
 $('a.play').click(function(e) {
+    console.log('play');
     e.preventDefault();
     SC.connect(function() {
       SC.stream("/tracks/38843238", function(sound){
@@ -31,6 +32,7 @@ $('a.play').click(function(e) {
   
 
   $('a.createPL').click(function(e) {
+    console.log('createPL');
     e.preventDefault();
     SC.connect(function() {
     var tracks = ['22448500', '21928809'].map(function(id) { return { id: id } });
