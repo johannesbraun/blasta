@@ -28,7 +28,7 @@ $('a.play').click(function(e) {
       sound.play();
       });    
     })  ;
-  };
+  });
   
 
   $('a.createPL').click(function(e) {
