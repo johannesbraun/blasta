@@ -1,6 +1,6 @@
 SC.initialize({
-  client_id: '340f063c670272fac27cfa67bffcafc4',
-  redirect_uri: 'http://external.codecademy.com/soundcloud.html'
+  client_id: '17089d3c7d05cb2cfdffe46c2e486ff0',
+  redirect_uri: 'http://jb-blasta-me-staging.herokuapp.com/callback.html'
 });
 
 $(document).ready(function() {
@@ -11,6 +11,7 @@ $(document).ready(function() {
         $('#username').append("bbbb");
         SC.get('/me',function(me){
                 $('#username').html("Du bisch der "+me.username);
+                alert('Hello' + me.username);
             });
         });
     });
