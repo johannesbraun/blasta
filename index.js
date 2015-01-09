@@ -33,6 +33,10 @@ app.get("/callback", function (req, res) {
    res.render("callback.html");
 });
 
+app.get("/connect", function (req, res) { 
+   res.render("connect.html");
+});
+
 
 app.get("/goodbye", function (req, res) { 
    res.send("Goodbye World!");
