@@ -8,6 +8,7 @@ SC.stream("/tracks/38843238", {
   useHTML5Audio: true,
   preferFlash: false
 }, function(sound) {
+  console.log("got here");
   soundToPlay = sound;
   document.querySelector('input').disabled = false;
 });
