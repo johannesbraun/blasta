@@ -18,6 +18,18 @@ var main = function () {
             });
         });
     })  ;
+
+
+$('a.play').click(function(e) {
+    e.preventDefault();
+    SC.connect(function() {
+      SC.stream("/tracks/38843238", function(sound){
+      sound.play();
+      });    
+    })  ;
+  };
+  
+
   $('a.createPL').click(function(e) {
     e.preventDefault();
     SC.connect(function() {

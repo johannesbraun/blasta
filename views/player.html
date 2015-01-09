@@ -3,6 +3,7 @@
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
 <script src="http://connect.soundcloud.com/sdk.js"></script>
+<script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 
 <div class="music-player">
     <h4 class="trackTitle">Current track</h4>
@@ -62,6 +63,7 @@
         var currentPlayingTrack = new Track(currentTrack.soundcloud_id);
 
         $('#play').on('click', function(event){
+            console.log('play');
             currentPlayingTrack.play();
             $('.trackTitle').html(currentTrack.title);
             $('#pause').show();
@@ -69,18 +71,21 @@
         });
 
         $('#pause').on('click', function(event){
+            console.log('pause');
             currentPlayingTrack.pause();
             $('#pause').hide();
             $('#play').show();
         });
 
         $('#stop').on('click', function(event){
+            console.log('stop');
             currentPlayingTrack.stop();
             $('#pause').hide();
             $('#play').show();
         });
 
         $('#next').on('click', function(event){
+            console.log('next');
             currentPlayingTrack.stop();
             currentTrack = rotation.nextTrack();
             currentPlayingTrack = new Track(currentTrack.soundcloud_id);
