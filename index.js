@@ -22,6 +22,11 @@ app.get("/", function (req, res) {
    res.send("index.html");
 });
 
+app.get("/stratus", function (req, res) { 
+   res.send("stratus.html");
+});
+
+
 app.get("/goodbye", function (req, res) { 
    res.send("Goodbye World!");
 });

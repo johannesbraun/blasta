@@ -1,26 +1,21 @@
+
 function playSong(track_id){
 		console.log("playSong("+track_id+")");
 
 		var width = 600;
 		var height = 200;
-		var iphone = false;
-
+		
 		if(navigator.platform !=="MacIntel"){
-			//alert('iphone');
-			iphone = true;
-			width = 300;
-			height = 150;
+			var width = 300;
+			var height = 150;
 		}
 
 		var artwork = "false";
 		var comments = "true";
-
 		var iframe = "<iframe id=\"soundcloud_widget\" src=\"https://w.soundcloud.com/player/?url=https://api.soundcloud.com/tracks/"+track_id+"&amp;auto_play=true&amp;hide_related=true&amp;show_comments="+comments+"&amp;show_user=false&amp;show_reposts=false&amp;visual=false&show_artwork="+artwork+"&liking=false&sharing=false&download=false&buying=false&show_playcount=false&singleplay=true&color=FF7538\" width=\""+width+"\" height=\""+height+"\" frameborder=\"no\"></iframe>";
-		$("#music_frame").html(iframe);
 
-		if(iphone) {
-			play();
-		}
+
+		$("#music_frame").html(iframe);
 
 		if(localStorage.current_radio !== undefined){
 			stopRadio();//TODO: move
@@ -114,12 +109,12 @@ function addToLS(name, item){
 	console.log("addToLS("+name+", " +item+")");
 	var arr = [];
 		if (typeof localStorage[name] !== 'undefined'){ 
-			arr = JSON.parse(localStorage[name]);
+			arr = [localStorage[name]];
+			arr.unshift(item);
+			localStorage[name] = arr;
+		}else{
+			localStorage[name] = item;
 		}
-		//arr.push(item);
-		arr.unshift(item); // adds item to beginning of array
-		localStorage[name] = JSON.stringify(arr);
-
 }
 
 // takes item and appends it to localStorage.name
@@ -155,6 +150,7 @@ function play(){
 		console.log("go");
 		widget.toggle();
 	},3000);
+	//widget["play"](true);
 }
 
 
@@ -168,27 +164,71 @@ function hate(){
 	console.log("hate()");
 	$("#hates").prepend(localStorage.current_track);
 	addToLS("hates", localStorage.current_track);
+	skip(3);
 }
 
-function next(){
+function next(iphone){
+
 	console.log("next()");
-	playSong(37032471);
+	if(iphone){
+		var widget = SC.Widget(document.getElementById('soundcloud_widget'));
+		widget.next();
+	}else{
+		playSong(37032471);
+	}
+
+
+	/*var newSoundUrl = "https://api.soundcloud.com/tracks/37032471"
+	var options = {	auto_play: false,
+					buying: false,			
+					liking: false,			
+					download: false,		
+					sharing: false,			
+					show_artwork: false,	
+					show_comments: false,	
+					show_playcount: false,	
+					show_user: false		
+					//start_track: 0
+				}
+	widget.load(newSoundUrl, options)*/
+	//https://developers.soundcloud.com/blog/html5-widget-api
 }
 
-function showProfile(){
+function skip(n){
+	console.log("skip("+n+")");
+	var widget = SC.Widget(document.getElementById('soundcloud_widget'));
+	widget.skip(n);
+	//playSong(37032471);
+}
+
+function toggleProfile(){
 	console.log("profile_toggle()");
-	if (localStorage.profile === "visible"){
-		$("#profile_section").hide();
-		setLS("profile","hidden"); 
+	if (localStorage.profile_frame === "visible"){
+		$("#profile_frame").hide();
+		setLS("profile_frame","hidden"); 
 	}else {
-		$("#profile_section").show();
-		setLS("profile","visible"); 
+		hideSearch();
+		$("#profile_frame").show();
+		setLS("profile_frame","visible"); 
 	};
+}
+
+function hideProfile(){
+	console.log("hideProfile()");
+	$("#profile_frame").hide();
+	setLS("profile_frame","hidden"); 
 }
 
 function hideSearch(){
 	console.log("hideSearch()");
-	$("#search_section").hide();
+	$("#search_frame").hide();
+	setLS("search_frame","hidden"); 
+}
+
+function showSearch(){
+	console.log("showSearch()");
+	$("#search_frame").show();
+	setLS("search_frame","visible"); 
 }
 
 function clearHistory(){
@@ -205,15 +245,32 @@ function clearHistory(){
 }
 
 
+function iphoneApp(){
+	console.log("iphoneApp()");
+	var iframe = '<iframe id=\"soundcloud_widget\" width="100%" height="450" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/4210067&amp;auto_play=false&amp;hide_related=true&amp;show_comments=false&amp;show_user=false&amp;show_reposts=false&amp;visual=false&liking=false&sharing=false&download=false&buying=false&show_playcount=false&singleplay=true&color=FF7538"></iframe>';
+	$("#whitebox").html('<img src="img/whitebox.png">');
+	$("#music_frame").html(iframe);
+};
+
 var main = function () {
     "use strict";
 
 	$(document).ready(function() {
 			
-			var track_id =  38843238;
-			//var client_id = "17089d3c7d05cb2cfdffe46c2e486ff0";
+			setLS("profile_frame","hidden"); 
+			
+			var iphone =false;
 
-			playSong(track_id);
+			if(navigator.platform !=="MacIntel"){
+				//alert('iphone');
+				iphoneApp();
+				iphone =true;
+			}else{
+
+				var track_id =  38843238;
+				playSong(track_id);
+			}
+
 			$("#loves").text(localStorage.loves);
 			$("#hates").text(localStorage.hates);
 			$("#track_history").text(localStorage.track_history);
@@ -223,8 +280,10 @@ var main = function () {
 
  			$("#search-form").submit(function(){ // TODO: store search history
 					clear();
+					if (iphone) { hideProfile(); }
 					var query = $("#search_input").val();
 					console.log("Search for '"+query+'"');
+					$("#search_heading").html("<h3>Searching for '"+query+"'...</h3>");
 					var timeInMs = Date.now();
 					var search_event = JSON.stringify({time: timeInMs, q: query});
 					addToLS("search_history", search_event);
@@ -234,44 +293,11 @@ var main = function () {
 					$("#search_input").css("color","gray"); 
 					$("#search_input").css("font-family","Courier");
 					$.post("search", {"q": query}, function (response) {
-    					// this callback is called with the server responds 
-        				//console.log("We posted and the server responded!"); 
-        				//console.log(response);
-        				//console.log(response[0].title);
         				insertResultsIntoDOM(response, query);
     				});
-					//$("#search-form").toggle();
-					//$("#history").append(query+" <br>");
+    				showSearch();
 					return false;
 			});
-
-			/*$(".next").on("click", function (event) { 
-				console.log("next()");
-				//TODO: note the time listened to the song 
-				//check if we are ona radio or search results
-				playSong(37032471);
-			});
-			$(".love").on("click", function (event) { 
-				console.log("love()");
-				//TODO: save only id in localStorage.hist etc. and either store titles in localStorage.titles or get them fom api
-				$("#loves").prepend(localStorage.current_track);
-				addToLS("loves", localStorage.current_track);
-			});
-			$(".hate").on("click", function (event) { 
-				console.log("hate()");
-				$("#hates").prepend(localStorage.current_track);
-				addToLS("hates", localStorage.current_track);
-			});
-			$(".profile_toggle").on("click", function (event) { 
-				console.log("profile_toggle()");
-				if (localStorage.profile === "visible"){
-					$("#profile_section").hide();
-					setLS("profile","hidden"); 
-				}else {
-					$("#profile_section").show();
-					setLS("profile","visible"); 
-				};
-			});*/
 		});
 };
 

@@ -41,14 +41,13 @@ main{
 }
 
 
-
 .search_results{
 	color:gray;
 	font-family: "Courier";
 	font-size: 10px;
 }
 
-.profile{
+.profile_frame{
 	color: gray;
 	/*padding: 10px;*/
 	font-family: "Courier";

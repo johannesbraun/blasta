@@ -20,6 +20,8 @@
 	-->
 	<script type="text/javascript" src="js/api.js"></script>
 	<script type="text/javascript" src="js/sdk.js"></script>
+	<script type="text/javascript" src="js/stratus.js"></script>
+
 
 	<!--functionality-->
 	<script type="text/javascript" src="js/app.js"></script>
@@ -29,7 +31,7 @@
 		<div>
 			<!--<img class="icon" src="img/gogb.gif" width="60" alt="Blasta.me icon">-->
 			<img class="logo" src="img/black_logo.gif" width="200" alt="Blasta.me Logo">
-			<a href="javascript:showProfile()" class="profile_toggle"><img class="profile_pic" src="img/icons/black_profile.png" width="40" alt="Profile"></a>
+			<a href="javascript:toggleProfile()" class="profile_toggle"><img class="profile_pic" src="img/icons/black_profile.png" width="40" alt="Profile"></a>
 			<!--<h1>blasta.me</h1> Bauhaus93 not supported on the iphone-->
 		</div>
 	</header>
@@ -70,7 +72,7 @@
 		-->
 
 
-		<section class="music_section" id ="music_section">
+		<div class="music_section" id ="music_section">
 			<div class="hidden" id="hidden_div">
 				<!--could write here if no localStoarge-->
 			</div>
@@ -85,38 +87,38 @@
 	     			frameborder="no"></iframe>
 	     		-->
 			</div>
-		</section>
-		<br>
+			<div class="whitebox" id="whitebox">
+				
+			</div>
+
+			<div class="search_frame" id="search_frame">
+				<div class="search_heading" id="search_heading"></div>
+				<div class="search_results" id="search_results"></div>
+			</div>
+
+
+			<div class="profile_frame" id ="profile_frame">
+				<div class="h2" id="history_heading"><u>History:</u> <a href="javascript:clearHistory()">[clear all]</a></div>
+					<div class="h3" id="track_history_heading">Track history:</div>
+						<div class="profile_element" id="track_history"></div>
+					<div class="h3" id="search_history_heading">Search history:</div>
+						<div class="profile_element" id="search_history"></div>
+					<div class="h3" id="previous_radios_heading">Previous radios:</div>
+						<div class="profile_element" id="radio_history"></div>
+				<div class="h2" id="profile_heading"><u>Profile:</u></div>
+					<div class="h3" id="loves_heading">Loves:</div>
+						<div class="profile_element" id="loves"></div>
+					<div class="h3" id="hates_heading">Hates:</div>
+						<div class="profile_element" id="hates"></div>
+				<div class="h2" id="current_heading"><u>Current:</u></div>
+					<div class="h3" id="current_track_heading">Track:</div>
+						<div class="profile_element" id="current_track"></div>
+					<div class="h3" id="current_radio_heading">Radio:</div>
+						<div class="profile_element" id="current_radio"></div>
+			</div>
+			<script>$("#profile_frame").hide();</script>
+		</div>
 	</main>
-
-
-	<section class="search_section" id="search_section">
-		<div class="search_heading" id="search_heading"></div>
-		<div class="search_results" id="search_results"></div>
-	</section>
-
-
-	<section class="profile_section" id ="profile_section">
-		<div class="h2" id="history_heading"><u>History:</u> <a href="javascript:clearHistory()">[clear all]</a></div>
-			<div class="h3" id="track_history_heading">Track history:</div>
-				<div class="profile_element" id="track_history"></div>
-			<div class="h3" id="search_history_heading">Search history:</div>
-				<div class="profile_element" id="search_history"></div>
-			<div class="h3" id="previous_radios_heading">Previous radios:</div>
-				<div class="profile_element" id="radio_history"></div>
-		<div class="h2" id="profile_heading"><u>Profile:</u></div>
-			<div class="h3" id="loves_heading">Loves:</div>
-				<div class="profile_element" id="loves"></div>
-			<div class="h3" id="hates_heading">Hates:</div>
-				<div class="profile_element" id="hates"></div>
-		<div class="h2" id="current_heading"><u>Current:</u></div>
-			<div class="h3" id="current_track_heading">Track:</div>
-				<div class="profile_element" id="current_track"></div>
-			<div class="h3" id="current_radio_heading">Radio:</div>
-				<div class="profile_element" id="current_radio"></div>
-	</section>
-
-	
 
 </body>
 </html>
