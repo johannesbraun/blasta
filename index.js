@@ -10,11 +10,14 @@ var credentials = require('./credentials.json');
 var port = process.env.PORT || 3000
 
 // set up a static file directory to use for default routing __dirname will resolve to the directory the executing script resides in. So if your script resides in /home/sites/app.js, __dirname will resolve to /home/sites.
-app.use(express.static(__dirname + "/public"));
+app.use(express.static(__dirname + "/views"));
 
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 app.use(cors());
+
+app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'ejs');
 
 
 // set up our routes
@@ -24,6 +27,10 @@ app.get("/", function (req, res) {
 
 app.get("/stratus", function (req, res) { 
    res.send("stratus.html");
+});
+
+app.get("/callback", function (req, res) { 
+   res.render("callback.html");
 });
 
 
