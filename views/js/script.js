@@ -19,8 +19,9 @@ var main = function () {
         });
     })  ;
   $('a.createPL').click(function(e) {
+    e.preventDefault();
     SC.connect(function() {
-    var tracks = [22448500, 21928809].map(function(id) { return { id: id } });
+    var tracks = ['22448500', '21928809'].map(function(id) { return { id: id } });
     SC.post('/playlists', {
       playlist: { title: 'My Playlist', tracks: tracks }
     }); 
