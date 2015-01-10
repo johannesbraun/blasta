@@ -25,17 +25,11 @@ app.get("/", function (req, res) {
    res.send("index.html");
 });
 
-app.get("/stratus", function (req, res) { 
-   res.send("stratus.html");
-});
 
 app.get("/callback", function (req, res) { 
    res.render("callback.html");
 });
 
-app.get("/mobileplayer", function (req, res) { 
-   res.render("mobileplayer.html");
-});
 
 app.get("/player", function (req, res) { 
    res.render("player.html");
