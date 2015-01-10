@@ -2,30 +2,47 @@
 <html>
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-<script src="http://connect.soundcloud.com/sdk.js"></script>
+<script src="js/sdk.js"></script>
 <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 
 <div class="music-player">
     <h4 class="trackTitle">Current track</h4>
+    <a href="#" id="back">Back</a>
     <a href="#" id="play">Play</a>
     <a href="#" id="pause" style="display:none;">Pause</a>
     <a href="#" id="stop">Stop</a>
     <a href="#" id="next">Next</a>
+    <a href="#" id="newset">new set</a>
 </div>
 
 <script>
 
-    Track = function (trackId){
+
+    Track = function (trackId, rotation){
         var currentTrack = "";
+        var nextTrack ="";
+        var currentTrackTitle="";
+        var currentRotation = rotation;
+        //console.log(rotation.currentTrack());
+        $('.trackTitle').html(currentRotation.currentTrack().title);
 
         SC.initialize({
           client_id: '17089d3c7d05cb2cfdffe46c2e486ff0',
           redirect_uri: 'http://jb-blasta-me-staging.herokuapp.com/callback.html'
           });
 
-        SC.stream("http://api.soundcloud.com/tracks/" + trackId, function(sound){
+        /*SC.stream("http://api.soundcloud.com/tracks/" + trackId, function(sound){
             currentTrack = sound;
-        });
+        });*/
+
+        SC.stream("http://api.soundcloud.com/tracks/" + trackId, 
+            {onfinish: function(){ 
+                console.log('track finished');
+                //play next!!
+                nextTrack();
+                }
+            }, 
+            function(sound){currentTrack = sound;});
 
         this.play = function() {
             currentTrack.play();
@@ -38,6 +55,22 @@
         this.stop = function() {
             currentTrack.stop();
         };
+ 
+        nextTrack = function() {
+            console.log("continue with next track");
+            currentTrack.stop();
+            currentTrack = currentRotation.nextTrack();
+            currentTrack = new Track(currentTrack.soundcloud_id,currentRotation);
+            currentTrack.play();
+            //$('.trackTitle').html(currentTrackTitle);
+        }
+
+        this.changeRotation = function(newRotation) {
+            console.log("changed" + JSON.stringify(newRotation.playlist()));
+            currentRotation = newRotation;
+            //$('.trackTitle').html(currentTrackTitle);
+        }
+
     };
 
     Rotation = function(tracks) {
@@ -49,23 +82,44 @@
 
         this.nextTrack = function () {
             var currentIndex = tracks.indexOf(currentTrack);
-            var nextTrackIndex = currentIndex + 1;
+            var nextTrackIndex =0;
+            if(currentIndex>-1){
+                nextTrackIndex = currentIndex + 1; //if -1 it will be 0?
+            }
             var nextTrackId = tracks[nextTrackIndex];
             currentTrack = nextTrackId;
             return currentTrack
         };
+
+
+        this.lastTrack = function () {
+            var currentIndex = tracks.indexOf(currentTrack);
+            var lastTrackIndex =0;
+            if(currentIndex>=0){
+                lastTrackIndex = currentIndex - 1; 
+            }
+            var lastTrackId = tracks[lastTrackIndex];
+            currentTrack = lastTrackId;
+            return currentTrack
+        };
+
+        this.playlist = function () {
+            return tracks
+        };
     };
 
+
+
     $(document).ready (function(){
-        var songs = [{"title":"Sad Trombone","song_url":"https://soundcloud.com/sheckylovejoy/sad-    trombone","soundcloud_id":"18321000"},{"title":"AraabMUZIK - \"Beauty\"","song_url":"    https://soundcloud.com/selftitledmag/araabmuzik-beauty","soundcloud_id":"79408289"}]
+        var songs = [{"title":"Sad Trombone","song_url":"https://soundcloud.com/sheckylovejoy/sad-    trombone","soundcloud_id":"18321000"},{"title":"Sad Trombone2","song_url":"https://soundcloud.com/sheckylovejoy/sad-    trombone","soundcloud_id":"18321000"},{"title":"Sad Trombone3","song_url":"https://soundcloud.com/sheckylovejoy/sad-    trombone","soundcloud_id":"18321000"},{"title":"AraabMUZIK - \"Beauty\"","song_url":"    https://soundcloud.com/selftitledmag/araabmuzik-beauty","soundcloud_id":"79408289"}]
         var rotation = new Rotation(songs);
         var currentTrack = rotation.currentTrack();
-        var currentPlayingTrack = new Track(currentTrack.soundcloud_id);
+        var currentPlayingTrack = new Track(currentTrack.soundcloud_id, rotation);
 
         $('#play').on('click', function(event){
             console.log('play');
             currentPlayingTrack.play();
-            $('.trackTitle').html(currentTrack.title);
+            //$('.trackTitle').html(currentTrack.title);
             $('#pause').show();
             $('#play').hide();
         });
@@ -88,9 +142,28 @@
             console.log('next');
             currentPlayingTrack.stop();
             currentTrack = rotation.nextTrack();
-            currentPlayingTrack = new Track(currentTrack.soundcloud_id);
+            currentPlayingTrack = new Track(currentTrack.soundcloud_id, rotation);
             currentPlayingTrack.play();
-            $('.trackTitle').html(currentTrack.title);
+            //$('.trackTitle').html(currentTrack.title);
+        });
+
+        $('#back').on('click', function(event){
+            console.log('back');
+            currentPlayingTrack.stop();
+            currentTrack = rotation.lastTrack();
+            currentPlayingTrack = new Track(currentTrack.soundcloud_id, rotation);
+            currentPlayingTrack.play();
+            //$('.trackTitle').html(currentTrack.title);
+        });
+
+
+        $('#newset').on('click', function(event){
+        console.log('new set');
+        songs = [{"title":"Electro","song_url": "https://soundcloud.com/jeremygerard1709/electroooo","soundcloud_id":"176626544"},{"title":"Electro","song_url": "https://soundcloud.com/jeremygerard1709/electroooo","soundcloud_id":"176626544"},{"title":"Electro","song_url": "https://soundcloud.com/jeremygerard1709/electroooo","soundcloud_id":"176626544"},{"title":"Electro","song_url": "https://soundcloud.com/korg/ambient-space-delay","soundcloud_id":"33641125"}]
+        var rotation = new Rotation(songs);
+
+        currentPlayingTrack.changeRotation(rotation);
+
         });
 
     });
