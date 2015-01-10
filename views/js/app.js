@@ -1,33 +1,42 @@
 
-function playSong(track_id){
+function loadSong(track_id){
 		console.log("playSong("+track_id+")");
 
-		var width = 600;
-		var height = 200;
+		getInfo(track_id);
 		
-		if(navigator.platform !=="MacIntel"){
-			var width = 300;
-			var height = 150;
-		}
-
-		var artwork = "false";
+		//if(navigator.platform !=="MacIntel"){
+		
+		/*var artwork = "false";
 		var comments = "true";
 		var iframe = "<iframe id=\"soundcloud_widget\" src=\"https://w.soundcloud.com/player/?url=https://api.soundcloud.com/tracks/"+track_id+"&amp;auto_play=true&amp;hide_related=true&amp;show_comments="+comments+"&amp;show_user=false&amp;show_reposts=false&amp;visual=false&show_artwork="+artwork+"&liking=false&sharing=false&download=false&buying=false&show_playcount=false&singleplay=true&color=FF7538\" width=\""+width+"\" height=\""+height+"\" frameborder=\"no\"></iframe>";
+		*/
+
+		var line = new ProgressBar.Line('#container', {
+			color: '#FF6600',
+			duration: localStorage.duration,
+			strokeWidth: 16.5,
+		});
+
+		line.animate(1);
 
 
-		$("#music_frame").html(iframe);
+		//$("#music_frame").html(iframe);
+
+		$("#wave").html('<img id="waveform_url" src="'+localStorage.waveform_url+'" width="600" height="100" alt="wave">')
+		
+		$("#track_title").html(localStorage.current_title + " ["+localStorage.duration/60000+"]");
 
 		if(localStorage.current_radio !== undefined){
 			stopRadio();//TODO: move
 		}
-		getInfo(track_id);
+		
 		};
 
 function getInfo(track_id){
 		console.log("getInfo("+track_id+")");
 			var timeInMs = Date.now(); //better here ?
 			$.post("getTrackInfo", {"id":track_id, "time": timeInMs}, function (response) {
-    			// this callback is called with the server responds 
+    			//this callback is called with the server responds 
         		//console.log("We posted and the server responded!"); 
         		insertInfoIntoLS(response, track_id, timeInMs);
     		});
@@ -38,11 +47,18 @@ function insertInfoIntoLS(data, track_id, timeInMs){
 		console.log("insertInfoIntoLS(data, "+track_id+", time)");
 		var art = data.artwork_url;
 		var title = data.title;
+		var duration = data.duration;
+		var waveform_url = data.waveform_url;
 		setLS("current_track",JSON.stringify({time: timeInMs, id: track_id, name: title}));
 		$("#current_track").text(localStorage.current_track);
 		//TODO: pretty history, unique?, group?
 		$("#track_history").prepend(localStorage.current_track+"<br>");
 		addToLS("track_history",localStorage.current_track);
+		setLS("artwork_url",art);
+		setLS("duration",duration);
+		setLS("waveform_url",waveform_url);
+		setLS("current_title",title);
+
 }
 
 function startRadio(id){
@@ -142,7 +158,7 @@ function clear(){
 			$("#search_heading").text("");
 			$("#search_results").text("")
 		};
-
+/*
 function play(){
 	console.log("play()");
 	var widget = SC.Widget(document.getElementById('soundcloud_widget'));
@@ -190,16 +206,17 @@ function next(iphone){
 					show_user: false		
 					//start_track: 0
 				}
-	widget.load(newSoundUrl, options)*/
+	widget.load(newSoundUrl, options)
 	//https://developers.soundcloud.com/blog/html5-widget-api
 }
+
 
 function skip(n){
 	console.log("skip("+n+")");
 	var widget = SC.Widget(document.getElementById('soundcloud_widget'));
 	widget.skip(n);
 	//playSong(37032471);
-}
+}*/
 
 function toggleProfile(){
 	console.log("profile_toggle()");
@@ -252,24 +269,165 @@ function iphoneApp(){
 	$("#music_frame").html(iframe);
 };
 
+
+	Track = function (trackId){
+        var currentTrack = "";
+        var nextTrack ="";
+        var currentTrackTitle="";
+        var currentIndex =0;
+        var nextTrackIndex = 0;
+        var l =0;
+
+        $('.trackTitle').html(JSON.parse(localStorage.currentTrack).title);
+
+        SC.initialize({
+          client_id: '17089d3c7d05cb2cfdffe46c2e486ff0',
+          redirect_uri: 'http://jb-blasta-me-staging.herokuapp.com/callback.html'
+          });
+
+        /*SC.stream("http://api.soundcloud.com/tracks/" + trackId, function(sound){
+            currentTrack = sound;
+        });*/
+
+        SC.stream("http://api.soundcloud.com/tracks/" + trackId, 
+            {onfinish: function(){ 
+                console.log('track finished');
+                //play next!!
+                next();
+                }
+            }, 
+            function(sound){currentTrack = sound;});
+
+        this.play = function() {
+            currentTrack.play();
+        };
+
+        this.pause = function() {
+            currentTrack.pause();
+        };
+
+        this.stop = function() {
+            currentTrack.stop();
+        };
+
+        next = function(){
+            console.log("next");
+            currentTrack.stop();
+
+            currentIndex = parseInt(localStorage.currentTrackIndex);
+            l = localStorage.playlist.length;
+            nextTrackIndex =0;
+            if(currentIndex<l){
+                nextTrackIndex = currentIndex + 1; 
+            }
+            currentTrack = JSON.parse(localStorage.playlist)[nextTrackIndex];
+            
+            console.log(currentTrack);
+            localStorage.currentTrack = JSON.stringify(currentTrack);
+            localStorage.currentTrackIndex = nextTrackIndex;
+
+            currentTrack = new Track(currentTrack.soundcloud_id);
+            currentTrack.play();
+        }
+
+        this.nextTrack = function() {
+            console.log("continue with next track");
+            next();
+        }
+
+
+        this.previousTrack = function() {
+
+            console.log("previous Track");
+            currentTrack.stop();
+
+            currentIndex = parseInt(localStorage.currentTrackIndex);
+            l = localStorage.playlist.length;
+            nextTrackIndex =0;
+            if(currentIndex>0){
+                nextTrackIndex = currentIndex - 1; 
+            }
+            currentTrack = JSON.parse(localStorage.playlist)[nextTrackIndex];
+            console.log(currentTrack);
+            localStorage.currentTrack = JSON.stringify(currentTrack);
+            localStorage.currentTrackIndex = nextTrackIndex;
+
+            currentTrack = new Track(currentTrack.soundcloud_id);
+            currentTrack.play();
+            //$('.trackTitle').html(currentTrackTitle);
+        }
+
+
+    };
+
+
 var main = function () {
     "use strict";
 
 	$(document).ready(function() {
 			
-			setLS("profile_frame","hidden"); 
-			
-			var iphone =false;
+		setLS("profile_frame","hidden"); 
 
-			if(navigator.platform !=="MacIntel"){
-				//alert('iphone');
-				iphoneApp();
-				iphone =true;
-			}else{
+		var tracks = [{"title":"Digitalism - Blitz","song_url":"https://soundcloud.com/linamescobarr/15-digitalism-blitz","soundcloud_id":"38843238"},{"title":"Sad Trombone2","song_url":"https://soundcloud.com/sheckylovejoy/sad-trombone","soundcloud_id":"18321000"},{"title":"Sad Trombone3","song_url":"https://soundcloud.com/sheckylovejoy/sad-trombone","soundcloud_id":"18321000"},{"title":"AraabMUZIK - \"Beauty\"","song_url":"  https://soundcloud.com/selftitledmag/araabmuzik-beauty","soundcloud_id":"79408289"}]
+        
+		var track_id =  tracks[0].soundcloud_id;
 
-				var track_id =  38843238;
-				playSong(track_id);
-			}
+		loadSong(track_id);
+
+        localStorage.currentTrackIndex = 0;
+        localStorage.currentTrack = JSON.stringify(tracks[0]);
+        localStorage.playlist = JSON.stringify(tracks);
+        localStorage.playbutton = "visible";
+
+        var currentTrack = tracks[0];
+        var currentPlayingTrack = new Track(currentTrack.soundcloud_id);
+
+        $('#play').on('click', function(event){
+            console.log('play');
+            currentPlayingTrack.play();
+            //$('.trackTitle').html(currentTrack.title);
+            $('#pause').show();
+            $('#play').hide();
+            localStorage.playbutton = "hidden";
+        });
+
+        $('#pause').on('click', function(event){
+            console.log('pause');
+            currentPlayingTrack.pause();
+            $('#pause').hide();
+            $('#play').show();
+            localStorage.playbutton = "visible";
+        });
+
+        $('#stop').on('click', function(event){
+            console.log('stop');
+            currentPlayingTrack.stop();
+            $('#pause').hide();
+            $('#play').show();
+            localStorage.playbutton = "visible";
+        });
+
+        $('#next').on('click', function(event){
+            console.log('next');
+            currentPlayingTrack.nextTrack();
+            if(localStorage.playbutton === "visible"){
+                $('#pause').show();
+                $('#play').hide();
+                localStorage.playbutton = "hidden";
+            }
+
+        });
+
+        $('#back').on('click', function(event){
+            console.log('back');
+            currentPlayingTrack.previousTrack();
+            if(localStorage.playbutton === "visible"){
+                $('#pause').show();
+                $('#play').hide();
+                localStorage.playbutton = "hidden";
+            }
+        });
+
 
 			$("#loves").text(localStorage.loves);
 			$("#hates").text(localStorage.hates);

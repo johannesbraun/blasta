@@ -1,4 +1,4 @@
-Track = function (trackId){
+        Track = function (trackId){
         var currentTrack = "";
         var nextTrack ="";
         var currentTrackTitle="";
@@ -84,8 +84,6 @@ Track = function (trackId){
             currentTrack.play();
             //$('.trackTitle').html(currentTrackTitle);
         }
-
-
     };
 
 

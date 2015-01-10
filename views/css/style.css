@@ -1,6 +1,6 @@
 
 .ui-page {
-	background:white;
+	background:#EFEFEF;
 	padding: 5px;
 	padding-left: 20px;
 }
@@ -28,7 +28,7 @@ hr {
 }
 
 body{
-	color: #FF6600;
+	color: #EFEFEF;
 	/*padding-left: 30px;
 	/*font-family: "Bauhaus93";*/
 	font-family: "Courier";
@@ -40,6 +40,38 @@ main{
 	padding-left: 0px;
 }
 
+
+.track_title{
+	background: #EFEFEF;
+	width: 600px;
+	height: 75px;
+}
+
+.music_frame{
+	background: #444444;
+	/*background-image: url("../img/gradient.png");*/
+	width: 600px;
+	height: 100px;
+	position: relative;
+}
+
+.container{
+	/*background: #444444;*/
+	/*background-image: url("../img/gradient.png");*/
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0px
+}
+
+.wave{
+	/*background: #444444;*/
+	/*background-image: url("../img/gradient.png");*/
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0px;
+}
 
 .search_results{
 	color:gray;
@@ -78,6 +110,13 @@ img.logo{
 	width: 210px;
 }
 
+img.sc{
+	float: right;
+	width: 50px;
+	padding-top: 5px;
+	margin: 0;
+	padding-right: 600px;
+}
 
 img.profile_pic{
 	float: right;
