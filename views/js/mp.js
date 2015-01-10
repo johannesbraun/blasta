@@ -4,15 +4,23 @@ SC.initialize({
 
 var soundToPlay; 
 // first do async action
-SC.stream("/tracks/38843238", {
-  useHTML5Audio: true,
-  preferFlash: false
-}, function(sound) {
-  console.log("got here");
-  soundToPlay = sound;
-  document.querySelector('input').disabled = false;
-});
+
+track_id = 38843238;
+
+SC.stream(
+	"/tracks/"+track_id, 
+	{
+		useHTML5Audio: true,
+		preferFlash: false
+	}, 
+	function(sound) {
+		console.log("got here");
+		soundToPlay = sound;
+  	//document.querySelector('input').disabled = false;
+  	document.querySelector('input[id="stream0"]').disabled = false;
+	});
 
 function playTrack () {
-  soundToPlay.play();
+	soundToPlay.play();
 }
+

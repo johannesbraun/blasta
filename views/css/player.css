@@ -1,0 +1,7 @@
+.big_button {
+  background: url("/img/icons/roplay.png");
+  cursor:pointer;
+  display: block;
+  height: 60px;
+  width: 60px;
+}
