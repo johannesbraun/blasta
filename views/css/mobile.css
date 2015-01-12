@@ -38,18 +38,47 @@ main{
 }
 
 
-.track_title{
+
+
+.mbox{
 	background: #EFEFEF;
-	width: 600px;
-	height: 75px;
 }
 
 .music_frame{
-	background: #444444;
+	/*background: #444444;
 	/*background-image: url("../img/gradient.png");*/
 	width: 300px;
-	height: 100px;
+	height: 300px;
 	position: relative;
+}
+
+
+.artwork{
+	/*background: #444444;*/
+	/*background-image: url("../img/gradient.png");*/
+	width: 120px;
+	height: 120px;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+}
+
+.track_title{
+	background: #EFEFEF;
+	width: 180px;
+	height: 120px;
+	position: absolute;
+	left: 120px;
+}
+
+.wavebackground{
+	background: #EFEFEF;
+	/*background-image: url("../img/gradient.png");*/
+	width: 300px;
+	height: 50px;
+	position: absolute;
+	top: 120px;
+	left: 0px;
 }
 
 .container{
@@ -64,8 +93,8 @@ main{
 .wave{
 	/*background: #444444;*/
 	/*background-image: url("../img/gradient.png");*/
-	width: 100%;
-	height: 100%;
+	width: 300px;
+	height: 50px;
 	position: absolute;
 	top: 0px;
 }

@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-		<!--mobile:-->
+	<!--mobile:-->
 	<meta name="viewport" content="width=device-width">
 	<link rel="apple-touch-icon" href="img/gogb1.gif">
 	<meta name="apple-mobile-web-app-capable" content="yes">
@@ -11,20 +11,20 @@
 	<!--custom css:-->
 	<link href="css/style.css" rel="stylesheet" type="text/css" media="screen and (min-width: 481px)" >
 	<link href="css/mobile.css" rel="stylesheet" type="text/css" media="only screen and (max-width: 480px)" />
+	
 	<!-- jquery-->
 	<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
 	<script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 
 	<!-- soundcloud api
 	<script type="text/javascript" src="https://w.soundcloud.com/player/api.js"></script>
+	<script type="text/javascript" src="js/stratus.js"></script>
 	-->
 	<script type="text/javascript" src="js/api.js"></script>
 	<script type="text/javascript" src="js/sdk.js"></script>
-	<script type="text/javascript" src="js/stratus.js"></script>
-
-
-	<script type="text/javascript" src="js/progressbar.js"></script>
+	
 	<!--functionality-->
+	<script type="text/javascript" src="js/progressbar.js"></script>
 	<script type="text/javascript" src="js/app.js"></script>
 </head>
 <body>
@@ -49,7 +49,7 @@
 		<section id="radio_section">
 			<img class="speaker" src="img/grayboomblasta.png" width="40" alt="Listening to:">
 			<!--<img class="speaker" src="img/gray_speaker.png" width="12" alt="Listening to station:">-->
-			<span id="current_radio_name">
+			<span class="radio_name" id="current_radio_name">
 				<a class="radio_name"> Digitalism </a>
 			</span>
 		</section>
@@ -62,12 +62,14 @@
 		-->
 
 
-		<div class="music_section" id ="music_section">
+		<div class="music_section" id ="music_section" width="600px">
 				<div class="controll_section" id="controll_section">
 				<!--<a href="javascript:play()" id="play" class="play"><img class="control" src="img/icons/roplay.png" width="50" alt="play"></a>-->
+				<a href="#" id="back" class="back"><img class="control" src="img/icons/oback.png" width="50" alt="play"></a>
 				<a href="#" id="play" class="play"><img class="control" src="img/icons/roplay.png" width="50" alt="play"></a>
 				<a href="#" id="pause" class="pause"><img class="control" src="img/icons/ropause.png" width="50" alt="play"></a>
 				<a href="#" id="next" class="next"><img class="control" src="img/icons/onext.png" width="50" alt="next"></a>
+				
 				<a href="javascript:love()" id="love "class="love"><img class="control" src="img/icons/like.png" width="50" alt="love it"></a>
 				<a href="javascript:hate()" id="hate" class="hate"><img class="control" src="img/icons/dislike.png" width="50" alt="hate it"></a>
 				
@@ -78,22 +80,32 @@
 				<span id ="gray_radiobutton">
 				<a href="javascript:stopRadio()" class="radio_button"><img class="control" src="img/icons/graystartradio.png" width="50" alt="radio"></a></a>
 				</span>
+
+				
 				<script>$("#gray_radiobutton").hide();
 						$("#pause").hide();
 				</script>
 				</div>
+			<div class="mbox" id="mbox">
+			
 
-			<div class="track_title" id="track_title">
-
-			</div>
 			<div class="music_frame" id="music_frame">
 				
-
-				<div class="container" id="container">
+				<div class="artwork" id="artwork">
 
 				</div>
-				<div class="wave" id="wave" width="200px">
-					
+
+				<div class="track_title" id="track_title">
+
+				</div>
+				
+				<div class="wavebackground" id="wavebackground">
+					<div class="container" id="container">
+
+					</div>
+					<div class="wave" id="wave" width="200px">
+						
+					</div>
 				</div>
 				
 				<!--
@@ -112,8 +124,10 @@
 	     			frameborder="no"></iframe>
 	     		-->
 			</div>
+			</div>
 		</div>
-		
+		<br>
+
 		<div class="search_frame" id="search_frame">
 			<div class="search_heading" id="search_heading"></div>
 			<div class="search_results" id="search_results"></div>
