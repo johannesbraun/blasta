@@ -1,6 +1,6 @@
 
 .ui-page {
-	background:white;
+	background: white;
 	padding: 5px;
 	padding-left: 20px;
 }
@@ -22,9 +22,30 @@ hr {
 	padding-left: 5px;
 	height: 30px;
 	font-size: 14px;
+	position: relative;
 	/*background-position: 8px 50%; 
 	background-repeat: no-repeat; 
 	position: relative; */
+}
+
+.radio_section{
+	position: relative
+	height: 30px;
+}
+
+
+.speaker{
+	position: absolute;
+	top:117px;
+	left: 20px;
+}
+
+
+.radio_name{
+	position: absolute;
+	top:117px;
+	left: 60px;
+	color: gray;
 }
 
 body{
@@ -41,15 +62,33 @@ main{
 	padding-left: 0px;
 }
 
-.music_frame{
-	width: 600px;
+
+.music_section{
+	position: absolute;
+	top: 150px;
+
+}
+
+
+
+.mbox{
+	/*background: #EFEFEF;*/
 	position: relative;
 }
 
-.mbox{
-	background: #EFEFEF;
+
+.pbox{
+	position: absolute;
+	top: 5px;
+	left: 0px;
 }
 
+.rbox{
+	position: absolute;
+	top: 10px;
+	left: 160px;
+	float: right;
+}
 
 
 .music_frame{
@@ -57,13 +96,12 @@ main{
 	/*background-image: url("../img/gradient.png");*/
 	width: 600px;
 	height: 150px;
-	position: relative;
+	position: absolute;
 	/*border-style: solid;
 	border-color: #777777;
 	border-width: 1px;
 	border-radius: 5px;*/
 }
-
 
 .artwork{
 	/*background: #444444;*/
@@ -77,22 +115,22 @@ main{
 
 .track_title{
 	/*background: #EFEFEF;*/
-	width: 440;
+	width: 400;
 	height: 30px;
 	font-family: "Courier";
-	font-size: 14px;
-	padding-top: 15px;
-	left: 160px;
+	font-size: 16px;
+	padding-top: 20px;
+	left: 210px;
 	position: absolute;
 }
 
 .wavebackground{
-	background: #EFEFEF;
+	/*background: #EFEFEF;
 	/*background-image: url("../img/gradient.png");*/
 	width: 440px;
-	height: 80px;
+	height: 70px;
 	position: absolute;
-	top: 65px;
+	top: 70px;
 	left: 160px;
 }
 
@@ -100,7 +138,7 @@ main{
 	/*background: #444444;*/
 	/*background-image: url("../img/gradient.png");*/
 	width: 440px;
-	height: 80pxx;
+	height: 70pxx;
 	position: absolute;
 	top: 0px;
 	left: 0px;
@@ -110,12 +148,43 @@ main{
 	/*background: #444444;*/
 	/*background-image: url("../img/gradient.png");*/
 	width: 440px;
-	height: 80px;
+	height: 70px;
 	position: absolute;
 	top: 0px;
 	left: 0px;
+	/*border-style: solid;
+	border-color: #EFEFEF;
+	border-width: 1px;
+	border-radius: 5px;*/
+
 }
 
+.waveform_url {
+ /* position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 1;*/
+
+
+  display: block;}
+
+.waveform_url{
+  -webkit-filter: contrast(10) invert(0);
+}
+
+
+.rate_section{
+	position: absolute;
+	top: 320px;
+
+}
+
+.skip_section{
+	position: absolute;
+	top: 320px;
+	left: 185px;
+
+}
 
 .search_frame{
 	position: relative;
@@ -134,17 +203,9 @@ main{
 }
 
 
-img.speaker{
-	padding-top: 10px;
-	padding-left: 0px;
-	
-}
-
-.radio_name{
-	/*vertical-align: text-bottom;*/
-	font-size: 14px;
-	color: grey;
-	padding-top: 0px;
+img.radio_img{
+	height: 40px;
+	width: 40px;
 }
 
 img.icon{
@@ -177,7 +238,6 @@ img.profile_pic{
 	margin: 0;
 	padding-right: 10px;
 }
-
 
 
 img.control{
