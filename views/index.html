@@ -46,13 +46,15 @@
 			<input type="search" id="search_input" placeholder="Song or Artist" style = "font-family: Courier;");>
 		</form>
 		
-		<section id="radio_section">
-			<img class="speaker" src="img/grayboomblasta.png" width="40" alt="Listening to:">
+		<div id="radio_section">
+			<div class="speaker" id="speaker">
+			<img src="img/graystation.png" width="30" alt="Listening to:">
 			<!--<img class="speaker" src="img/gray_speaker.png" width="12" alt="Listening to station:">-->
-			<span class="radio_name" id="current_radio_name">
+			</div>
+			<div class="radio_name" id="current_radio_name">
 				<a class="radio_name"> Digitalism </a>
-			</span>
-		</section>
+			</div>
+		</div>
 		<script>$("#radio_section").hide();</script>
 		<br>
 
@@ -63,69 +65,57 @@
 
 
 		<div class="music_section" id ="music_section" width="600px">
-				<div class="controll_section" id="controll_section">
+			<div class="controll_section" id="controll_section">
 				<!--<a href="javascript:play()" id="play" class="play"><img class="control" src="img/icons/roplay.png" width="50" alt="play"></a>-->
-				<a href="#" id="back" class="back"><img class="control" src="img/icons/oback.png" width="50" alt="play"></a>
-				<a href="#" id="play" class="play"><img class="control" src="img/icons/roplay.png" width="50" alt="play"></a>
-				<a href="#" id="pause" class="pause"><img class="control" src="img/icons/ropause.png" width="50" alt="play"></a>
-				<a href="#" id="next" class="next"><img class="control" src="img/icons/onext.png" width="50" alt="next"></a>
 				
-				<a href="javascript:love()" id="love "class="love"><img class="control" src="img/icons/like.png" width="50" alt="love it"></a>
-				<a href="javascript:hate()" id="hate" class="hate"><img class="control" src="img/icons/dislike.png" width="50" alt="hate it"></a>
 				
-				<span id="black_radiobutton">
-				<a href="javascript:startRadio()" class="radio_button"><img class="control" src="img/icons/black_radio.png" width="50" alt="radio"></a>
+				
+			</div>
+			<div class="mbox" id="mbox">
+				<div class="music_frame" id="music_frame">
+					<div class="artwork" id="artwork">
+					</div>
+
+					<div class="track_title" id="track_title">
+					</div>
+				
+					<div class="wavebackground" id="wavebackground">
+						<div class="container" id="container">
+						</div>
+						<div class="wave" id="wave" width="200px">
+
+						</div>
+					</div>
+				</div>
+				<div class="pbox" id="pbox">
+					<a href="#" id="play" class="play"><img class="control" src="img/icons/roplay.png" width="60" alt="play"></a>
+					<a href="#" id="pause" class="pause"><img class="control" src="img/icons/ropause.png" width="60" alt="play"></a>	
+				</div>
+				<div class="rbox" id="rbox">
+					<span id="black_radiobutton">
+				<a href="javascript:startRadio()" class="radio_button"><img class="radio_img" src="img/icons/orange_radio.png" width="60" alt="radio"></a>
 				</span>
 
 				<span id ="gray_radiobutton">
-				<a href="javascript:stopRadio()" class="radio_button"><img class="control" src="img/icons/graystartradio.png" width="50" alt="radio"></a></a>
+				<a href="javascript:stopRadio()" class="radio_button"><img class="radio_img" src="img/icons/graystartradio.png" width="60" alt="radio"></a></a>
 				</span>
-
+					
+				</div>
+			</div>
+		</div>
+		<br>
+		<div class="rate_section" id="rate_section">
+				<a href="javascript:love()" id="love "class="love"><img class="control" src="img/icons/green_love.png" width="60" alt="love it"></a>
+				<a href="javascript:hate()" id="hate" class="hate"><img class="control" src="img/icons/dislike.png" width="60" alt="hate it"></a>
+		</div>		
+		<div class="skip_section" id="skip_section">
+				<a href="#" id="back" class="back"><img class="control" src="img/icons/oback.png" width="60" alt="play"></a>
+				<a href="#" id="next" class="next"><img class="control" src="img/icons/onext.png" width="60" alt="next"></a>
+		</div>
 				
 				<script>$("#gray_radiobutton").hide();
 						$("#pause").hide();
 				</script>
-				</div>
-			<div class="mbox" id="mbox">
-			
-
-			<div class="music_frame" id="music_frame">
-				
-				<div class="artwork" id="artwork">
-
-				</div>
-
-				<div class="track_title" id="track_title">
-
-				</div>
-				
-				<div class="wavebackground" id="wavebackground">
-					<div class="container" id="container">
-
-					</div>
-					<div class="wave" id="wave" width="200px">
-						
-					</div>
-				</div>
-				
-				<!--
-					<iframe id="soundcloud_stream"
-	     			src="https://api.soundcloud.com/tracks/38843238/stream?client_id=17089d3c7d05cb2cfdffe46c2e486ff0"
-	     			width="600"
-	     			height="200"
-	     			frameborder="no"></iframe>
-	     		-->
-				<!--<img src="img/screenshot.png" width="600" alt="soundcloud"><br>-->
-				<!--
-					<iframe id="soundcloud_widget"
-	     			src="https://w.soundcloud.com/player/?url=https://api.soundcloud.com/tracks/38843238&amp;auto_play=false&amp;hide_related=true&amp;show_comments=false&amp;show_user=false&amp;show_reposts=false&amp;visual=false&show_artwork=true&liking=false&sharing=false&auto_play=false&show_playcount=false&singleplay=true&color=FF7538"
-	     			width="600"
-	     			height="200"
-	     			frameborder="no"></iframe>
-	     		-->
-			</div>
-			</div>
-		</div>
 		<br>
 
 		<div class="search_frame" id="search_frame">

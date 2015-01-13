@@ -16,13 +16,30 @@ function loadSong(track_id){
 		var min = Math.floor((dur/1000/60) << 0);
 		var sec = Math.floor((dur/1000) % 60);
 
+
+		var w_width = 440;
+		var w_height = 70;
+		var a_width = 150;
+		var a_height = 150;
+
+		if(navigator.platform !=="MacIntel"){
+			//alert('iphone');
+			w_width = 165;
+			w_height = 50;
+			a_width = 120;
+			a_height = 120;
+		}
+
 		//$("#music_frame").html(iframe);
-		//$("#wave").html('<img id="waveform_url" src="'+localStorage.waveform_url+'" width="440" height="80" alt="wave">')
-		$("#wave").html('<img id="waveform_url" src="'+localStorage.waveform_url+'" alt="wave">')
+		$("#wave").html('<img class="waveform_url" id="waveform_url" src="'+localStorage.waveform_url+'" width="'+w_width+'" height="'+w_height+'" alt="wave">');
+		
+		//$("#wave").css("background-image", "url("+localStorage.waveform_url+")");
+		//$("#wave").css("background-size", "100%");
+
 		
 
-		//$("#artwork").html('<img id="artwork_url" src="'+localStorage.artwork_url+'" width="150" height="150" alt="art">')
-		$("#artwork").html('<img id="artwork_url" src="'+localStorage.artwork_url+'" alt="art">')
+		$("#artwork").html('<img id="artwork_url" src="'+localStorage.artwork_url+'" width="'+a_width+'" height="'+a_height+'" alt="art">')
+		//$("#artwork").html('<img id="artwork_url" src="'+localStorage.artwork_url+'" alt="art">')
 		
 		$("#wavebackground").css("background", "#777777");
 		
