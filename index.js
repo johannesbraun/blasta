@@ -32,7 +32,7 @@ app.get("/callback", function (req, res) {
 
 
 app.get("/player", function (req, res) { 
-   res.render("player2.html");
+   res.render("player.html");
 });
 
 
