@@ -276,12 +276,19 @@ var main = function () {
 		clearHistory();
 
 		setLS("profile_frame","hidden"); 
+		// get tracks from mongodb
+		// key: current_id, value: list of candidates
+		
 		var tracks = [{"title":"Digitalism - Blitz","song_url":"https://soundcloud.com/linamescobarr/15-digitalism-blitz","soundcloud_id":"38843238"},{"title":"Paul Laklbrenner - Sky And Sand (Feat. Fritz Kalkbrenner)","song_url":"https://soundcloud.com/paulkalkbrenner/paul-kalkbrenner-sky-and","soundcloud_id":"37032471"},{"title":"Sad Trombone2","song_url":"https://soundcloud.com/sheckylovejoy/sad-trombone","soundcloud_id":"18321000"},{"title":"Sad Trombone3","song_url":"https://soundcloud.com/sheckylovejoy/sad-trombone","soundcloud_id":"18321000"},{"title":"AraabMUZIK - \"Beauty\"","song_url":"  https://soundcloud.com/selftitledmag/araabmuzik-beauty","soundcloud_id":"79408289"}]
         
+
 		var currentTrack = tracks[0];
         var track_id =  tracks[0].soundcloud_id;
 
 		// init 
+		// put {key:user, value:currenttrack} into redis 
+		// if I have very few users that will mean <25MB
+
         setLS("current_track_index", 0);
         setLS("last_track_index", 0);
 

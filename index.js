@@ -32,8 +32,9 @@ app.get("/callback", function (req, res) {
 
 
 app.get("/player", function (req, res) { 
-   res.render("player.html");
+   res.render("player2.html");
 });
+
 
 app.get("/connect", function (req, res) { 
    res.render("connect.html");

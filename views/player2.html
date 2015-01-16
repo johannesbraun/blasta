@@ -1,0 +1,116 @@
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+<script src="http://connect.soundcloud.com/sdk.js"></script>
+
+<div class="music-player">
+    <h4 class="trackTitle">Current traack</h4>
+    <a href="#" id="play">Play</a>
+    <a href="#" id="pause" style="display:none;">Pause</a>
+    <a href="#" id="stop">Stop</a>
+    <a href="#" id="next">Next</a>
+    <a href="#" id="newset">new set</a>
+</div>
+
+<script>
+
+    Track = function (trackId, rotation){
+        var currentTrack = "";
+
+        SC.initialize({
+            client_id: '17089d3c7d05cb2cfdffe46c2e486ff0',
+            redirect_uri: 'http://jb-blasta-me-staging.herokuapp.com/callback.html'
+        });
+
+        SC.stream("http://api.soundcloud.com/tracks/" + trackId, 
+            {onfinish: function(){ 
+            console.log('track finished');
+
+            currentTrack.stop();
+            currentTrack = rotation.nextTrack();
+            $('.trackTitle').html(currentTrack.title);
+            currentTrack = new Track(currentTrack.soundcloud_id);
+            currentTrack.play();
+
+            }}, 
+            function(sound){currentTrack = sound;
+        });
+
+        this.play = function() {
+            currentTrack.play();
+        };
+
+        this.pause = function() {
+            currentTrack.pause();
+        };
+
+        this.stop = function() {
+            currentTrack.stop();
+        };
+
+
+
+    };
+
+    Rotation = function(tracks) {
+        var currentTrack = tracks[0];
+
+        this.currentTrack = function () {
+            return currentTrack;
+        };
+
+        this.nextTrack = function () {
+            var currentIndex = tracks.indexOf(currentTrack);
+            var nextTrackIndex = currentIndex + 1;
+            var nextTrackId = tracks[nextTrackIndex];
+            currentTrack = nextTrackId;
+            return currentTrack
+        };
+    };
+
+    $(document).ready (function(){
+        var songs = [{"title":"Sad Trombone","song_url":"https://soundcloud.com/sheckylovejoy/sad-    trombone","soundcloud_id":"18321000"},{"title":"AraabMUZIK - \"Beauty\"","song_url":"    https://soundcloud.com/selftitledmag/araabmuzik-beauty","soundcloud_id":"79408289"}]
+        var rotation = new Rotation(songs);
+        var currentTrack = rotation.currentTrack();
+        var currentPlayingTrack = new Track(currentTrack.soundcloud_id, rotation);
+
+        $('#play').on('click', function(event){
+            currentPlayingTrack.play();
+            $('.trackTitle').html(currentTrack.title);
+            $('#pause').show();
+            $('#play').hide();
+        });
+
+        $('#pause').on('click', function(event){
+            currentPlayingTrack.pause();
+            $('#pause').hide();
+            $('#play').show();
+        });
+
+        $('#stop').on('click', function(event){
+            currentPlayingTrack.stop();
+            $('#pause').hide();
+            $('#play').show();
+        });
+
+        $('#next').on('click', function(event){
+            currentPlayingTrack.stop();
+            currentTrack = rotation.nextTrack();
+            currentPlayingTrack = new Track(currentTrack.soundcloud_id, rotation);
+            currentPlayingTrack.play();
+            $('.trackTitle').html(currentTrack.title);
+        });
+
+        $('#newset').on('click', function(event){
+            console.log('new set');
+            songs = [{"title":"Electro","song_url": "https://soundcloud.com/jeremygerard1709/electroooo","soundcloud_id":"176626544"},{"title":"Sad Trombone","song_url":"https://soundcloud.com/sheckylovejoy/sad-trombone","soundcloud_id":"18321000"},{"title":"Electro","song_url": "https://soundcloud.com/jeremygerard1709/electroooo","soundcloud_id":"176626544"},{"title":"Electro","song_url": "https://soundcloud.com/jeremygerard1709/electroooo","soundcloud_id":"176626544"},{"title":"Electro","song_url": "https://soundcloud.com/korg/ambient-space-delay","soundcloud_id":"33641125"}]
+            currentPlayingTrack.stop();
+            rotation = new Rotation(songs);
+            currentTrack = rotation.currentTrack();
+            currentPlayingTrack = new Track(currentTrack.soundcloud_id, rotation);
+            currentPlayingTrack.play();
+            $('.trackTitle').html(currentTrack.title);
+            
+        });
+
+    });
+
+</script>
