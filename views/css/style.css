@@ -2,7 +2,7 @@
 .ui-page {
 	background: white;
 	padding: 5px;
-	padding-left: 20px;
+	padding-left: 25px;
 }
 
 header{
@@ -20,8 +20,8 @@ hr {
 	padding: 5 5; 
 	width: 93%; 
 	padding-left: 5px;
-	height: 30px;
-	font-size: 14px;
+	height: 35px;
+	font-size: 16px;
 	position: relative;
 	/*background-position: 8px 50%; 
 	background-repeat: no-repeat; 
@@ -30,23 +30,30 @@ hr {
 
 .radio_section{
 	position: relative
-	height: 30px;
+	height: 20px;
 }
 
 
 .speaker{
 	position: absolute;
-	top:117px;
-	left: 20px;
+	top:130px;
+	left: 30px;
 }
-
 
 .radio_name{
 	position: absolute;
-	top:117px;
-	left: 60px;
-	color: gray;
+	top:132px;
+	left: 65px;
+	color: black;
 }
+
+.close_radio{
+	position: absolute;
+	top:130px;
+	left: 27px;
+}
+
+
 
 body{
 	color: gray;
@@ -65,7 +72,7 @@ main{
 
 .music_section{
 	position: absolute;
-	top: 150px;
+	top: 160px;
 
 }
 
@@ -175,21 +182,31 @@ main{
 
 .rate_section{
 	position: absolute;
-	top: 320px;
+	top: 330px;
+	left-padding: 5px;
 
 }
 
 .skip_section{
 	position: absolute;
-	top: 320px;
-	left: 185px;
+	top: 330px;
+	left: 200px;
 
 }
 
 .search_frame{
-	position: relative;
+	position: absolute;
+	top: 430px;
+	left: 20px;
 }
+
+.search_heading{
+	position: relative;
+	left: 10px;
+}
+
 .search_results{
+	position: relative;
 	color:gray;
 	font-family: "Courier";
 	font-size: 10px;
@@ -218,17 +235,17 @@ img.icon{
 img.logo{
 	/*float: left;*/
 	padding-left: -10px;
-	padding-top: 17px;
+	padding-top: 20px;
 	margin: 0;
-	width: 210px;
+	width: 230px;
 }
 
 img.sc{
-	float: right;
-	width: 50px;
-	padding-top: 5px;
+	position: absolute;
+	width: 80px;
+	top: 40px;
 	margin: 0;
-	padding-right: 600px;
+	left: 260px;
 }
 
 img.profile_pic{
@@ -236,11 +253,18 @@ img.profile_pic{
 	width: 40px;
 	padding-top: 5px;
 	margin: 0;
-	padding-right: 10px;
+	padding-right: 5px;
 }
 
 
 img.control{
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-bottom: 10px;
+	margin: 0;
+}
+
+img.pcontrol{
 	padding-left: 5px;
 	padding-right: 10px;
 	padding-bottom: 10px;
@@ -255,6 +279,22 @@ h1{
 	padding-top: 5px;
 	padding-left: 85px;
 	margin: 0;
+}
+
+ul {
+ list-style: none;
+ padding-left:0;
+}
+
+li a
+{
+ border-bottom: 1px #CCC solid;
+ color: #000;
+ display: block;
+ font-weight: bold;
+ font-size: 14px;
+ padding: 10px;
+ text-decoration: none;
 }
 
 
