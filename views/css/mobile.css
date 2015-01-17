@@ -1,6 +1,6 @@
 
 .ui-page {
-	background:white;
+	background: white;
 	padding: 5px;
 	padding-left: 10px;
 }
@@ -41,11 +41,11 @@ hr {
 	position: absolute;
 	top:122px;
 	left: 55px;
-	color: gray;
+	color: black;
 }
 
 body{
-	color: gray;
+	color: white;
 	padding: 10px;
 	/*font-family: "Bauhaus93";*/
 	font-family: "Courier";
@@ -76,7 +76,7 @@ main{
 .rbox{
 	position: absolute;
 	top: 5px;
-	left: 130px;
+	left: 125px;
 	
 }
 
@@ -121,8 +121,8 @@ main{
 .container{
 	/*background: #444444;*/
 	/*background-image: url("../img/gradient.png");*/
-	width: 100%;
-	height: 100%;
+	width: 165px;
+	height: 47px;
 	position: absolute;
 	top: 0px
 }
@@ -130,8 +130,8 @@ main{
 .wave{
 	/*background: #444444;*/
 	/*background-image: url("../img/gradient.png");*/
-	width: 100%;
-	height: 100%;
+	width: 165px;
+	height: 47px;
 	position: absolute;
 	top: 0px;
 
@@ -160,7 +160,7 @@ main{
 .skip_section{
 	position: absolute;
 	top: 155px;
-	left: 200px;
+	left: 195px;
 
 }
 
@@ -217,6 +217,13 @@ img.logo{
 	width:190px;
 }
 
+img.sc{
+	position: absolute;
+	width: 55px;
+	top: 42px;
+	margin: 0;
+	left: 205px;
+}
 
 img.profile_pic{
 	float: right;
@@ -245,7 +252,7 @@ img.pcontrol{
 	width: 50px;
 	height: 50px;
 	padding-left: 5px;
-	padding-right: 5px;
+	padding-right: 4px;
 	padding-bottom: 10px;
 	margin: 0;
 }
