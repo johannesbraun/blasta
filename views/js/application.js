@@ -231,6 +231,12 @@
             $("#black_radiobutton").hide();
         });
 
+         $('#gray_radiobutton').on('click', function(event){
+            $("#radio_section").hide();
+            $("#black_radiobutton").show();
+            $("#gray_radiobutton").hide();
+        });
+
 
 
         $("#search-form").submit(function(){ // TODO: store search history
