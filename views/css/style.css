@@ -36,20 +36,20 @@ hr {
 
 .speaker{
 	position: absolute;
-	top:130px;
+	top: 135px;
 	left: 30px;
 }
 
 .radio_name{
 	position: absolute;
-	top:132px;
-	left: 65px;
+	top:137px;
+	left: 67px;
 	color: black;
 }
 
 .close_radio{
 	position: absolute;
-	top:130px;
+	top:135px;
 	left: 27px;
 }
 
@@ -72,7 +72,7 @@ main{
 
 .music_section{
 	position: absolute;
-	top: 160px;
+	top: 175px;
 
 }
 
@@ -182,15 +182,15 @@ main{
 
 .rate_section{
 	position: absolute;
-	top: 330px;
+	top: 340px;
 	left-padding: 5px;
 
 }
 
 .skip_section{
 	position: absolute;
-	top: 330px;
-	left: 200px;
+	top: 340px;
+	left: 185px;
 
 }
 
@@ -258,15 +258,22 @@ img.profile_pic{
 
 
 img.control{
-	padding-left: 10px;
-	padding-right: 10px;
+	padding-left: 5px;
+	padding-right: 5px;
+	padding-bottom: 10px;
+	margin: 0;
+}
+
+img.scontrol{
+	padding-left: 5px;
+	padding-right: 5px;
 	padding-bottom: 10px;
 	margin: 0;
 }
 
 img.pcontrol{
 	padding-left: 5px;
-	padding-right: 10px;
+	padding-right: 5px;
 	padding-bottom: 10px;
 	margin: 0;
 }
