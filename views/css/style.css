@@ -10,6 +10,7 @@ header{
 	padding-left: 0px;
 }
 
+
 hr {
 	border-width:0;
 	height: 3px;
@@ -29,22 +30,28 @@ hr {
 }
 
 .radio_section{
-	position: relative
-	height: 20px;
+	position: relative;
+	height: 30px;
 }
 
 
 .speaker{
 	position: absolute;
-	top: 135px;
+	top: 143px;
 	left: 30px;
 }
 
 .radio_name{
 	position: absolute;
-	top:137px;
-	left: 67px;
-	color: black;
+	top: 135px;
+	left: 60px;
+	/*border-bottom: 1px #CCC solid;*/
+	color: #000;
+	display: block;
+	font-weight: bold;
+	font-size: 16px;
+	padding: 10px;
+	text-decoration: none;
 }
 
 .close_radio{
@@ -53,6 +60,29 @@ hr {
 	left: 27px;
 }
 
+.playbar_section{
+	position: relative;
+	height: 30px;
+}
+
+.playbar_icon{
+	position: absolute;
+	top: 140px;
+	left: 25px;
+	display: block;
+}
+
+.playbar_name{
+	position: absolute;
+	top: 135px;
+	left: 60px;
+	color: #000;
+	display: block;
+	font-weight: bold;
+	font-size: 16px;
+	padding: 10px;
+	text-decoration: none;
+}
 
 
 body{
@@ -72,7 +102,7 @@ main{
 
 .music_section{
 	position: absolute;
-	top: 175px;
+	top: 200px;
 
 }
 
@@ -86,7 +116,7 @@ main{
 
 .pbox{
 	position: absolute;
-	top: 5px;
+	top: 10px;
 	left: 0px;
 }
 
@@ -110,6 +140,7 @@ main{
 	border-radius: 5px;*/
 }
 
+
 .artwork{
 	/*background: #444444;*/
 	/*background-image: url("../img/gradient.png");*/
@@ -123,6 +154,7 @@ main{
 .track_title{
 	/*background: #EFEFEF;*/
 	width: 400;
+	vertical-align: middle;
 	height: 30px;
 	font-family: "Courier";
 	font-size: 16px;
@@ -137,8 +169,9 @@ main{
 	width: 440px;
 	height: 70px;
 	position: absolute;
-	top: 70px;
+	top: 80px;
 	left: 160px;
+	z-index: 0; 
 }
 
 .container{
@@ -149,6 +182,18 @@ main{
 	position: absolute;
 	top: 0px;
 	left: 0px;
+	z-index: 1; 
+}
+
+.grid{
+	/*background: #444444;*/
+	/*background-image: url("../img/gradient.png");*/
+	width: 440px;
+	height: 70pxx;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	z-index: 3; 
 }
 
 .wave{
@@ -159,6 +204,7 @@ main{
 	position: absolute;
 	top: 0px;
 	left: 0px;
+	z-index: 2; 
 	/*border-style: solid;
 	border-color: #EFEFEF;
 	border-width: 1px;
@@ -166,37 +212,38 @@ main{
 
 }
 
-.waveform_url {
- /* position: fixed;
-  left: 0;
-  right: 0;
-  z-index: 1;*/
-
-
-  display: block;}
 
 .waveform_url{
   -webkit-filter: contrast(10) invert(0);
 }
 
 
-.rate_section{
+.like_section{
 	position: absolute;
-	top: 340px;
-	left-padding: 5px;
-
+	top: 190px;
 }
 
-.skip_section{
+.hate_section{
 	position: absolute;
-	top: 340px;
-	left: 185px;
+	top: 190px;
+	left: 80px;
+}
 
+.back_section{
+	position: absolute;
+	top: 190px;
+	left: 410px;
+}
+
+.next_section{
+	position: absolute;
+	top: 190px;
+	left: 490px;
 }
 
 .search_frame{
 	position: absolute;
-	top: 430px;
+	top: 190px;
 	left: 20px;
 }
 
@@ -206,6 +253,7 @@ main{
 }
 
 .search_results{
+	width: 600px;
 	position: relative;
 	color:gray;
 	font-family: "Courier";
@@ -258,15 +306,22 @@ img.profile_pic{
 
 
 img.control{
-	padding-left: 5px;
+	padding-left: 10px;
 	padding-right: 5px;
 	padding-bottom: 10px;
 	margin: 0;
 }
 
 img.scontrol{
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-bottom: 10px;
+	margin: 0;
+}
+
+img.rcontrol{
 	padding-left: 5px;
-	padding-right: 5px;
+	padding-right: 15px;
 	padding-bottom: 10px;
 	margin: 0;
 }
@@ -276,7 +331,42 @@ img.pcontrol{
 	padding-right: 5px;
 	padding-bottom: 10px;
 	margin: 0;
+	opacity: 1;
+    filter: alpha(opacity=60); /* For IE8 and earlier */
 }
+
+img.pause{
+	padding-left: 5px;
+	padding-right: 5px;
+	padding-bottom: 10px;
+	margin: 0;
+	opacity: 1;
+    filter: alpha(opacity=60); /* For IE8 and earlier */
+}
+
+#manual-nav-bar{
+width:630px;
+height:60px;
+}
+
+#manual-nav-bar ul{
+	list-style-type:none;
+	display:inline;
+	height:100%;
+}
+
+#manual-nav-bar li{
+	display:block;
+	float:left;
+	width: 205px;
+	height:100%;
+	text-align:center;
+}
+
+#manual-nav-bar li.active{
+	background-color: #3388CC;
+}
+
 
 
 h1{
