@@ -258,6 +258,7 @@
             $("#gray_radiobutton").show();
             $("#black_radiobutton").hide();
             radio=true;
+            $("#search_bar").hide();
         });
 
         $('#gray_radiobutton').on('click', function(event){
@@ -265,6 +266,7 @@
             $("#black_radiobutton").show();
             $("#gray_radiobutton").hide();
             radio=false;
+            $("#search_bar").show();
         });
 
         $('#logo').on('click', function(event){
@@ -280,6 +282,7 @@
             $("#play-bar-frame").hide();
             if(radio){
                 $("#radio_section").show();
+                $("#search_bar").hide();
             }
         });
 
@@ -291,6 +294,7 @@
             $("#music_section").hide();
             $("#play-bar-frame").show();
             $("#radio_section").hide();
+            $("#search_bar").show();
         });
 
         $('#nav_search').on('click', function(event){
@@ -301,6 +305,7 @@
             $("#search_frame").show();
             $("#play-bar-frame").show();
             $("#radio_section").hide();
+            $("#search_bar").show();
         });
 
 
@@ -343,9 +348,14 @@
                    var sec = zeroPad(Math.floor((dur/1000) % 60),2);
 
                    var user_name = data[i].user.username.charAt(0).toUpperCase() + data[i].user.username.slice(1);
+                   title=title.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '');
+                   user_name=user_name.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '');
+                   
+
                    results.push({"title": user_name+" - "+title,"song_url": song_url,"soundcloud_id":track_id});
-                   //console.log(title);
+                   //console.log('<li id="'+i+'"><a href="#">'+user_name+" - "+title+' ['+min+':'+sec+']</a></li>');
                    //$("#search_results").append("<a href=\"javascript:nthResult("+i+")\">"+title+"</a><br>"); // how to link to play?
+                   
                    $("#saved-list").append('<li id="'+i+'"><a href="#">'+user_name+" - "+title+' ['+min+':'+sec+']</a></li>');
                 }
                 $("li").click(function( event ) {
