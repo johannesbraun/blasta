@@ -324,6 +324,7 @@
             $("#search_frame").show();
             $("#search_frame").show();
             $("#play-bar-frame").show();
+            $("#radio_section").hide();
         
             $.post("search", {"q": query}, function (response) {
                 var data=response;
@@ -376,5 +377,7 @@
 
             return false;
         });
+
+    $('#nav_home').trigger("click");
 
     });
