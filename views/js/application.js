@@ -355,6 +355,9 @@
 
         $("#fastforward").on('click', function(event){
             var ff = (event.pageX-185)/440;
+            if(navigator.platform !=="MacIntel"){
+                ff=event.pageX/300;
+            }
             console.log(ff);
             var pos = Math.round(localStorage.duration * ff)
             console.log(ff);
