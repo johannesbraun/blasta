@@ -4,12 +4,52 @@
         var currentTrack = "";
         var lineProgress=0;
         var line='';
+        $("#loaded").text("");
+        var loadline = new ProgressBar.Line('#loaded', {
+            color: 'black',
+            strokeWidth: 16,
+        });
+
         $("#container").text("");
+
 
         SC.initialize({
             client_id: '17089d3c7d05cb2cfdffe46c2e486ff0',
             redirect_uri: 'http://jb-blasta-me-staging.herokuapp.com/callback.html'
         });
+
+        
+        /*SC.whenStreamingReady(function() {
+          var sound = SC.stream(10421763);
+          console.log(sound)
+          sound.setPosition(12000); // position, measured in milliseconds
+          console.log(sound.position)
+          console.log(sound.duration)
+          sound.whileplaying(){}
+          sound.play();
+        });*/
+
+
+        /*var play_sound = function(id, pos) {
+
+        SC.whenStreamingReady(function() {
+        var sound = SC.stream(
+            "/tracks/"+id,
+            {autoPlay: false}, 
+            function(sound) {
+            //console.log(sound);
+            sound.play({
+                position: pos,
+                whileplaying: function() {
+                    console.log( this.position );
+                }
+            });
+            })
+        });
+
+        }
+
+        play_sound(10421763, 40000);*/
 
         //The SC.stream method will prepare a soundManager2 sound object for the passed track. The soundObject object provides all soundManager2 sound properties and methods like play(), stop(), pause(), setVolume(), etc
 
@@ -53,6 +93,7 @@
                     var username = data.user.username.charAt(0).toUpperCase() + data.user.username.slice(1);
 
                     var dur = data.duration;
+                    setLS("duration",data.duration);
                     var min = Math.floor((dur/1000/60) << 0);
                     var sec = zeroPad(Math.floor((dur/1000) % 60),2);
 
@@ -121,11 +162,29 @@
 
 
         this.play = function() {
-            currentTrack.play();
+            //currentTrack.play();
             if(!nextSong){
                 line.set(lineProgress);
                 line.animate(1);
             }
+            currentTrack.play({
+                position: 0,
+                whileplaying: function() {
+                    //console.log(this.position) ;
+                    var dur = this.position;
+                    var min = Math.floor((dur/1000/60) << 0);
+                    var sec = zeroPad(Math.floor((dur/1000) % 60),2);
+                    $("#counter").text(min+':'+sec);
+                    //console.log(this.bytesLoaded/this.bytesTotal);
+                    //console.log(line.value());
+                    loadline.set(this.bytesLoaded/this.bytesTotal);
+                    if(this.bytesLoaded===this.bytesTotal){
+                        line.stop();
+                        line.set(this.position/this.duration);//more exact animation
+                    }
+                }
+            });
+            
         };
         
         this.pause = function() {
@@ -140,6 +199,38 @@
             line.stop();
             line.set(0);
             lineProgress=0;
+        };
+
+        this.setPos = function(ff, pos) { //TODO: still relies on localStorage
+            //milliseconds 1000ms = 1sec
+            //console.log('dur :'+currentTrack.duration); keeps changing
+            currentTrack.stop();
+            line.set(ff);
+            lineProgress=ff;
+            line.animate(1);
+            currentTrack.play({
+                position: pos,
+                whileplaying: function() {
+                    //console.log(this.position) ;
+                    var dur = this.position;
+                    var min = Math.floor((dur/1000/60) << 0);
+                    var sec = zeroPad(Math.floor((dur/1000) % 60),2);
+                    if(pos>this.duration){//duration keeps changing as we download
+                        $("#counter").css('width','75px');
+                        $("#counter").text('loading');
+                    }else{
+                        $("#counter").css('width','50px');
+                        $("#counter").text(min+':'+sec);
+                    }
+                    if(this.bytesLoaded===this.bytesTotal){
+                        line.stop();
+                        line.set(this.position/this.duration);//more exact animation
+                    }
+                    //console.log(line.value());
+                    //console.log(this.bytesLoaded/this.bytesTotal);
+                    loadline.set(this.bytesLoaded/this.bytesTotal);
+                }
+            })
         };
 
     };
@@ -182,6 +273,12 @@
     function zeroPad(num, places) {
             var zero = places - num.toString().length + 1;
             return Array(+(zero > 0 && zero)).join("0") + num;
+    }
+
+    // takes item and appends it to localStorage.name
+    function setLS(name, item){
+        console.log("setLS("+name+", " +item+")");
+        localStorage[name] = item;
     }
 
 
@@ -306,6 +403,18 @@
             $("#play-bar-frame").show();
             $("#radio_section").hide();
             $("#search_bar").show();
+        });
+
+        $("#fastforward").on('click', function(event){
+            var ff = (event.pageX-185)/440;
+            console.log(ff);
+            var pos = Math.round(localStorage.duration * ff)
+            console.log(ff);
+            currentPlayingTrack.setPos(ff, pos);
+            //var posX = $(this).offset().left,
+            //posY = $(this).offset().top;
+            //alert(event.pageX + ' , ' + event.pageY) 
+            //alert((event.pageX - posX) + ' , ' + (event.pageY - posY));
         });
 
 

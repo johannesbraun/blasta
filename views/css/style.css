@@ -182,7 +182,20 @@ main{
 	z-index: 0; 
 }
 
-.container{
+
+.counter{
+	background: white;
+	/*background-image: url("../img/gradient.png");*/
+	width: 50px;
+	height: 70pxx;
+	position: absolute;
+	top: 25px;
+	left: 10px;
+	z-index: 5; 
+	text-align: center;
+}
+
+.download{
 	/*background: #444444;*/
 	/*background-image: url("../img/gradient.png");*/
 	width: 440px;
@@ -193,6 +206,17 @@ main{
 	z-index: 1; 
 }
 
+.container{
+	/*background: #444444;*/
+	/*background-image: url("../img/gradient.png");*/
+	width: 440px;
+	height: 70pxx;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	z-index: 2; 
+}
+
 .grid{
 	/*background: #444444;*/
 	/*background-image: url("../img/gradient.png");*/
@@ -201,7 +225,7 @@ main{
 	position: absolute;
 	top: 0px;
 	left: 0px;
-	z-index: 3; 
+	z-index: 4; 
 }
 
 .wave{
@@ -212,7 +236,7 @@ main{
 	position: absolute;
 	top: 0px;
 	left: 0px;
-	z-index: 2; 
+	z-index: 3; 
 	/*border-style: solid;
 	border-color: #EFEFEF;
 	border-width: 1px;
