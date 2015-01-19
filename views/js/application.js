@@ -296,31 +296,33 @@
             $('.trackTitle').html(currentTrack.title);
             $('#pause').show();
             $('#play').hide();
+            $('#pb_pause').show();
+            $('#pb_play').hide();
         });
 
         $('#pb_play').on('click', function(event){
             $('#play').trigger("click");
-            $('#pb_pause').show();
-            $('#pb_play').hide();
         });
 
         $('#pause').on('click', function(event){
             currentPlayingTrack.pause();
             $('#pause').hide();
             $('#play').show();
+            $('#pb_pause').hide();
+            $('#pb_play').show();
         });
 
         $('#pb_pause').on('click', function(event){
             currentPlayingTrack.pause();
             $('#pause').trigger("click");
-            $('#pb_pause').hide();
-            $('#pb_play').show();
         });
 
         $('#stop').on('click', function(event){
             currentPlayingTrack.stop();
             $('#pause').hide();
             $('#play').show();
+            $('#pb_pause').hide();
+            $('#pb_play').show();
         });
 
         $('#next').on('click', function(event){
@@ -333,6 +335,8 @@
             $("#black_radiobutton").show();
             $('#pause').show();
             $('#play').hide();
+            $('#pb_pause').show();
+            $('#pb_play').hide();
         });
 
         $('#back').on('click', function(event){
@@ -345,6 +349,20 @@
             $("#black_radiobutton").show();
             $('#pause').show();
             $('#play').hide();
+            $('#pb_pause').show();
+            $('#pb_play').hide();
+        });
+
+        $("#fastforward").on('click', function(event){
+            var ff = (event.pageX-185)/440;
+            console.log(ff);
+            var pos = Math.round(localStorage.duration * ff)
+            console.log(ff);
+            currentPlayingTrack.setPos(ff, pos);
+            //var posX = $(this).offset().left,
+            //posY = $(this).offset().top;
+            //alert(event.pageX + ' , ' + event.pageY) 
+            //alert((event.pageX - posX) + ' , ' + (event.pageY - posY));
         });
 
         $('#black_radiobutton').on('click', function(event){
@@ -405,17 +423,7 @@
             $("#search_bar").show();
         });
 
-        $("#fastforward").on('click', function(event){
-            var ff = (event.pageX-185)/440;
-            console.log(ff);
-            var pos = Math.round(localStorage.duration * ff)
-            console.log(ff);
-            currentPlayingTrack.setPos(ff, pos);
-            //var posX = $(this).offset().left,
-            //posY = $(this).offset().top;
-            //alert(event.pageX + ' , ' + event.pageY) 
-            //alert((event.pageX - posX) + ' , ' + (event.pageY - posY));
-        });
+
 
 
 

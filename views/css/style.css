@@ -171,7 +171,8 @@ main{
 	position: absolute;
 }
 
-.wavebackground{
+
+.wave_frame{
 	/*background: #EFEFEF;
 	/*background-image: url("../img/gradient.png");*/
 	width: 440px;
@@ -183,6 +184,18 @@ main{
 }
 
 
+.wavebackground{
+	/*background: #EFEFEF;
+	/*background-image: url("../img/gradient.png");*/
+	width: 438px;
+	height: 66px;
+	position: absolute;
+	top: 2px;
+	left: 2px;
+	z-index: 1; 
+}
+
+
 .counter{
 	background: white;
 	/*background-image: url("../img/gradient.png");*/
@@ -191,22 +204,11 @@ main{
 	position: absolute;
 	top: 25px;
 	left: 10px;
-	z-index: 5; 
+	z-index: 6; 
 	text-align: center;
 }
 
-.download{
-	/*background: #444444;*/
-	/*background-image: url("../img/gradient.png");*/
-	width: 440px;
-	height: 70pxx;
-	position: absolute;
-	top: 0px;
-	left: 0px;
-	z-index: 1; 
-}
-
-.container{
+.loaded{
 	/*background: #444444;*/
 	/*background-image: url("../img/gradient.png");*/
 	width: 440px;
@@ -217,6 +219,17 @@ main{
 	z-index: 2; 
 }
 
+.container{
+	/*background: #444444;*/
+	/*background-image: url("../img/gradient.png");*/
+	width: 440px;
+	height: 70pxx;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	z-index: 3; 
+}
+
 .grid{
 	/*background: #444444;*/
 	/*background-image: url("../img/gradient.png");*/
@@ -225,7 +238,7 @@ main{
 	position: absolute;
 	top: 0px;
 	left: 0px;
-	z-index: 4; 
+	z-index: 5; 
 }
 
 .wave{
@@ -236,7 +249,7 @@ main{
 	position: absolute;
 	top: 0px;
 	left: 0px;
-	z-index: 3; 
+	z-index: 4; 
 	/*border-style: solid;
 	border-color: #EFEFEF;
 	border-width: 1px;
