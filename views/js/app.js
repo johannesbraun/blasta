@@ -354,6 +354,8 @@ var main = function () {
 
         });
 
+        
+
 
 			$("#loves").text(localStorage.loves);
 			$("#hates").text(localStorage.hates);
