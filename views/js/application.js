@@ -427,9 +427,6 @@
         });
 
 
-
-
-
         $("#search-form").submit(function(){ // TODO: store search history
             var query = $("#search_input").val();
             console.log("Search for '"+query+'"');
