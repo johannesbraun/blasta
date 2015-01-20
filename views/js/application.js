@@ -7,7 +7,7 @@
         $("#loaded").text("");
         var loadline = new ProgressBar.Line('#loaded', {
             color: 'black',
-            strokeWidth: 16,
+            strokeWidth: 25,
         });
 
         $("#container").text("");
@@ -179,7 +179,7 @@
                     //console.log(line.value());
                     loadline.set(this.bytesLoaded/this.bytesTotal);
                     if(this.bytesLoaded===this.bytesTotal){
-                        line.stop();
+                        //line.stop();
                         line.set(this.position/this.duration);//more exact animation
                     }
                 }
