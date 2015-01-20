@@ -146,7 +146,7 @@ main{
 	/*background: #777777;
 	/*background-image: url("../img/gradient.png");*/
 	width: 300px;
-	height: 100px;
+	height: 75px;
 	position: absolute;
 	top: 250px;
 	left: 0px;
@@ -154,11 +154,11 @@ main{
 }
 
 .wave_frame_bg{
-	background: #777777;
+	/*background: #777777;*/
 	position: absolute;
 	width: 298px;
-	height:48px;
-	top: 250px;
+	height: 73px;
+	top: 251px;
 	z-index: 0;
 }
 
@@ -166,7 +166,7 @@ main{
 	/*background: #777777;
 	/*background-image: url("../img/gradient.png");*/
 	width: 298px;
-	height: 96;
+	height: 75px;
 	position: absolute;
 	top: 2px;
 	left: 2px;
@@ -177,18 +177,19 @@ main{
 	background: white;
 	/*background-image: url("../img/gradient.png");*/
 	width: 50px;
-	height: 50pxx;
+	height: 20px;
 	position: absolute;
-	top: 75px;
+	top: 30px;
 	left: 10px;
 	z-index: 6; 
 	text-align: center;
+	font-size: 16px;
 }
 
 .loaded{
 	/*background: #444444;*/
 	/*background-image: url("../img/gradient.png");*/
-	width: 300px;
+	width: 100%;
 	height: 100%;
 	position: absolute;
 	top: 0px;

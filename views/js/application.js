@@ -107,10 +107,10 @@
                     //if(true){
                         //alert('iphone');
                         w_width = 300;
-                        w_height = 50;
+                        w_height = 75;
                         a_width = 140;
                         a_height = 140;
-                        l_strokeWidth =16;
+                        l_strokeWidth =25;
                         if(title.length>50){
                             title=title.slice(0,47)+'...';
                         }
@@ -131,7 +131,7 @@
                     $("#grid").html('<img id="gradient" src="../img/gradient3.png" width="'+w_width+'" height="'+w_height+'" alt="wave">');
                     $("#wave").html('<img class="waveform_url" id="waveform_url" src="'+data.waveform_url+'" width="'+w_width+'" height="'+w_height+'" alt="wave">');
                     
-                    $("#wavebackground").css("background", "#777777");
+                    $("#wave_frame_bg").css("background", "#777777");
                     $("#artwork").html('<img id="artwork_url" src="'+art+'" width="'+a_width+'" height="'+a_height+'" alt="art">')
         
                     $("#gray_radiobutton").hide();

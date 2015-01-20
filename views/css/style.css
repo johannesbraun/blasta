@@ -183,6 +183,16 @@ main{
 	z-index: 0; 
 }
 
+.wave_frame_bg{
+	/*background: #777777;*/
+	position: absolute;
+	width: 438px;
+	height: 68px;
+	top: 81px;
+	z-index: 0;
+	left: 160px;
+}
+
 
 .wavebackground{
 	/*background: #EFEFEF;
