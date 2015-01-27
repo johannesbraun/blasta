@@ -168,7 +168,7 @@ main{
 	position: absolute;
 	width: 298px;
 	height: 70px;
-	top: 270px;
+	top: 275px;
 	z-index: 0;
 }
 
@@ -200,12 +200,12 @@ main{
 	position: absolute;
 	top: 30px;
 	left: 5px;
-	z-index: 6; 
+	z-index: 7; 
 	text-align: center;
-		font-style: normal;
+	font-style: normal;
 	text-shadow: none;
 	font-size: 16px;
-	color:#FF6600;
+	color: #FF6600;
 }
 
 .counter2{
@@ -232,7 +232,7 @@ main{
 	position: absolute;
 	top: 0px;
 	left: 0px;
-	z-index: 2; 
+	z-index: 3; 
 }
 
 .container{
@@ -242,7 +242,7 @@ main{
 	height: 100%;
 	position: absolute;
 	top: 0px;
-	z-index: 3; 
+	z-index: 4; 
 }
 
 .grid{
@@ -253,7 +253,7 @@ main{
 	position: absolute;
 	top: 0px;
 	left: 0px;
-	z-index: 5; 
+	z-index: 6; 
 }
 
 .wave{
@@ -263,7 +263,7 @@ main{
 	height: 100%;
 	position: absolute;
 	top: 0px;
-	z-index: 4; 
+	z-index: 5; 
 
 }
 
@@ -275,7 +275,7 @@ main{
 .like_section{
 	position: absolute;
 	top: 185px;
-	left: 175px;
+	left: 165px;
 }
 
 .hate_section{
@@ -300,6 +300,12 @@ main{
 	position: absolute;
 	top:  0px;
 	left: 32px;
+}
+
+.kill_radiobutton{
+	position: absolute;
+	top:  0px;
+	left: 30px;
 }
 
 .back_section{
@@ -430,7 +436,7 @@ img.pause{
 }
 
 #manual-nav-bar{
-width:330px;
+width:333px;
 height:50px;
 }
 
@@ -443,7 +449,7 @@ height:50px;
 #manual-nav-bar li{
 	display:block;
 	float:left;
-	width: 105px;
+	width: 110px;
 	height:100%;
 	text-align:center;
 }
