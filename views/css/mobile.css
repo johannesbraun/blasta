@@ -27,7 +27,7 @@ hr {
 }
 
 .ui-input-search { 
-	height: 40px;
+	height: 35px;
 	font-size: 18px;
 	padding: 0 0; 
 	width: 90%; 
@@ -141,6 +141,13 @@ main{
 	display: inline; 
 	background: white;
 	box-shadow: 1px -1px 0px 3px white;
+}
+
+.padded_counter{
+	color:#FF6600; 
+	display: inline; 
+	background: black;
+	box-shadow: 1px -1px 0px 3px black;
 }
 
 
