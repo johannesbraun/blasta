@@ -3,6 +3,8 @@
 	background: white;
 	padding: 5px;
 	padding-left: 10px;
+	font-style: normal;
+	text-shadow: none;
 }
 
 header{
@@ -37,6 +39,7 @@ hr {
 .radio_section{
 	position: relative;
 	height: 30px;
+	width: 300px;
 }
 
 .speaker{
@@ -49,11 +52,14 @@ hr {
 .radio_name{
 	position: absolute;
 	top:95px;
-	left: 15px;
-	color: black;
+	width: 300px;
+	left: 0px;
+	color: white;
 	overflow: hidden; 
   	text-overflow: ellipsis;
   	white-space: nowrap;
+  	background-color:#777777;
+  	padding-left: 12px;
 }
 
 
@@ -65,15 +71,15 @@ hr {
 
 .playbar_icon{
 	position: absolute;
-	top: 130px;
-	left: 10px;
+	top: 135px;
+	left: 15px;
 	display: block;
 }
 
 .playbar_name{
 	position: absolute;
-	top: 125px;
-	left: 40px;
+	top: 128px;
+	left: 32px;
 	color: #000;
 	display: block;
 	font-weight: bold;
@@ -123,42 +129,62 @@ main{
 .artwork{
 	/*background: #444444;*/
 	/*background-image: url("../img/gradient.png");*/
-	width: 140px;
-	height: 140px;
+	width: 300px;
+	height: 300px;
 	position: absolute;
-	top: 95px;
+	top: 125px;
 	left: 0px;
+	z-index: 8;
 }
+
+
+.padded_link{
+	color:black; 
+	display: inline; 
+	background: white;
+	box-shadow: 1px -1px 0px 3px white;
+}
+
 
 .track_title{
-	/*background: #EFEFEF;*/
+	/*background: black;*/
+	color: black;
 	width: 165px;
-	height: 80px;
+	/*height: 10px;*/
 	position: absolute;
-	left: 160px;
-	top: 115px;
+	left: 8px;
+	top: 158px;
 	font-weight: bold;
+	font-style: normal;
+	text-shadow: none;
+	z-index: 9;
 }
 
+
 .track_user{
-	/*background: #EFEFEF;*/
-	width: 165px;
-	height: 80px;
+	/*background: black;*/
+	color: black;
+	width: 120px;
+	height: 20px;
 	position: absolute;
-	left: 160px;
-	top: 95px;
+	left: 8px;
+	top: 135px;
 	font-weight: bold;
+	font-style: normal;
+	text-shadow: none;
+	z-index: 9;
 }
+
 
 
 
 .wave_frame{
 	/*background: #777777;
 	/*background-image: url("../img/gradient.png");*/
-	width: 300px;
-	height: 75px;
+	width: 288px;
+	height: 30px;
 	position: absolute;
-	top: 270px;
+	top: 90px;
 	left: 0px;
 	z-index: 0; 
 }
@@ -166,28 +192,29 @@ main{
 .wave_frame_bg{
 	/*background: #777777;*/
 	position: absolute;
-	width: 298px;
-	height: 70px;
-	top: 275px;
+	width: 285px;
+	height: 29px;
+	top: 90px;
 	z-index: 0;
+	left: 0px;
 }
 
 .wavebackground{
 	/*background: #777777;
 	/*background-image: url("../img/gradient.png");*/
-	width: 298px;
-	height: 75px;
+	width: 285px;
+	height: 28px;
 	position: absolute;
-	top: 275px;
+	top: 95px;
 	left: 2px;
 	z-index: 1; 
 }
 .waveforeground{
 	/*background: #777777;*/
 	position: absolute;
-	width: 300px;
-	height: 28px;
-	top: 320px;
+	width: 288px;
+	height: 18px;
+	top: 112px;
 	left: 0px;
 	z-index: 5; 
 }
@@ -195,33 +222,33 @@ main{
 .counter{
 	background: black;
 	/*background-image: url("../img/gradient.png");*/
-	width: 40px;
-	height: 20px;
+	width: 35px;
+	height: 15px;
 	position: absolute;
-	top: 30px;
-	left: 5px;
-	z-index: 7; 
+	top: 8px;
+	left: 0px;
+	z-index: 9; 
 	text-align: center;
 	font-style: normal;
 	text-shadow: none;
-	font-size: 16px;
+	font-size: 14px;
 	color: #FF6600;
 }
 
 .counter2{
 	background: black;
 	/*background-image: url("../img/gradient.png");*/
-	width: 40px;
-	height: 20pxx;
+	width: 35px;
+	height: 15px;
 	position: absolute;
-	top: 30px;
-	left: 250px;
+	top: 8px;
+	left: 255px;
 	z-index: 7; 
 	text-align: center;
 	font-style: normal;
 	text-shadow: none;
-	font-size: 16px;
-	color: white;
+	font-size: 14px;
+	color: #BBBBBB;
 }
 
 .loaded{
@@ -274,14 +301,16 @@ main{
 
 .like_section{
 	position: absolute;
-	top: 185px;
-	left: 165px;
+	top: 135px;
+	left: 185px;
+	z-index: 9;
 }
 
 .hate_section{
 	position: absolute;
-	top: 195px;
-	left: 230px;
+	top: 145px;
+	left: 240px;
+	z-index: 9;
 }
 
 .pbox{
@@ -402,8 +431,8 @@ img.control{
 }
 
 img.rcontrol{
-	width: 50px;
-	height: 50px;
+	width: 40px;
+	height: 40px;
 }
 
 img.pcontrol{
@@ -414,6 +443,11 @@ img.pcontrol{
 img.scontrol{
 	width: 25px;
 	height: 25px;
+}
+
+img.pb_play{
+	width: 20px;
+	height: 20px;
 }
 
 
@@ -436,7 +470,7 @@ img.pause{
 }
 
 #manual-nav-bar{
-width:333px;
+width:321px;
 height:50px;
 }
 
@@ -449,7 +483,7 @@ height:50px;
 #manual-nav-bar li{
 	display:block;
 	float:left;
-	width: 110px;
+	width: 107px;
 	height:100%;
 	text-align:center;
 }
@@ -486,7 +520,9 @@ li a
 p{
 	color: #FF6600;
 	padding: 0px;
-	font-family: "Bauhaus93"; 
+	font-family: "Courier"; 
+	font-style: normal;
+	text-shadow: none;
 }
 
 iframe.hidden
