@@ -44,9 +44,9 @@ hr {
 .radio_name{
 	position: absolute;
 	top: 95px;
-	left: 60px;
+	left: 20px;
 	/*border-bottom: 1px #CCC solid;*/
-	color: #000;
+	color: #777777;
 	display: block;
 	font-weight: bold;
 	font-size: 16px;
@@ -110,7 +110,7 @@ main{
 
 .music_section{
 	position: absolute;
-	top: 160px;
+	top: 150px;
 
 }
 
@@ -125,13 +125,13 @@ main{
 .pbox{
 	position: absolute;
 	top: 10px;
-	left: 0px;
+	left: 55px;
 }
 
 .rbox{
 	position: absolute;
-	top: 10px;
-	left: 160px;
+	top: 75px;
+	left: 165px;
 	float: right;
 }
 
@@ -155,7 +155,7 @@ main{
 	width: 150px;
 	height: 150px;
 	position: absolute;
-	top: 0px;
+	top: 70px;
 	left: 0px;
 }
 
@@ -166,8 +166,20 @@ main{
 	height: 30px;
 	font-family: "Courier";
 	font-size: 16px;
-	padding-top: 20px;
-	left: 210px;
+	top: 100px;
+	left: 220px;
+	position: absolute;
+}
+
+.track_user{
+	/*background: #EFEFEF;*/
+	width: 400;
+	vertical-align: middle;
+	height: 30px;
+	font-family: "Courier";
+	font-size: 16px;
+	top: 80px;
+	left: 220px;
 	position: absolute;
 }
 
@@ -178,7 +190,7 @@ main{
 	width: 440px;
 	height: 70px;
 	position: absolute;
-	top: 80px;
+	top: 160px;
 	left: 160px;
 	z-index: 0; 
 }
@@ -188,9 +200,20 @@ main{
 	position: absolute;
 	width: 438px;
 	height: 68px;
-	top: 81px;
+	top: 161px;
 	z-index: 0;
 	left: 160px;
+}
+
+.waveforeground{
+	/*background: #777777;*/
+	position: absolute;
+	width: 438px;
+	height: 48px;
+	top: 203px;
+	z-index: 0;
+	left: 160px;
+	z-index: 5; 
 }
 
 
@@ -200,29 +223,49 @@ main{
 	width: 438px;
 	height: 66px;
 	position: absolute;
-	top: 2px;
+	top: 160px;
 	left: 2px;
 	z-index: 1; 
 }
 
 
 .counter{
-	background: white;
+	background: black;
 	/*background-image: url("../img/gradient.png");*/
-	width: 50px;
-	height: 70pxx;
+	width: 40px;
+	height: 60pxx;
 	position: absolute;
 	top: 25px;
-	left: 10px;
+	left: 5px;
 	z-index: 6; 
 	text-align: center;
+	color: white;
+	z-index: 7; 
+	font-style: normal;
+	text-shadow: none;
+	color: #FF6600;
+}
+
+.counter2{
+	background: black;
+	/*background-image: url("../img/gradient.png");*/
+	width: 40px;
+	height: 60pxx;
+	position: absolute;
+	top: 25px;
+	left: 395px;
+	z-index: 7; 
+	text-align: center;
+	font-style: normal;
+	text-shadow: none;
+	color: white;
 }
 
 .loaded{
 	/*background: #444444;*/
 	/*background-image: url("../img/gradient.png");*/
-	width: 440px;
-	height: 70pxx;
+	width: 438px;
+	height: 75px;
 	position: absolute;
 	top: 0px;
 	left: 0px;
@@ -233,7 +276,7 @@ main{
 	/*background: #444444;*/
 	/*background-image: url("../img/gradient.png");*/
 	width: 440px;
-	height: 70pxx;
+	height: 160pxx;
 	position: absolute;
 	top: 0px;
 	left: 0px;
@@ -275,41 +318,45 @@ main{
 
 .like_section{
 	position: absolute;
-	top: 190px;
+	top: 240px;
+	left: 10px;
 }
 
 .hate_section{
 	position: absolute;
-	top: 190px;
+	top: 250px;
 	left: 80px;
 }
 
 .back_section{
 	position: absolute;
-	top: 190px;
-	left: 410px;
+	top: 15px;
+	left: 10px;
 }
 
 .next_section{
 	position: absolute;
-	top: 190px;
-	left: 490px;
+	top: 15px;
+	left: 115px;
 }
 
 .search_frame{
 	position: absolute;
-	top: 190px;
+	top: 180px;
 	left: 20px;
 }
 
 .search_heading{
-	position: relative;
+	width: 600px;
+	position: absolute;
+	top: 0px;
 	left: 10px;
 }
 
 .search_results{
 	width: 600px;
-	position: relative;
+	position: absolute;
+	top: 0px;
 	color:gray;
 	font-family: "Courier";
 	font-size: 10px;
@@ -356,33 +403,33 @@ img.profile_pic{
 	width: 40px;
 	padding-top: 5px;
 	margin: 0;
-	padding-right: 5px;
+	padding-right: 20px;
 }
 
 
 img.control{
-	padding-left: 10px;
+	padding-left: 0px;
 	padding-right: 5px;
 	padding-bottom: 10px;
 	margin: 0;
 }
 
 img.scontrol{
-	padding-left: 10px;
+	padding-left: 0px;
 	padding-right: 10px;
 	padding-bottom: 10px;
 	margin: 0;
 }
 
 img.rcontrol{
-	padding-left: 5px;
+	padding-left: 0px;
 	padding-right: 15px;
 	padding-bottom: 10px;
 	margin: 0;
 }
 
 img.pcontrol{
-	padding-left: 5px;
+	padding-left: 0px;
 	padding-right: 5px;
 	padding-bottom: 10px;
 	margin: 0;
@@ -391,7 +438,7 @@ img.pcontrol{
 }
 
 img.pause{
-	padding-left: 5px;
+	padding-left: 0px;
 	padding-right: 5px;
 	padding-bottom: 10px;
 	margin: 0;
@@ -400,8 +447,8 @@ img.pause{
 }
 
 #manual-nav-bar{
-width:630px;
-height:60px;
+width:660px;
+height:50px;
 }
 
 #manual-nav-bar ul{
@@ -445,21 +492,18 @@ li a
  display: block;
  font-weight: bold;
  font-size: 14px;
- padding: 10px;
- text-decoration: none;
+ padding: 10px text-decoration: none;
 }
 
 
 p{
 	color: #FF6600;
 	padding: 0px;
-	font-family: "Bauhaus93"; 
+	/*font-family: "Myriad Pro Regular"; */
 }
 
 iframe.hidden
 {
 	display:none;
 }
-
-
 

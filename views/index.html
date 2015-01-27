@@ -58,36 +58,66 @@
 			<!--when click on station shoe previous stations and a x kill it
 			<div class="close_radio" id="close_radio">
 				<img src="img/icons/kill.png" width="15" alt="stop it">
-			</div>
-		-->
+			</div>-->
 		</div>
-		<script>$("#radio_section").hide();</script>
+		<script>
+		$("#radio_section").hide();
+		$("#speaker").hide();
+		</script>
 		
 
 		<!--
 		<a href="javascript:play()"class="play"><img class="control" src="img/icons/roplay.png" width="50" alt="love it"></a>
 		-->
 
-
+		
 		<div class="music_section" id ="music_section" width="600px">
 			<div class="controll_section" id="controll_section">
 				<!--<a href="javascript:play()" id="play" class="play"><img class="control" src="img/icons/roplay.png" width="50" alt="play"></a>-->
 			</div>
+			
+			
 			<div class="mbox" id="mbox">
 				<div class="music_frame" id="music_frame">
+					<a href="#" class="artwork_link" id="artwork_link">
 					<div class="artwork" id="artwork">
 					</div>
-
+					</a>
+					<div class="rbox" id="rbox">
+						<span id="black_radiobutton">
+							<div id="goradio" class="goradio">
+								<a href="#" class="radio_button"><img class="radio_img" src="img/icons/ghettoblaster-512-orange.png" width="60" alt="radio"></a>
+							</div>
+							<div id="add_radiobutton" class = "add_radiobutton">
+								<a href="#" class="addkill"><img class="addkill_img" src="img/icons/addnew.png" width="15" alt=""></a></a>
+							</div>
+						</span>	
+						<span id="gray_radiobutton">
+							<div id="endradio" class="endradio">
+								<a href="#" class="radio_button"><img class="radio_img" src="img/icons/ghettoblaster-512-grey.png" width="60" alt="radio"></a></a>
+							</div>
+							<div id="kill_radiobutton" class = "add_radiobutton">
+								<a href="#" class="addkill"><img id="endradio" class="addkill_img" src="img/icons/kill.png" width="18" alt=""></a></a>
+							</div>
+						</span>
+					</div>
+					<div class="track_user" id="track_user">
+					</div>
 					<div class="track_title" id="track_title">
 					</div>
 					<div class="wave_frame_bg" id="wave_frame_bg">
 						
+					</div>
+					<div class="waveforeground" id="waveforeground">
 					</div>
 					<div class="wave_frame" id="wave_frame">
 						<div class="wavebackground" id="wavebackground">
 						</div>
 						<div class="counter" id="counter">
 							0:00
+						</div>
+						<div class="counter2" id="counter2">
+							
 						</div>
 						<div class="container" id="container">
 						</div>
@@ -105,35 +135,26 @@
 					
 				</div>
 				<div class="pbox" id="pbox">
-					<a href="#" id="play" class="play"><img class="pcontrol" src="img/icons/roplay.png" width="60" alt="play"></a>
-					<a href="#" id="pause" class="pause"><img class="pause" src="img/icons/ropause.png" width="60" alt="play"></a>
+					<a href="#" id="play" class="play"><img class="pcontrol" src="img/icons/play.png" width="40" alt="play"></a>
+					<a href="#" id="pause" class="pause"><img class="pause" src="img/icons/pause.png" width="40" alt="play"></a>
 				</div>
-				<div class="rbox" id="rbox">
-					<span id="black_radiobutton">
-					<a href="#" class="radio_button"><img class="radio_img" src="img/icons/orange_radio.png" width="60" alt="radio"></a>
-					</span>
-
-					<span id ="gray_radiobutton">
-					<a href="#" class="radio_button"><img class="radio_img" src="img/icons/graystartradio.png" width="60" alt="radio"></a></a>
-					</span>
-					
-				</div>
+				
 				<script>$("#gray_radiobutton").hide();
 						$("#pause").hide();
 				</script>
 			</div><!--end mbox-->
 			
 			<div class="like_section" id="like_section">
-				<a href="#" id="love "class="love"><img class="rcontrol" src="img/icons/like.png" width="60" alt="love it"></a>
+				<a href="#" id="love "class="love"><img class="rcontrol" src="img/icons/wb/wlike2.png" width="50" alt="love it"></a>
 			</div>
 			<div class="hate_section" id="hate_section">
-				<a href="#" id="hate" class="hate" display="inline"><img class="rcontrol" src="img/icons/dislike.png" width="60" alt="hate it" ></a>
+				<a href="#" id="hate" class="hate" display="inline"><img class="rcontrol" src="img/icons/wb/bdislike.png" width="50" alt="hate it" ></a>
 			</div>
 			<div class="back_section" id="back_section">
-				<a href="#" id="back" class="back"><img class="scontrol" src="img/icons/oback.png" width="60" alt="play"></a>
+				<a href="#" id="back" class="back"><img class="scontrol" src="img/icons/wb/bback.png" width="25" alt="play"></a>
 			</div>
 			<div class="next_section" id="next_section">
-				<a href="#" id="next" class="next"><img class="scontrol" src="img/icons/onext.png" width="60" alt="next"></a>
+				<a href="#" id="next" class="next"><img class="scontrol" src="img/icons/wb/bnext.png" width="25" alt="next"></a>
 			</div>
 		</div><!--end music section-->
 
@@ -149,8 +170,8 @@
         
 		<div id="play-bar-frame">
 			<div class="playbar_icon" id="playbar_icon">
-				<a href="#" id="pb_play" class="pb_play"><img  src="img/icons/roplay.png" width="30" alt="play"></a>
-				<a href="#" id="pb_pause" class="pb_pause"><img  src="img/icons/ropause.png" width="30" alt="play"></a>
+				<a href="#" id="pb_play" class="pb_play"><img  src="img/icons/play.png" width="30" alt="play"></a>
+				<a href="#" id="pb_pause" class="pb_pause"><img  src="img/icons/pause.png" width="30" alt="play"></a>
 				<!--<img class="speaker" src="img/gray_speaker.png" width="12" alt="Listening to station:">-->
 			</div>
 			<div class="playbar_name" id="playbar_name">
@@ -172,9 +193,9 @@
         	-->
             <div class="manual-nav-bar" id="manual-nav-bar"> 
             	<ul> 
-                <li id="nav_home"><a href="#"><img src="../img/icons/home.png" width="40"></a></li> 
-                <li id="nav_search"><a href="#"><img src="../img/icons/search_cloud.png" width="48"></a></li> 
-                <li id="nav_radios"><a href="#"><img src="../img/ghettoblaster-512.png" width="40"></a></li> 
+                <li id="nav_home"><a href="#"><img src="../img/icons/home.png" width="42"></a></li> 
+                <li id="nav_search"><a href="#"><img src="../img/icons/search_cloud.png" width="50"></a></li> 
+                <li id="nav_radios"><a href="#"><img src="../img/icons/ghettoblaster-512.png" width="42"></a></li> 
             	</ul> 
             </div> 
         </div>  <!--end footer-->
@@ -203,9 +224,11 @@
 			<script>$("#profile_frame").hide();</script>
 		</div><!--end profiel-->
 		
+		<!--
 		<div class="whitebox" id="whitebox">
 			<p></p>
 		</div>
+		-->
 
 	</main>
 </body>

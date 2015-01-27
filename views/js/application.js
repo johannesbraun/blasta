@@ -5,9 +5,13 @@
         var lineProgress=0;
         var line='';
         $("#loaded").text("");
+        var strokew = 16;
+        if(navigator.platform !=="MacIntel"){
+            strokew = 25;
+        }
         var loadline = new ProgressBar.Line('#loaded', {
             color: 'black',
-            strokeWidth: 25,
+            strokeWidth: strokew,
         });
 
         $("#container").text("");
@@ -77,9 +81,7 @@
                 //console.log("We posted and the server responded!"); 
                     var data = response;
                     var art = data.artwork_url;
-                    if(art ===null){
-                        art = "../img/soundcloud5.png"
-                    }
+                    
                     var title = data.title;
 
                     var dashpos = title.indexOf('-');
@@ -90,6 +92,12 @@
                     var waveform_url = data.waveform_url;
                     var permalink_url = data.permalink_url;
                     var avatar_url = data.user.avatar_url;
+
+                    if(art ===null){
+                        art = "../img/soundcloud5.png"
+                        //art = data.user.avatar_url;
+                        $("#artwork").css('opacity', '0.3');
+                    }
                     var username = data.user.username.charAt(0).toUpperCase() + data.user.username.slice(1);
 
                     var dur = data.duration;
@@ -124,14 +132,22 @@
 
                     console.log(w_width+","+w_height+","+a_width+","+a_width+","+l_strokeWidth)
 
-                    $("#track_title").html("<a href=\"#\" id=\"username\">"+username+"</a>: " +title + " ["+min+":"+sec+"]");
+                    $("#track_user").html("<a href=\"#\" id=\"username\">"+username+"</a>:");
+                    $("#track_title").html(title);
                     $("#playbar_name").html("<a href=\"#\" id=\"username\">"+username+"</a>: " +title + " ["+min+":"+sec+"]");
+                    $("#counter2").html(min+":"+sec)
 
 
-                    $("#grid").html('<img id="gradient" src="../img/gradient3.png" width="'+w_width+'" height="'+w_height+'" alt="wave">');
+                   //$("#grid").html('<img id="gradient" src="../img/gradient3.png" width="'+w_width+'" height="'+w_height+'" alt="wave">');
+                    $("#grid").html('<img id="gradient" src="../img/icons/lines5.png" width="'+w_width+'" height="'+w_height+'" alt="wave">');
+                    
                     $("#wave").html('<img class="waveform_url" id="waveform_url" src="'+data.waveform_url+'" width="'+w_width+'" height="'+w_height+'" alt="wave">');
                     
                     $("#wave_frame_bg").css("background", "#777777");
+                    $("#waveforeground").css("background", "#FFFFFF");
+                    $("#waveforeground").css("opacity", "0.6");
+
+
                     $("#artwork").html('<img id="artwork_url" src="'+art+'" width="'+a_width+'" height="'+a_height+'" alt="art">')
         
                     $("#gray_radiobutton").hide();
@@ -163,10 +179,10 @@
 
         this.play = function() {
             //currentTrack.play();
-            if(!nextSong){
+            /*if(!nextSong){
                 line.set(lineProgress);
                 line.animate(1);
-            }
+            }*/
             currentTrack.play({
                 position: 0,
                 whileplaying: function() {
@@ -181,6 +197,11 @@
                     if(this.bytesLoaded===this.bytesTotal){
                         //line.stop();
                         line.set(this.position/this.duration);//more exact animation
+                        console.log('swapped');
+                        console.log(this.position/this.duration);
+                    }else{
+                        line.set(this.position/(this.bytesTotal/this.bytesLoaded*this.duration));
+                        console.log(this.position/(this.bytesTotal/this.bytesLoaded*this.duration));
                     }
                 }
             });
@@ -283,10 +304,12 @@
 
 
     $(document).ready (function(){
-        var songs = [{"title":"A New Error","song_url":"https://soundcloud.com/apparat/a-new-error?in=apparat/sets/moderat-moderat","soundcloud_id":"24510445"},{"title":"Sad Trombone2","song_url":"https://soundcloud.com/sheckylovejoy/sad-trombone","soundcloud_id":"18321000"},{"title":"AraabMUZIK - \"Beauty\"","song_url":"https://soundcloud.com/selftitledmag/araabmuzik-beauty","soundcloud_id":"79408289"}]
+        var songs = [{"title":"Digitalism - Zdarlight - Chopstick & Johnjon remix","song_url":"Digitalism - Zdarlight - Chopstick & Johnjon remix","soundcloud_id":"71567061"},{"title":"A New Error","song_url":"https://soundcloud.com/apparat/a-new-error?in=apparat/sets/moderat-moderat","soundcloud_id":"24510445"},{"title":"Sad Trombone2","song_url":"https://soundcloud.com/sheckylovejoy/sad-trombone","soundcloud_id":"18321000"},{"title":"AraabMUZIK - \"Beauty\"","song_url":"https://soundcloud.com/selftitledmag/araabmuzik-beauty","soundcloud_id":"79408289"}]
+        
         var rotation = new Rotation(songs);
         var searchResults = "";
         var radio =false;
+        var playing=false;
 
         var currentTrack = rotation.currentTrack();
         var currentPlayingTrack = new Track(currentTrack.soundcloud_id, rotation, false);
@@ -298,6 +321,16 @@
             $('#play').hide();
             $('#pb_pause').show();
             $('#pb_play').hide();
+            playing=true;
+        });
+
+
+        $('#artwork_link').on('click', function(event){
+            if(!playing){
+                $('#play').trigger("click");
+            }else{
+                $('#pause').trigger("click");
+            }
         });
 
         $('#pb_play').on('click', function(event){
@@ -310,10 +343,10 @@
             $('#play').show();
             $('#pb_pause').hide();
             $('#pb_play').show();
+            playing=false;
         });
 
         $('#pb_pause').on('click', function(event){
-            currentPlayingTrack.pause();
             $('#pause').trigger("click");
         });
 
@@ -345,8 +378,8 @@
             currentPlayingTrack = new Track(currentTrack.soundcloud_id, rotation, true);
             currentPlayingTrack.play();
             $('.trackTitle').html(currentTrack.title);
-            $("#gray_radiobutton").hide();
-            $("#black_radiobutton").show();
+            //$("#gray_radiobutton").hide();
+            //$("#black_radiobutton").show();
             $('#pause').show();
             $('#play').hide();
             $('#pb_pause').show();
@@ -366,12 +399,16 @@
             //posY = $(this).offset().top;
             //alert(event.pageX + ' , ' + event.pageY) 
             //alert((event.pageX - posX) + ' , ' + (event.pageY - posY));
+            $('#pause').show();
+            $('#play').hide();
+            $('#pb_pause').show();
+            $('#pb_play').hide();
         });
 
         $('#black_radiobutton').on('click', function(event){
             var t = rotation.currentTrack();
             console.log("startRadio("+t.title+")");
-            $("#current_radio_name").html("Radio: " +t.title);
+            $("#current_radio_name").html("Radio based on: " +t.title);
             $("#radio_section").show();
             $("#gray_radiobutton").show();
             $("#black_radiobutton").hide();
@@ -430,6 +467,7 @@
         $("#search-form").submit(function(){ // TODO: store search history
             var query = $("#search_input").val();
             console.log("Search for '"+query+'"');
+            $("#search_results").hide();
             $("#search_heading").html("<h3>Searching for '"+query+"'...</h3>");
             /*var timeInMs = Date.now();
             var search_event = JSON.stringify({time: timeInMs, q: query});
@@ -454,7 +492,15 @@
                 var results = [];
                 $("#saved-list").text("");
                 //$("#search_heading").html("<h3>"+l+" results for '"+query+"': "+"<a href=\"#\"><img class=\"close_search\" src=\"img/icons/kill.png\" width=\"15px\"></a></h3>");
-                $("#search_heading").html("<h3>"+l+" results for '"+query+"': </a></h3>");
+                //$("#search_heading").html("<h3>"+l+" results for '"+query+"': </a></h3>");
+                if(l>0){
+                    $("#search_heading").text("");
+                    $("#search_results").css("top","0px");
+                }else{
+                    $("#search_heading").text("No results for '"+query+"'");
+                    $("#search_heading").css("top","18px");
+                }
+                $("#search_results").show();
                 var i=0;
                 for (i=0; i<l; i++) {
                    var title = data[i].title;
@@ -486,6 +532,7 @@
                         $('#pause').show();
                         $("#pb_pause").show();
                         $("#pb_play").hide();
+                        playing=true;
                         console.log(event);
                         var pos = parseInt(event.currentTarget.id);
                         console.log(event.currentTarget);
