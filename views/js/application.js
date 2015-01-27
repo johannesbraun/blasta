@@ -3,7 +3,7 @@
         img.onerror = function() {
             //img.src = url2;
             console.log("failed to load large image");
-            $("#artwork").html('<img id="artwork_url" src="'+art+'" width="'+a_width+'" height="'+a_height+'" alt="art">')
+            //$("#artwork").html('<img id="artwork_url" src="'+url2+'" width="'+a_width+'" height="'+a_height+'" alt="art">')
                             
         };
         img.onabort = function() {
@@ -98,18 +98,6 @@
                     var data = response;
                     var art = data.artwork_url;
                     
-                    if(art ===null){
-                        art = "../img/soundcloud5.png"
-                        //art = data.user.avatar_url;
-                        $("#artwork").css('opacity', '0.3');
-                    }else{
-                        var art_large = art.replace("large", "t500x500");
-                        $("#artwork").css('opacity', '1');
-                    }
-                    console.log(art)
-                    console.log(art_large)
-                    
-                    
                     var title = data.title;
 
                     var dashpos = title.indexOf('-');
@@ -171,13 +159,21 @@
                     $("#waveforeground").css("background", "#FFFFFF");
                     $("#waveforeground").css("opacity", "0.6");
 
+                    if(art ===null){
+                        art = "../img/soundcloud5.png"
+                        //art = data.user.avatar_url;
+                        $("#artwork").html('<img id="artwork_url" src="'+art+'" width="'+a_width+'" height="'+a_height+'" alt="art">')
+                        $("#artwork").css('opacity', '0.3');
+                    }else{
+                        var art_large = art.replace("large", "t500x500");
+                        console.log(art)
+                        console.log(art_large)
+                        $("#artwork").css('opacity', '1');
+                        $("#artwork").html('<img id="artwork_url" src="'+art+'" width="'+a_width+'" height="'+a_height+'" alt="art">')
+                        loadImage(art_large, "artwork", a_width, a_height);
+                    }
 
                     
-
-
-                    $("#artwork").html('<img id="artwork_url" src="'+art+'" width="'+a_width+'" height="'+a_height+'" alt="art">')
-                    loadImage(art_large, "artwork", a_width, a_height);
-
                     $("#gray_radiobutton").hide();
                     $("#black_radiobutton").show(); 
 
