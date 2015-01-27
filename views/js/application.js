@@ -23,7 +23,7 @@
         $("#loaded").text("");
         var strokew = 11;
         if(screen.width<600){
-            strokew = 10;
+            strokew = 13;
         }
         var loadline = new ProgressBar.Line('#loaded', {
             color: 'black',
@@ -128,10 +128,10 @@
                     //if(true){
                         //alert('iphone');
                         w_width = 290;
-                        w_height = 30;
+                        w_height = 40;
                         a_width = 290;
                         a_height = 290;
-                        l_strokeWidth =10;
+                        l_strokeWidth =13;
                         if(title.length>50){
                             //title=title.slice(0,47)+'...';
                         }
@@ -218,13 +218,15 @@
                     $("#counter").text(min+':'+sec);
                     //console.log(this.bytesLoaded/this.bytesTotal);
                     //console.log(line.value());
-                    loadline.set(this.bytesLoaded/this.bytesTotal);
-                    if(this.bytesLoaded===this.bytesTotal){
-                        //line.stop();
-                        line.set(this.position/this.duration);//more exact animation
-                        
-                    }else{
-                        line.set(this.position/(this.bytesTotal/this.bytesLoaded*this.duration));
+                    if(screen.width>600){
+                        loadline.set(this.bytesLoaded/this.bytesTotal);
+                        if(this.bytesLoaded===this.bytesTotal){
+                            //line.stop();
+                            line.set(this.position/this.duration);//more exact animation
+                            
+                        }else{
+                            line.set(this.position/(this.bytesTotal/this.bytesLoaded*this.duration));
+                        }
                     }
                 }
             });
@@ -274,7 +276,9 @@
                     }
                     //console.log(line.value());
                     //console.log(this.bytesLoaded/this.bytesTotal);
-                    loadline.set(this.bytesLoaded/this.bytesTotal);
+                    if(screen.width>600){
+                        loadline.set(this.bytesLoaded/this.bytesTotal);
+                    }
                 }
             })
         };
