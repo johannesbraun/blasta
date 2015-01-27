@@ -1,4 +1,22 @@
-
+    function loadImage(url, url2, id, a_width, a_height) {
+        var img = new Image();
+        img.onerror = function() {
+            //img.src = url2;
+            console.log("fail");
+            $("#artwork").html('<img id="artwork_url" src="'+url2+'" width="'+a_width+'" height="'+a_height+'" alt="art">')
+                    
+        };
+        img.onabort = function() {
+            console.log("abort");
+        };
+        img.onload = function() {
+            console.log("success");
+            $("#artwork").html('<img id="artwork_url" src="'+url+'" width="'+a_width+'" height="'+a_height+'" alt="art">')      
+            //var x = document.getElementById(id);
+            //x.src = img.src;
+        };
+        img.src = url;
+    };
 
     Track = function (trackId, rotation, nextSong){
         var currentTrack = "";
@@ -82,6 +100,11 @@
                     var data = response;
                     var art = data.artwork_url;
                     
+                    var art_large = art.replace("large", "t500x500");
+                    console.log(art)
+                    console.log(art_large)
+                    
+                    
                     var title = data.title;
 
                     var dashpos = title.indexOf('-');
@@ -148,8 +171,12 @@
                     $("#waveforeground").css("opacity", "0.6");
 
 
-                    $("#artwork").html('<img id="artwork_url" src="'+art+'" width="'+a_width+'" height="'+a_height+'" alt="art">')
-        
+                    
+
+
+                    //$("#artwork").html('<img id="artwork_url" src="'+art+'" width="'+a_width+'" height="'+a_height+'" alt="art">')
+                    loadImage(art_large, art, "artwork", a_width, a_height);
+
                     $("#gray_radiobutton").hide();
                     $("#black_radiobutton").show(); 
 
@@ -159,9 +186,9 @@
                         strokeWidth: l_strokeWidth,
                     });
                     lineProgress =0;
-                    if(nextSong){
-                        line.animate(1);
-                    }
+                    //if(nextSong){
+                       // line.animate(1);
+                    //}//
                     console.log("got here too" + lineProgress +" " +duration +" " + line.value());
                     
                     $('#username').on('click', function(event){
@@ -197,11 +224,9 @@
                     if(this.bytesLoaded===this.bytesTotal){
                         //line.stop();
                         line.set(this.position/this.duration);//more exact animation
-                        console.log('swapped');
-                        console.log(this.position/this.duration);
+                        
                     }else{
                         line.set(this.position/(this.bytesTotal/this.bytesLoaded*this.duration));
-                        console.log(this.position/(this.bytesTotal/this.bytesLoaded*this.duration));
                     }
                 }
             });
@@ -228,7 +253,7 @@
             currentTrack.stop();
             line.set(ff);
             lineProgress=ff;
-            line.animate(1);
+            //line.animate(1);
             currentTrack.play({
                 position: pos,
                 whileplaying: function() {
