@@ -21,9 +21,9 @@
         var lineProgress=0;
         var line='';
         $("#loaded").text("");
-        var strokew = 16;
-        if(navigator.platform !=="MacIntel"){
-            strokew = 25;
+        var strokew = 11;
+        if(screen.width<600){
+            strokew = 10;
         }
         var loadline = new ProgressBar.Line('#loaded', {
             color: 'black',
@@ -118,21 +118,22 @@
                     var sec = zeroPad(Math.floor((dur/1000) % 60),2);
 
                     var w_width = 440;
-                    var w_height = 70;
-                    var a_width = 150;
-                    var a_height = 150;
-                    var l_strokeWidth =16;
+                    var w_height = 50;
+                    var a_width = 290;//150
+                    var a_height = 290;
+                    var l_strokeWidth =11;//16
 
-                    if(navigator.platform !=="MacIntel"){
+                    //if(navigator.platform !=="MacIntel"){
+                    if (screen.width<600){
                     //if(true){
                         //alert('iphone');
-                        w_width = 300;
-                        w_height = 75;
-                        a_width = 140;
-                        a_height = 140;
-                        l_strokeWidth =25;
+                        w_width = 290;
+                        w_height = 30;
+                        a_width = 290;
+                        a_height = 290;
+                        l_strokeWidth =10;
                         if(title.length>50){
-                            title=title.slice(0,47)+'...';
+                            //title=title.slice(0,47)+'...';
                         }
                     }
 
@@ -144,10 +145,10 @@
 
                     console.log(w_width+","+w_height+","+a_width+","+a_width+","+l_strokeWidth)
 
-                    $("#track_user").html("<a href=\"#\" id=\"username\">"+username+"</a>:");
-                    $("#track_title").html(title);
+                    $("#track_user").html("<span class=\"padded_link\"><a href=\"#\" id=\"username\">"+username+":</a></span>");
+                    $("#track_title").html("<span class=\"padded_link\" >"+title+"</span>");
                     $("#playbar_name").html("<a href=\"#\" id=\"username\">"+username+"</a>: " +title + " ["+min+":"+sec+"]");
-                    $("#counter2").html(min+":"+sec)
+                    $("#counter2").text(min+":"+sec)
 
 
                    //$("#grid").html('<img id="gradient" src="../img/gradient3.png" width="'+w_width+'" height="'+w_height+'" alt="wave">');
@@ -262,12 +263,14 @@
                         $("#counter").css('width','75px');
                         $("#counter").text('loading');
                     }else{
-                        $("#counter").css('width','50px');
+                        $("#counter").css('width','35px');
                         $("#counter").text(min+':'+sec);
                     }
                     if(this.bytesLoaded===this.bytesTotal){
-                        line.stop();
+                        //line.stop();
                         line.set(this.position/this.duration);//more exact animation
+                    }else{
+                        line.set(this.position/(this.bytesTotal/this.bytesLoaded*this.duration));
                     }
                     //console.log(line.value());
                     //console.log(this.bytesLoaded/this.bytesTotal);
@@ -410,8 +413,8 @@
 
         $("#fastforward").on('click', function(event){
             var ff = (event.pageX-185)/440;
-            if(navigator.platform !=="MacIntel"){
-                ff=event.pageX/300;
+            if(screen.width<600){
+                ff=(event.pageX-10)/290;
             }
             console.log(ff);
             var pos = Math.round(localStorage.duration * ff)
@@ -444,6 +447,39 @@
             $("#gray_radiobutton").hide();
             radio=false;
             $("#search_bar").show();
+        });
+
+
+        $("#love").on('click', function(event){
+            console.log("love it");
+            $('#liked').show();
+            $('#like').hide();
+            $('#disliked').hide();
+            $('#dislike').show();
+            // TODO: adjust radio
+        });
+
+        $("#unlove").on('click', function(event){
+            console.log("unloved");
+            $('#like').show();
+            $('#liked').hide();
+            // TODO: adjust radio
+        });
+
+        $("#hate").on('click', function(event){
+            $('#disliked').show();
+            $('#dislike').hide();
+            $('#like').show();
+            $('#liked').hide();
+            console.log("hate it");
+            // TODO: adjust radio
+        });
+
+        $("#unhate").on('click', function(event){
+            console.log("unhated");
+            $('#dislike').show();
+            $('#disliked').hide();
+            // TODO: adjust radio
         });
 
         $('#logo').on('click', function(event){

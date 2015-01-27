@@ -10,9 +10,9 @@
 	
 	<!--custom css:-->
 	<link rel="shortcut icon" href="img/ghettoblaster-128">
-	<link href="css/style.css" rel="stylesheet" type="text/css" media="screen and (min-width: 600px)" >
-	<link href="css/mobile_horizontal.css" rel="stylesheet" type="text/css" media="only screen and (min-width: 481px) and (max-width: 600px)" >
-	<link href="css/mobile.css" rel="stylesheet" type="text/css" media="only screen and (max-width: 480px)" />
+	<link href="css/style.css" rel="stylesheet" type="text/css" media="screen and (min-width:601px)" >
+	<!--<link href="css/mobile_horizontal.css" rel="stylesheet" type="text/css" media="only screen and (min-width: 481px) and (max-width: 600px)" >-->
+	<link href="css/mobile.css" rel="stylesheet" type="text/css" media="only screen and (max-width: 600px)" />
 	
 	<!-- jquery-->
 	<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
@@ -34,7 +34,7 @@
 		<div>
 			<!--<img class="icon" src="img/gogb.gif" width="60" alt="Blasta.me icon">-->
 			<a href="" id="logo"><img class="logo" src="img/black_logo.gif" width="200" alt="Blasta.me Logo"></a>
-			<a href="" class="profile_toggle"><img class="profile_pic" src="img/icons/black_profile.png" width="40" alt="Profile"></a>
+			<!--<a href="" class="profile_toggle"><img class="profile_pic" src="img/icons/black_profile.png" width="40" alt="Profile"></a>-->
 			<img class="sc" src="img/powered_by_sc.png" width="50" alt="powered by soundcoud">
 		</div>
 	</header>
@@ -105,7 +105,9 @@
 					</div>
 					<div class="track_title" id="track_title">
 					</div>
-					<div class="wave_frame_bg" id="wave_frame_bg">
+					
+				</div>
+				<div class="wave_frame_bg" id="wave_frame_bg">
 						
 					</div>
 					<div class="waveforeground" id="waveforeground">
@@ -131,8 +133,6 @@
 
 						</div>
 						</a>
-					</div>
-					
 				</div>
 				<div class="pbox" id="pbox">
 					<a href="#" id="play" class="play"><img class="pcontrol" src="img/icons/play.png" width="40" alt="play"></a>
@@ -145,13 +145,31 @@
 			</div><!--end mbox-->
 			
 			<div class="like_section" id="like_section">
-				<a href="#" id="love "class="love"><img class="rcontrol" src="img/icons/wb/wlike2.png" width="50" alt="love it"></a>
+				<div id="like">
+					<a href="#" id="love"class="love"><img class="rcontrol" src="img/icons/othumbsup.png" width="40" alt="love it"></a>
+				</div>
+				<div id="liked">
+					<a href="#" id="unlove" class="unlove"><img class="rcontrol" src="img/icons/thumbsup_pressed.png" width="40" alt="love it"></a>
+				</div>
 			</div>
 			<div class="hate_section" id="hate_section">
-				<a href="#" id="hate" class="hate" display="inline"><img class="rcontrol" src="img/icons/wb/bdislike.png" width="50" alt="hate it" ></a>
+				<div id="dislike">
+					<a href="#" id="hate" class="hate" display="inline"><img class="rcontrol" src="img/icons/othumbsdown.png" width="40" alt="hate it" ></a>
+				</div>
+				<div id="disliked">
+					<a href="#" id="unhate" class="unhate" display="inline"><img class="rcontrol" src="img/icons/thumbsdown_pressed.png" width="40" alt="hate it" ></a>
+				</div>
 			</div>
+			<script>
+				$("#liked").hide();
+				$("#disliked").hide();
+				if (screen.width<600){
+					$("#like").html('<a href="#" id="love"class="love"><img class="rcontrol" src="img/icons/wfothumbsup.png" width="30" alt="love it"></a>');
+					$("#dislike").html('<a href="#" id="hate"class="hate"><img class="rcontrol" src="img/icons/thumbsdown.png" width="30" alt="hate it"></a>');
+				}
+			</script>
 			<div class="back_section" id="back_section">
-				<a href="#" id="back" class="back"><img class="scontrol" src="img/icons/wb/bback.png" width="25" alt="play"></a>
+				<a href="#" id="back" class="back"><img class="scontrol" src="img/icons/wb/bback.png" width="25" alt="back"></a>
 			</div>
 			<div class="next_section" id="next_section">
 				<a href="#" id="next" class="next"><img class="scontrol" src="img/icons/wb/bnext.png" width="25" alt="next"></a>
@@ -170,12 +188,12 @@
         
 		<div id="play-bar-frame">
 			<div class="playbar_icon" id="playbar_icon">
-				<a href="#" id="pb_play" class="pb_play"><img  src="img/icons/play.png" width="30" alt="play"></a>
-				<a href="#" id="pb_pause" class="pb_pause"><img  src="img/icons/pause.png" width="30" alt="play"></a>
+				<a href="#" id="pb_play" class="pb_play"><img class="pb_play" src="img/icons/play.png" width="30" alt="play"></a>
+				<a href="#" id="pb_pause" class="pb_pause"><img class="pb_play" src="img/icons/pause.png" width="30" alt="play"></a>
 				<!--<img class="speaker" src="img/gray_speaker.png" width="12" alt="Listening to station:">-->
 			</div>
 			<div class="playbar_name" id="playbar_name">
-				<a class="playbar"> Playing: Pachanga </a>
+				<a class="playbar">Something went wrong</a>
 			</div>
 		</div><!--end play bar-->
 		<script>$("#pb_pause").hide();</script>
@@ -195,7 +213,7 @@
             	<ul> 
                 <li id="nav_home"><a href="#"><img src="../img/icons/home.png" width="42"></a></li> 
                 <li id="nav_search"><a href="#"><img src="../img/icons/search_cloud.png" width="50"></a></li> 
-                <li id="nav_radios"><a href="#"><img src="../img/icons/ghettoblaster-512.png" width="42"></a></li> 
+                <li id="nav_radios"><a href="#"><img src="../img/icons/black_profile1.png" width="42"></a></li> 
             	</ul> 
             </div> 
         </div>  <!--end footer-->
