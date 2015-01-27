@@ -220,13 +220,13 @@
                     //console.log(line.value());
                     if(screen.width>600){
                         loadline.set(this.bytesLoaded/this.bytesTotal);
-                        if(this.bytesLoaded===this.bytesTotal){
+                    }
+                    if(this.bytesLoaded===this.bytesTotal){
                             //line.stop();
-                            line.set(this.position/this.duration);//more exact animation
+                        line.set(this.position/this.duration);//more exact animation
                             
-                        }else{
-                            line.set(this.position/(this.bytesTotal/this.bytesLoaded*this.duration));
-                        }
+                    }else{
+                       line.set(this.position/(this.bytesTotal/this.bytesLoaded*this.duration));
                     }
                 }
             });
@@ -235,14 +235,14 @@
         
         this.pause = function() {
             currentTrack.pause();
-            line.stop();
+            //line.stop();
             lineProgress = line.value(); 
         };
 
 
         this.stop = function() {
             currentTrack.stop();
-            line.stop();
+            //line.stop();
             line.set(0);
             lineProgress=0;
         };
@@ -251,7 +251,7 @@
             //milliseconds 1000ms = 1sec
             //console.log('dur :'+currentTrack.duration); keeps changing
             currentTrack.stop();
-            //line.set(ff);
+            line.set(0);
             lineProgress=ff;
             //line.animate(1);
             currentTrack.play({
@@ -399,6 +399,10 @@
             $('#play').hide();
             $('#pb_pause').show();
             $('#pb_play').hide();
+            $('#liked').hide();
+            $('#like').show();
+            $('#disliked').hide();
+            $('#dislike').show();
         });
 
         $('#back').on('click', function(event){
@@ -413,6 +417,10 @@
             $('#play').hide();
             $('#pb_pause').show();
             $('#pb_play').hide();
+            $('#liked').hide();
+            $('#like').show();
+            $('#disliked').hide();
+            $('#dislike').show();
         });
 
         $("#fastforward").on('click', function(event){
@@ -594,6 +602,10 @@
                         $('#pause').show();
                         $("#pb_pause").show();
                         $("#pb_play").hide();
+                        $('#liked').hide();
+                        $('#like').show();
+                        $('#disliked').hide();
+                        $('#dislike').show();
                         playing=true;
                         console.log(event);
                         var pos = parseInt(event.currentTarget.id);
