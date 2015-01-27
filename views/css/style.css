@@ -241,10 +241,17 @@ main{
 }
 
 
+.padded_counter{
+	color:#FF6600; 
+	display: inline; 
+	background: black;
+	box-shadow: 1px -1px 0px 3px black;
+}
+
 .counter{
 	background: black;
 	/*background-image: url("../img/gradient.png");*/
-	width: 40px;
+	width: 45px;
 	height: 20pxx;
 	position: absolute;
 	top: 15px;
@@ -261,7 +268,7 @@ main{
 .counter2{
 	background: black;
 	/*background-image: url("../img/gradient.png");*/
-	width: 40px;
+	width: 45px;
 	height: 20pxx;
 	position: absolute;
 	top: 15px;

@@ -215,7 +215,7 @@
                     var dur = this.position;
                     var min = Math.floor((dur/1000/60) << 0);
                     var sec = zeroPad(Math.floor((dur/1000) % 60),2);
-                    $("#counter").text(min+':'+sec);
+                    $("#counter").html("<span class=\"padded_counter\">"+min+':'+sec+"</span>");
                     //console.log(this.bytesLoaded/this.bytesTotal);
                     //console.log(line.value());
                     if(screen.width>600){
@@ -265,7 +265,7 @@
                         $("#counter").css('width','75px');
                         $("#counter").text('loading');
                     }else{
-                        $("#counter").css('width','35px');
+                        $("#counter").css('width','45px');
                         $("#counter").text(min+':'+sec);
                     }
                     if(this.bytesLoaded===this.bytesTotal){
