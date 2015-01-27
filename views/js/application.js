@@ -1,10 +1,10 @@
-    function loadImage(url, id, a_width, a_height) {
+    function loadImage(url, url2, id, a_width, a_height) {
         var img = new Image();
         img.onerror = function() {
             //img.src = url2;
             console.log("failed to load large image");
-            //$("#artwork").html('<img id="artwork_url" src="'+url2+'" width="'+a_width+'" height="'+a_height+'" alt="art">')
-                    
+            $("#artwork").html('<img id="artwork_url" src="'+art+'" width="'+a_width+'" height="'+a_height+'" alt="art">')
+                            
         };
         img.onabort = function() {
             console.log("abort");
@@ -98,7 +98,14 @@
                     var data = response;
                     var art = data.artwork_url;
                     
-                    var art_large = art.replace("large", "t500x500");
+                    if(art ===null){
+                        art = "../img/soundcloud5.png"
+                        //art = data.user.avatar_url;
+                        $("#artwork").css('opacity', '0.3');
+                    }else{
+                        var art_large = art.replace("large", "t500x500");
+                        $("#artwork").css('opacity', '1');
+                    }
                     console.log(art)
                     console.log(art_large)
                     
@@ -114,11 +121,7 @@
                     var permalink_url = data.permalink_url;
                     var avatar_url = data.user.avatar_url;
 
-                    if(art ===null){
-                        art = "../img/soundcloud5.png"
-                        //art = data.user.avatar_url;
-                        $("#artwork").css('opacity', '0.3');
-                    }
+                    
                     var username = data.user.username.charAt(0).toUpperCase() + data.user.username.slice(1);
 
                     var dur = data.duration;
