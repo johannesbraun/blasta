@@ -192,7 +192,7 @@ main{
 	position: absolute;
 	width: 285px;
 	height: 38px;
-	top: 85px;
+	top: 87px;
 	z-index: 0;
 	left: 0px;
 }
@@ -203,7 +203,7 @@ main{
 	width: 285px;
 	height: 40px;
 	position: absolute;
-	top: 90px;
+	top: 87px;
 	left: 2px;
 	z-index: 1; 
 }
