@@ -251,7 +251,7 @@
             //milliseconds 1000ms = 1sec
             //console.log('dur :'+currentTrack.duration); keeps changing
             currentTrack.stop();
-            line.set(ff);
+            //line.set(ff);
             lineProgress=ff;
             //line.animate(1);
             currentTrack.play({
