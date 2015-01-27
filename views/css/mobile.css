@@ -25,6 +25,8 @@ hr {
 }
 
 .ui-input-search { 
+	height: 40px;
+	font-size: 18px;
 	padding: 0 0; 
 	width: 90%; 
 	/*background-position: 8px 50%; 
@@ -46,16 +48,13 @@ hr {
 
 .radio_name{
 	position: absolute;
-	top:87px;
-	left: 55px;
+	top:95px;
+	left: 15px;
 	color: black;
 	overflow: hidden; 
   	text-overflow: ellipsis;
   	white-space: nowrap;
 }
-
-
-
 
 
 
@@ -136,10 +135,21 @@ main{
 	width: 165px;
 	height: 80px;
 	position: absolute;
-	left: 155px;
+	left: 160px;
+	top: 115px;
+	font-weight: bold;
+}
+
+.track_user{
+	/*background: #EFEFEF;*/
+	width: 165px;
+	height: 80px;
+	position: absolute;
+	left: 160px;
 	top: 95px;
 	font-weight: bold;
 }
+
 
 
 .wave_frame{
@@ -148,7 +158,7 @@ main{
 	width: 300px;
 	height: 75px;
 	position: absolute;
-	top: 250px;
+	top: 270px;
 	left: 0px;
 	z-index: 0; 
 }
@@ -157,8 +167,8 @@ main{
 	/*background: #777777;*/
 	position: absolute;
 	width: 298px;
-	height: 73px;
-	top: 251px;
+	height: 70px;
+	top: 270px;
 	z-index: 0;
 }
 
@@ -168,22 +178,50 @@ main{
 	width: 298px;
 	height: 75px;
 	position: absolute;
-	top: 2px;
+	top: 275px;
 	left: 2px;
 	z-index: 1; 
 }
+.waveforeground{
+	/*background: #777777;*/
+	position: absolute;
+	width: 300px;
+	height: 28px;
+	top: 320px;
+	left: 0px;
+	z-index: 5; 
+}
 
 .counter{
-	background: white;
+	background: black;
 	/*background-image: url("../img/gradient.png");*/
-	width: 50px;
+	width: 40px;
 	height: 20px;
 	position: absolute;
 	top: 30px;
-	left: 10px;
+	left: 5px;
 	z-index: 6; 
 	text-align: center;
+		font-style: normal;
+	text-shadow: none;
 	font-size: 16px;
+	color:#FF6600;
+}
+
+.counter2{
+	background: black;
+	/*background-image: url("../img/gradient.png");*/
+	width: 40px;
+	height: 20pxx;
+	position: absolute;
+	top: 30px;
+	left: 250px;
+	z-index: 7; 
+	text-align: center;
+	font-style: normal;
+	text-shadow: none;
+	font-size: 16px;
+	color: white;
 }
 
 .loaded{
@@ -237,38 +275,43 @@ main{
 .like_section{
 	position: absolute;
 	top: 185px;
-	left: 160px;
+	left: 175px;
 }
 
 .hate_section{
 	position: absolute;
-	top: 185px;
-	left: 235px;
+	top: 195px;
+	left: 230px;
 }
 
 .pbox{
 	position: absolute;
-	top: 20px;
-	left: 5px;
+	top: 33px;
+	left: 80px;
 }
 
 .rbox{
 	position: absolute;
-	top: 20px;
-	left: 80px;
-	
+	top: 32px;
+	left: 230px;
+}
+
+.add_radiobutton{
+	position: absolute;
+	top:  0px;
+	left: 32px;
 }
 
 .back_section{
 	position: absolute;
-	top: 20px;
-	left: 160px;
+	top: 40px;
+	left: 20px;
 }
 
 .next_section{
 	position: absolute;
-	top: 20px;
-	left: 235px;
+	top: 40px;
+	left: 165px;
 }
 
 
@@ -306,8 +349,8 @@ main{
 
 
 img.radio_img{
-	height: 50px;
-	width: 50px;
+	height: 40px;
+	width: 40px;
 }
 
 img.icon{
@@ -358,19 +401,19 @@ img.rcontrol{
 }
 
 img.pcontrol{
-	width: 50px;
-	height: 50px;
+	width: 40px;
+	height: 40px;
 }
 
 img.scontrol{
-	width: 50px;
-	height: 50px;
+	width: 25px;
+	height: 25px;
 }
 
 
 img.pause{
-	width: 50px;
-	height: 50px;
+	width: 40px;
+	height: 40px;
 	/*padding-left: 5px;
 	padding-right: 5px;
 	padding-bottom: 10px;
