@@ -1,19 +1,17 @@
-    function loadImage(url, url2, id, a_width, a_height) {
+    function loadImage(url, id, a_width, a_height) {
         var img = new Image();
         img.onerror = function() {
             //img.src = url2;
-            console.log("fail");
-            $("#artwork").html('<img id="artwork_url" src="'+url2+'" width="'+a_width+'" height="'+a_height+'" alt="art">')
+            console.log("failed to load large image");
+            //$("#artwork").html('<img id="artwork_url" src="'+url2+'" width="'+a_width+'" height="'+a_height+'" alt="art">')
                     
         };
         img.onabort = function() {
             console.log("abort");
         };
         img.onload = function() {
-            console.log("success");
+            console.log("successfully image replaced with high resolution");
             $("#artwork").html('<img id="artwork_url" src="'+url+'" width="'+a_width+'" height="'+a_height+'" alt="art">')      
-            //var x = document.getElementById(id);
-            //x.src = img.src;
         };
         img.src = url;
     };
@@ -174,8 +172,8 @@
                     
 
 
-                    //$("#artwork").html('<img id="artwork_url" src="'+art+'" width="'+a_width+'" height="'+a_height+'" alt="art">')
-                    loadImage(art_large, art, "artwork", a_width, a_height);
+                    $("#artwork").html('<img id="artwork_url" src="'+art+'" width="'+a_width+'" height="'+a_height+'" alt="art">')
+                    loadImage(art_large, "artwork", a_width, a_height);
 
                     $("#gray_radiobutton").hide();
                     $("#black_radiobutton").show(); 
