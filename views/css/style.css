@@ -252,9 +252,9 @@ main{
 	background: black;
 	/*background-image: url("../img/gradient.png");*/
 	width: 45px;
-	height: 20pxx;
+	height: 15px;
 	position: absolute;
-	top: 15px;
+	top: 10px;
 	left: 5px;
 	z-index: 6; 
 	text-align: center;
@@ -263,21 +263,25 @@ main{
 	font-style: normal;
 	text-shadow: none;
 	color: #FF6600;
+	background: black;
+	box-shadow: 1px -1px 0px 3px black;
 }
 
 .counter2{
 	background: black;
 	/*background-image: url("../img/gradient.png");*/
 	width: 45px;
-	height: 20pxx;
+	height: 15px;
 	position: absolute;
-	top: 15px;
+	top: 10px;
 	left: 395px;
 	z-index: 7; 
 	text-align: center;
 	font-style: normal;
 	text-shadow: none;
 	color: white;
+	background: black;
+	box-shadow: 1px -1px 0px 3px black;
 }
 
 .loaded{
@@ -362,7 +366,7 @@ main{
 .search_frame{
 	position: absolute;
 	top: 180px;
-	left: 20px;
+	left: 25px;
 }
 
 .search_heading{
@@ -504,16 +508,47 @@ ul {
  padding-left:0;
 }
 
-li a
+.res
 {
  border-bottom: 1px #CCC solid;
- color: #000;
- display: block;
- font-weight: bold;
+ /*color: #000;
+ /*display: block;
+ font-weight: bold;*/
+ overflow: hidden; 
+ width: 600px;
+ height: 30px;
+ vertical-align: top;
+ /*text-overflow: ellipsis;*/
+ white-space: nowrap;
  font-size: 14px;
- padding: 10px text-decoration: none;
+ /*padding: 0px; */
+ padding-bottom: 10px;
+ text-decoration: none;
 }
 
+li > .image{
+  display:inline;
+  /*float:left;*/
+  margin-right:10px;
+  margin: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 10px;
+  vertical-align: middle;
+}
+
+.resname{
+  display: inline-block;
+  padding-left: 10px;
+  padding-bottom: 0px;
+  padding-top: 0px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.restitle{
+  font-size: 10px;
+}
 
 p{
 	color: #FF6600;
