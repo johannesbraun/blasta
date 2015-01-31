@@ -164,12 +164,18 @@
                     //$("#playbar_name").html("<a href=\"#\" id=\"username\">"+username+"</a>: " +title + " ["+min+":"+sec+"]");
                     $("#playbar_name").html('<span class="pb_counter" id="pb_counter">0:00 </span>'+ title);
                     $("#counter2").text(min+":"+sec)
-                    if (min>9){
-                        $("#counter2").css('width','40px')
-                        $("#counter2").css('left','245px')
+                    if(screen.width<600){
+                        if (min>9){
+                            $("#counter2").css('width','45px')
+                            $("#counter2").css('left','245px')
+                        }else{
+                            $("#counter2").css('width','35px')
+                            $("#counter2").css('left','250px')
+                            //$("#counter2").css('width',$("#counter2").css('width')+5) 
+                        }
                     }else{
-                        $("#counter2").css('width','35px')
-                        $("#counter2").css('left','250px')
+                            $("#counter2").css('width','45px')
+                            $("#counter2").css('left','395')
                     }
 
 
