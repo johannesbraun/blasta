@@ -1,20 +1,34 @@
-    function loadImage(url, url2, id, a_width, a_height) {
+    function loadImage(id, type, url, alt_url, a_width, a_height) {
         var img = new Image();
         img.onerror = function() {
             //img.src = url2;
-            console.log("failed to load large image");
-            //$("#artwork").html('<img id="artwork_url" src="'+url2+'" width="'+a_width+'" height="'+a_height+'" alt="art">')
-                            
+            console.log("failed to load image");
+            if(!alt_url==""){
+                if(type=='src'){
+                    $("#"+id).attr('src', alt_url);
+                }
+                else{
+                    $("#"+id).html('<img id="'+id+'" src="'+alt_url+'" width="'+a_width+'" height="'+a_height+'" alt="art">');
+                }
+
+            }            
         };
         img.onabort = function() {
             console.log("abort");
         };
         img.onload = function() {
-            console.log("successfully image replaced with high resolution");
-            $("#artwork").html('<img id="artwork_url" src="'+url+'" width="'+a_width+'" height="'+a_height+'" alt="art">')      
+            //$("#artwork").html('<img id="artwork_url" src="'+url+'" width="'+a_width+'" height="'+a_height+'" alt="art">')      
+            if(type=='src'){
+                $("#"+id).attr('src', url);
+            }
+            else{
+                console.log("successfully image replaced with high resolution");
+                $("#"+id).html('<img id="'+id+'" src="'+url+'" width="'+a_width+'" height="'+a_height+'" alt="art">')  ;   
+            } 
         };
         img.src = url;
     };
+
 
     Track = function (trackId, rotation, nextSong){
         var currentTrack = "";
@@ -147,8 +161,16 @@
 
                     $("#track_user").html("<span class=\"padded_link\"><a href=\"#\" id=\"username\">"+username+":</a></span>");
                     $("#track_title").html("<span class=\"padded_link\" >"+title+"</span>");
-                    $("#playbar_name").html("<a href=\"#\" id=\"username\">"+username+"</a>: " +title + " ["+min+":"+sec+"]");
+                    //$("#playbar_name").html("<a href=\"#\" id=\"username\">"+username+"</a>: " +title + " ["+min+":"+sec+"]");
+                    $("#playbar_name").html('<span class="pb_counter" id="pb_counter">0:00 </span>'+ title);
                     $("#counter2").text(min+":"+sec)
+                    if (min>9){
+                        $("#counter2").css('width','40px')
+                        $("#counter2").css('left','245px')
+                    }else{
+                        $("#counter2").css('width','35px')
+                        $("#counter2").css('left','250px')
+                    }
 
 
                    //$("#grid").html('<img id="gradient" src="../img/gradient3.png" width="'+w_width+'" height="'+w_height+'" alt="wave">');
@@ -171,7 +193,7 @@
                         console.log(art_large)
                         $("#artwork").css('opacity', '1');
                         $("#artwork").html('<img id="artwork_url" src="'+art+'" width="'+a_width+'" height="'+a_height+'" alt="art">')
-                        loadImage(art_large, "artwork", a_width, a_height);
+                        loadImage("artwork","div",art_large, "", a_width, a_height);
                     }
 
                     
@@ -216,6 +238,8 @@
                     var min = Math.floor((dur/1000/60) << 0);
                     var sec = zeroPad(Math.floor((dur/1000) % 60),2);
                     $("#counter").html("<span class=\"padded_counter\">"+min+':'+sec+"</span>");
+                    $("#pb_counter").text(min+':'+sec+" ");
+                    
                     //console.log(this.bytesLoaded/this.bytesTotal);
                     //console.log(line.value());
                     if(screen.width>600){
@@ -581,6 +605,15 @@
                    var sec = zeroPad(Math.floor((dur/1000) % 60),2);
 
                    var user_name = data[i].user.username.charAt(0).toUpperCase() + data[i].user.username.slice(1);
+                   var art = data[i].artwork_url;
+                   if (art ==null){                     
+                     art = data[i].user.avatar_url;
+                     if (art=="https://a1.sndcdn.com/images/default_avatar_large.png"){
+                        art = "../img/soundcloud5.png"
+                     }
+                   }
+
+
                    title=title.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '');
                    user_name=user_name.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '');
                    
@@ -589,7 +622,8 @@
                    //console.log('<li id="'+i+'"><a href="#">'+user_name+" - "+title+' ['+min+':'+sec+']</a></li>');
                    //$("#search_results").append("<a href=\"javascript:nthResult("+i+")\">"+title+"</a><br>"); // how to link to play?
                    
-                   $("#saved-list").append('<li id="'+i+'"><a href="#">'+user_name+" - "+title+' ['+min+':'+sec+']</a></li>');
+                   $("#saved-list").append('<li id="'+i+'" class="res" ><a href="#"><img id="res'+i+'" class="preview_img" src="" width="30" alt=""><span class="resname">'+user_name+'<br><span class="restitle">'+title+' ['+min+':'+sec+']</span></span></a></li>'); 
+                   loadImage("res"+i, "src", art, "../img/soundcloud5.png", 30, 30);
                 }
                 $("li").click(function( event ) {
                     if(event.currentTarget.id =="nav_home" 
