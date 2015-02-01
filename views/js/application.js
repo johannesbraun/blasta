@@ -310,7 +310,7 @@
                         $("#counter").css('width','75px');
                         $("#counter").text('loading');
                     }else{
-                        $("#counter").css('width','45px');
+                        $("#counter").css('width','35px');
                         $("#counter").text(min+':'+sec);
                         $("#pb_counter").text(min+':'+sec+' ');
                     }
@@ -498,7 +498,11 @@
             var t = rotation.currentTrack();
             console.log("startRadio("+t.title+")");
             //$("#current_radio_name").html('<a class="radio_click" id="radio_click" href="#">Radio based on: ' +t.title+'</a>');
-            $("#current_radio_name").html('Radio based on: ' +t.title);
+            if(screen.width<600){
+                $("#current_radio_name").html('Radio based on:<br> ' +t.title);
+            }else{
+                $("#current_radio_name").html('Radio based on: ' +t.title);
+            }
             $("#playing_radio").empty();
             $("#playing_radio").append($("#playing_track").html()); 
             $("#saved_radios").append($("#playing_track").html());     
@@ -522,7 +526,7 @@
             $("#radio_section").hide();
             $("#black_radiobutton").show();
             $("#gray_radiobutton").hide();
-            $("#radio_playing").empty();
+            $("#playing_radio").empty();
             radio=false;
             $("#search_bar").show();
         });
