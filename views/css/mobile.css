@@ -19,14 +19,7 @@ hr {
 }
 
 
-.whitebox{
-	position: absolute;
-	top: 245px;
-	width:290px;
-	height: 75px;
-	left: 15px;
-	z-index: 8;
-}
+
 
 
 .ui-input-search { 
@@ -531,7 +524,7 @@ ul {
  font-weight: bold;*/
  overflow: hidden; 
  width: 600px;
- height: 30px;
+ height: 40px;
  vertical-align: top;
  /*text-overflow: ellipsis;*/
  white-space: nowrap;
@@ -573,7 +566,7 @@ li > .image{
  font-weight: bold;*/
  overflow: hidden; 
  width: 600px;
- height: 30px;
+ height: 40px;
  vertical-align: top;
  /*text-overflow: ellipsis;*/
  white-space: nowrap;
@@ -581,6 +574,11 @@ li > .image{
  /*padding: 0px; */
  padding-bottom: 2px;
  text-decoration: none;
+}
+
+
+.preview_img{
+	padding-top: 5px;
 }
 
 
@@ -597,5 +595,12 @@ iframe.hidden
 	display:none
 }
 
-
+.whitebox{
+	position: absolute;
+	top: 130px;
+	width:290px;
+	height: 75px;
+	left: 5px;
+	z-index: 9;
+}
 
