@@ -384,7 +384,7 @@ main{
     height: 100%;
     position: absolute;
     top: 176px;
-    left: 0px;
+    left: 15px;
     color:gray;
 	font-family: "Courier";
 	font-size: 10px;
@@ -563,6 +563,24 @@ li > .image{
 
 .restitle{
   font-size: 10px;
+}
+
+.rad
+{
+ border-bottom: 1px #CCC solid;
+ /*color: #000;
+ /*display: block;
+ font-weight: bold;*/
+ overflow: hidden; 
+ width: 600px;
+ height: 30px;
+ vertical-align: top;
+ /*text-overflow: ellipsis;*/
+ white-space: nowrap;
+ /*font-size: 14px;*/
+ /*padding: 0px; */
+ padding-bottom: 2px;
+ text-decoration: none;
 }
 
 
