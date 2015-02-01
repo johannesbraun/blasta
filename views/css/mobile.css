@@ -21,10 +21,13 @@ hr {
 
 .whitebox{
 	position: absolute;
-	top: 400px;
-	width:300px;
-	height: 200px;
+	top: 245px;
+	width:290px;
+	height: 75px;
+	left: 15px;
+	z-index: 8;
 }
+
 
 .ui-input-search { 
 	height: 35px;

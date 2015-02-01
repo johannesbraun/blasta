@@ -43,7 +43,7 @@ hr {
 
 .radio_name{
 	position: absolute;
-	top: 95px;
+	top: 90px;
 	left: 20px;
 	/*border-bottom: 1px #CCC solid;*/
 	color: #777777;
@@ -101,11 +101,13 @@ main{
 
 .whitebox{
 	position: absolute;
-	top: 400px;
-	width:300px;
-	height: 200px;
+	top: 0px;
+	width:0;
+	height: 0;
+	left: 0;
+	z-index: 0;
+	display: none;
 }
-
 
 
 .music_section{
@@ -528,13 +530,13 @@ ul {
 
 li > .image{
   display:inline;
-  /*float:left;*/
-  margin-right:10px;
+  /*float:left  margin-right:10px;*/
   margin: 10px;
   padding-left: 10px;
   padding-right: 10px;
   padding-top: 10px;
   vertical-align: middle;
+  text-shadow: none;
 }
 
 .resname{
@@ -544,10 +546,12 @@ li > .image{
   padding-top: 0px;
   font-size: 12px;
   font-weight: bold;
+  text-shadow: none;
 }
 
 .restitle{
   font-size: 10px;
+  text-shadow: none;
 }
 
 p{
