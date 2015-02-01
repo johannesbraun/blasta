@@ -19,18 +19,17 @@ hr {
 }
 
 
-
-
-
 .ui-input-search { 
 	height: 35px;
 	font-size: 18px;
 	padding: 0 0; 
 	width: 90%; 
+	top: 5px;
 	/*background-position: 8px 50%; 
 	background-repeat: no-repeat; 
 	position: relative; */
 }
+
 
 .radio_section{
 	position: relative;
@@ -47,7 +46,7 @@ hr {
 
 .radio_name{
 	position: absolute;
-	top:95px;
+	top:85px;
 	width: 320px;
 	left: 0px;
 	color: white;
@@ -229,7 +228,7 @@ main{
 	height: 15px;
 	position: absolute;
 	display: inline; 
-	top: 12px;
+	top: 11px;
 	left: 0px;
 	z-index: 9; 
 	text-align: center;
