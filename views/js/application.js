@@ -109,6 +109,8 @@
                 $.post("getTrackInfo", {"id":trackId}, function (response) {
                 //this callback is called with the server responds 
                 //console.log("We posted and the server responded!"); 
+                    $("#counter").css('width','35px');
+                    $("#counter").text('0:00');
                     var data = response;
                     var art = data.artwork_url;
                     var title = data.title;
@@ -173,8 +175,14 @@
                             //$("#counter2").css('width',$("#counter2").css('width')+5) 
                         }
                     }else{
+                        if (min>9){
                             $("#counter2").css('width','45px')
+                            $("#counter2").css('left','390px')
+                        }else{
+                            $("#counter2").css('width','35px')
                             $("#counter2").css('left','395px')
+                            //$("#counter2").css('width',$("#counter2").css('width')+5) 
+                        }
                     }
 
 
@@ -256,7 +264,15 @@
                     var dur = this.position;
                     var min = Math.floor((dur/1000/60) << 0);
                     var sec = zeroPad(Math.floor((dur/1000) % 60),2);
-                    $("#counter").html("<span class=\"padded_counter\">"+min+':'+sec+"</span>");
+                    //$("#counter").html("<span class=\"padded_counter\">"+min+':'+sec+"</span>");
+                    $("#counter").text(min+':'+sec);
+                    if (min>9){
+                            $("#counter").css('width','45px')
+                    }else{
+                            $("#counter").css('width','35px')
+                            //$("#counter2").css('width',$("#counter2").css('width')+5) 
+                    }
+
                     $("#pb_counter").text(min+':'+sec+" ");
                     
                     //console.log(this.bytesLoaded/this.bytesTotal);
@@ -310,7 +326,11 @@
                         $("#counter").css('width','75px');
                         $("#counter").text('loading');
                     }else{
-                        $("#counter").css('width','35px');
+                        if(min>9){
+                            $("#counter").css('width','45px');
+                        }else{
+                            $("#counter").css('width','35px');
+                        }
                         $("#counter").text(min+':'+sec);
                         $("#pb_counter").text(min+':'+sec+' ');
                     }
