@@ -225,6 +225,7 @@
                     $('#username').on('click', function(event){
                         $("#search_input").val(username);
                         $("#search_input").trigger("submit");
+                        $("#search_bar").show();
                     });
 
                     $('#recent_search').on('click', function(event){
@@ -339,7 +340,10 @@
 
         this.nextTrack = function () {
             var currentIndex = tracks.indexOf(currentTrack);
-            var nextTrackIndex = currentIndex + 1;
+            var nextTrackIndex =0;
+            if(currentIndex<(tracks.length-1)){
+                nextTrackIndex = currentIndex + 1; 
+            }
             var nextTrackId = tracks[nextTrackIndex];
             currentTrack = nextTrackId;
             return currentTrack
