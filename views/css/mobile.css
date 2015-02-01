@@ -11,7 +11,6 @@ header{
 	width: 310px;
 }
 
-
 hr {
 	border-width:0;
 	height: 3px;
@@ -65,14 +64,14 @@ hr {
 .playbar_icon{
 	position: absolute;
 	top: 135px;
-	left: 15px;
+	left: 10px;
 	display: block;
 }
 
 .playbar_name{
 	position: absolute;
-	top: 128px;
-	left: 32px;
+	top: 133px;
+	left: 42px;
 	color: #000;
 	display: block;
 	font-weight: bold;
@@ -376,7 +375,7 @@ main{
     height: 100%;
     position: absolute;
     top: 176px;
-    left: 15px;
+    left: 12px;
     color:gray;
 	font-family: "Courier";
 	font-size: 10px;
@@ -453,7 +452,7 @@ img.scontrol{
 	height: 25px;
 }
 
-img.pb_play{
+/*img.pb_play{
 	width: 20px;
 	height: 20px;
 }
@@ -467,8 +466,8 @@ img.pause{
 	padding-bottom: 10px;
 	margin: 0;
 	opacity: 1;
-    filter: alpha(opacity=100); /* For IE8 and earlier */
-}
+    filter: alpha(opacity=100); /* For IE8 and earlier 
+}*/
 
 .nav-bar{
 	display: block;
