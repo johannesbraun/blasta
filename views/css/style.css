@@ -389,9 +389,12 @@ main{
 
 .profile_frame{
 	color: gray;
+	position: absolute;
 	/*padding: 10px;*/
 	font-family: "Courier";
 	font-size: 10px;
+	top: 180px;
+	left: 25px;
 }
 
 
@@ -539,6 +542,10 @@ li > .image{
   text-shadow: none;
 }
 
+.preview_img{
+  padding-top: 5px;
+}
+
 .resname{
   display: inline-block;
   padding-left: 10px;
@@ -553,6 +560,22 @@ li > .image{
   font-size: 10px;
   text-shadow: none;
 }
+
+.rad
+{
+ border-bottom: 1px #CCC solid;
+ overflow: hidden; 
+ width: 600px;
+ height: 30px;
+ vertical-align: top;
+ /*text-overflow: ellipsis;*/
+ white-space: nowrap;
+ font-size: 14px;
+ /*padding: 0px; */
+ padding-bottom: 10px;
+ text-decoration: none;
+}
+
 
 p{
 	color: #FF6600;

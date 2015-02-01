@@ -201,6 +201,48 @@
 		<script>$("#pb_pause").hide();</script>
         <script>$("#play-bar-frame").hide();</script>
 
+        <div class="profile_frame" id ="profile_frame">
+				<div class="h2" id="current_heading"><u>Current:</u></div>
+					<div class="h3" id="current_track_heading">Track:</div>
+						<div class="profile_element" id="current_track">
+							<ul id="playing_track">
+							</ul>
+						</div>
+					<div class="h3" id="current_radio_heading">Radio:</div>
+						<div class="profile_element" id="current_radio">
+							<ul id="playing_radio">
+							</ul>
+						</div>
+				<div class="h2" id="profile_heading"><u>Profile:</u></div>
+						<div class="h3" id="loves_heading">Loves:</div>
+						<div class="profile_element" id="loves">
+							<ul id="saved_likes">
+							</ul>
+						</div>
+						<div class="h3" id="hates_heading">Hates:</div>
+						<div class="profile_element" id="hates">
+							<ul id="saved_hates">
+							</ul>
+						</div>
+				<div class="h2" id="history_heading"><u>History:</u></div>
+					<div class="h3" id="previous_radios_heading">Previous radios:</div>
+						<div class="profile_element" id="radio_history">
+							<ul id="saved_radios">
+							</ul>
+						</div>
+						<div class="h3" id="search_history_heading">Search history:</div>
+						<div class="profile_element" id="search_history"></div>
+						<ul id="saved_searches">
+						</ul>
+						<div class="h3" id="track_history_heading">Track history:</div>
+						<div class="profile_element" id="track_history">
+						<ul id="recent_tracks">
+						</ul>
+					</div>
+		</div><!--end profile-->
+
+		<script>$("#profile_frame").hide();</script>
+
 		<div data-role="footer" data-position="fixed" data-tap-toggle="false">
 		<!--<div data-role="footer" class="nav-bar" data-position="fixed" data-tap-toggle="false">
             <!--<div data-role="navbar" class="nav-bar" id="nav-bar"> 
@@ -221,28 +263,6 @@
         </div>  <!--end footer-->
 
 
-
-		<div class="profile_frame" id ="profile_frame">
-			<div class="h2" id="history_heading"><u>History:</u> <a href="javascript:clearHistory()">[clear all]</a></div>
-					<div class="h3" id="track_history_heading">Track history:</div>
-						<div class="profile_element" id="track_history"></div>
-					<div class="h3" id="search_history_heading">Search history:</div>
-						<div class="profile_element" id="search_history"></div>
-					<div class="h3" id="previous_radios_heading">Previous radios:</div>
-						<div class="profile_element" id="radio_history"></div>
-			<div class="h2" id="profile_heading"><u>Profile:</u></div>
-					<div class="h3" id="loves_heading">Loves:</div>
-						<div class="profile_element" id="loves"></div>
-					<div class="h3" id="hates_heading">Hates:</div>
-						<div class="profile_element" id="hates"></div>
-			<div class="h2" id="current_heading"><u>Current:</u></div>
-					<div class="h3" id="current_track_heading">Track:</div>
-						<div class="profile_element" id="current_track"></div>
-					<div class="h3" id="current_radio_heading">Radio:</div>
-						<div class="profile_element" id="current_radio"></div>
-			</div>
-			<script>$("#profile_frame").hide();</script>
-		</div><!--end profiel-->
 		
 		
 		<div class="whitebox" id="whitebox">
