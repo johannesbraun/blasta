@@ -111,7 +111,6 @@
                 //console.log("We posted and the server responded!"); 
                     var data = response;
                     var art = data.artwork_url;
-                    
                     var title = data.title;
 
                     var dashpos = title.indexOf('-');
@@ -202,6 +201,12 @@
                         loadImage("artwork","div",art_large, "", a_width, a_height);
                     }
 
+                    console.log('playing: '+ username +" : " +title + " (" + data.id +"): "+ data.permalink_url);
+                    var tmp = '<li id="rad" class="rad" ><a href="#"><img class="preview_img" src="'+art+'" width="30" alt=""><span class="resname">'+username+'<br><span class="restitle">'+title+'</span></span></a></li>';
+                    $("#playing_track").empty();     
+                    $("#playing_track").append(tmp);      
+                    $("#recent_tracks").append(tmp);         
+            
                     
                     $("#gray_radiobutton").hide();
                     $("#black_radiobutton").show(); 
@@ -219,6 +224,13 @@
                     
                     $('#username').on('click', function(event){
                         $("#search_input").val(username);
+                        $("#search_input").trigger("submit");
+                    });
+
+                    $('#recent_search').on('click', function(event){
+                        var rq = event.toElement.innerText;
+                        //console.log(rq)
+                        $("#search_input").val(rq);
                         $("#search_input").trigger("submit");
                     });
 
@@ -276,6 +288,8 @@
             line.set(0);
             lineProgress=0;
         };
+
+
 
         this.setPos = function(ff, pos) { //TODO: still relies on localStorage
             //milliseconds 1000ms = 1sec
@@ -365,8 +379,10 @@
 
 
     $(document).ready (function(){
-        var songs = [{"title":"Digitalism - Zdarlight - Chopstick & Johnjon remix","song_url":"Digitalism - Zdarlight - Chopstick & Johnjon remix","soundcloud_id":"71567061"},{"title":"A New Error","song_url":"https://soundcloud.com/apparat/a-new-error?in=apparat/sets/moderat-moderat","soundcloud_id":"24510445"},{"title":"Sad Trombone2","song_url":"https://soundcloud.com/sheckylovejoy/sad-trombone","soundcloud_id":"18321000"},{"title":"AraabMUZIK - \"Beauty\"","song_url":"https://soundcloud.com/selftitledmag/araabmuzik-beauty","soundcloud_id":"79408289"}]
-        
+        var songs = [{"user": "", "title":"Digitalism - Zdarlight - Chopstick & Johnjon remix","song_url":"Digitalism - Zdarlight - Chopstick & Johnjon remix","soundcloud_id":"71567061"},{"user": "","title":"A New Error","song_url":"https://soundcloud.com/apparat/a-new-error?in=apparat/sets/moderat-moderat","soundcloud_id":"24510445"},{"user": "","title":"Kalkbrenner - Sky and High","song_url":"http://soundcloud.com/linamescobarr/15-digitalism-blitz","soundcloud_id":"38843238"},{"user": "","title":"Digitalism Blitz","song_url":"http://soundcloud.com/paulkalkbrenner/paul-kalkbrenner-sky-and","soundcloud_id":"37032471"},{"user": "","title":"Sad Trombone","song_url":"https://soundcloud.com/sheckylovejoy/sad-trombone","soundcloud_id":"18321000"}];
+        console.log(songs);
+        //songs will actually be a full track object coming from the server
+
         var rotation = new Rotation(songs);
         var searchResults = "";
         var radio =false;
@@ -479,6 +495,9 @@
             console.log("startRadio("+t.title+")");
             //$("#current_radio_name").html('<a class="radio_click" id="radio_click" href="#">Radio based on: ' +t.title+'</a>');
             $("#current_radio_name").html('Radio based on: ' +t.title);
+            $("#playing_radio").empty();
+            $("#playing_radio").append($("#playing_track").html()); 
+            $("#saved_radios").append($("#playing_track").html());     
             $("#radio_section").show();
             $("#gray_radiobutton").show();
             $("#black_radiobutton").hide();
@@ -492,12 +511,14 @@
             $("#gray_radiobutton").hide();
             radio=false;
             $("#search_bar").show();
+            $("#playing_radio").empty();
         });
 
         $('#current_radio_name').on('click', function(event){
             $("#radio_section").hide();
             $("#black_radiobutton").show();
             $("#gray_radiobutton").hide();
+            $("#radio_playing").empty();
             radio=false;
             $("#search_bar").show();
         });
@@ -509,6 +530,7 @@
             $('#like').hide();
             $('#disliked').hide();
             $('#dislike').show();
+            $("#saved_likes").append($("#playing_track").html());  
             // TODO: adjust radio
         });
 
@@ -525,6 +547,7 @@
             $('#like').show();
             $('#liked').hide();
             console.log("hate it");
+            $("#saved_hates").append($("#playing_track").html());
             // TODO: adjust radio
         });
 
@@ -546,9 +569,10 @@
             $("#music_section").show();
             $("#search_frame").hide();
             $("#play-bar-frame").hide();
+            $("#profile_frame").hide();
             if(radio){
-                $("#radio_section").show();
                 $("#search_bar").hide();
+                $("#radio_section").show();
             }
         });
 
@@ -561,6 +585,7 @@
             $("#play-bar-frame").show();
             $("#radio_section").hide();
             $("#search_bar").show();
+            $("#profile_frame").show();
         });
 
         $('#nav_search').on('click', function(event){
@@ -572,13 +597,16 @@
             $("#play-bar-frame").show();
             $("#radio_section").hide();
             $("#search_bar").show();
+            $("#profile_frame").hide();
         });
 
 
         $("#search-form").submit(function(){ // TODO: store search history
             var query = $("#search_input").val();
             console.log("Search for '"+query+'"');
+            $("#saved_searches").append('<li id="recent_search" class="recent_search" ><a href="#" class="recent_search" id="recent_search">'+query+'</a></li>');
             $("#search_results").hide();
+            $("#profile_frame").hide();
             $("#search_heading").html("<h3>Searching for '"+query+"'...</h3>");
             /*var timeInMs = Date.now();
             var search_event = JSON.stringify({time: timeInMs, q: query});
@@ -593,9 +621,10 @@
             $("#nav_radios").removeClass("active");
             $("#music_section").hide();
             $("#search_frame").show();
-            $("#search_frame").show();
             $("#play-bar-frame").show();
             $("#radio_section").hide();
+            $("#gray_radiobutton").hide();
+            $("#black_radiobutton").show();
         
             $.post("search", {"q": query}, function (response) {
                 var data=response;
@@ -679,6 +708,11 @@
                         $('.trackTitle').html(currentTrack.title); 
                         $("#gray_radiobutton").hide();
                         $("#black_radiobutton").show();
+                        console.log('hallo?')
+                        $("#search_frame").show();
+                        $("#radio_section").hide();
+                        $("#playing_radio").empty();
+                        radio=false;
                     }
                 });
             });
