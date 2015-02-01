@@ -104,7 +104,7 @@
             }}, 
             //callback: (optional) a function to be called when the sound object is ready. Passes the sound object as an argument.
             function(sound){
-                console.log("got here" + trackId);
+                //console.log("got here" + trackId);
                 currentTrack = sound;
                 $.post("getTrackInfo", {"id":trackId}, function (response) {
                 //this callback is called with the server responds 
@@ -157,7 +157,7 @@
                         ltitle = "<a href=\"#\" id=\"prefix\"> "+prefix+"</a> - "+postfix;
                     }
 
-                    console.log(w_width+","+w_height+","+a_width+","+a_width+","+l_strokeWidth)
+                    //console.log(w_width+","+w_height+","+a_width+","+a_width+","+l_strokeWidth)
 
                     $("#track_user").html("<span class=\"padded_link\"><a href=\"#\" id=\"username\">"+username+":</a></span>");
                     $("#track_title").html("<span class=\"padded_link\" >"+title+"</span>");
@@ -175,7 +175,7 @@
                         }
                     }else{
                             $("#counter2").css('width','45px')
-                            $("#counter2").css('left','395')
+                            $("#counter2").css('left','395px')
                     }
 
 
@@ -215,7 +215,7 @@
                     //if(nextSong){
                        // line.animate(1);
                     //}//
-                    console.log("got here too" + lineProgress +" " +duration +" " + line.value());
+                    //console.log("got here too" + lineProgress +" " +duration +" " + line.value());
                     
                     $('#username').on('click', function(event){
                         $("#search_input").val(username);
@@ -297,6 +297,7 @@
                     }else{
                         $("#counter").css('width','45px');
                         $("#counter").text(min+':'+sec);
+                        $("#pb_counter").text(min+':'+sec+' ');
                     }
                     if(this.bytesLoaded===this.bytesTotal){
                         //line.stop();
@@ -332,6 +333,7 @@
 
         this.previousTrack = function () {
             var currentIndex = tracks.indexOf(currentTrack);
+            console.log('currentIndex:'+currentIndex);
             var nextTrackIndex =0;
             if(currentIndex>0){
                 nextTrackIndex = currentIndex - 1; 
@@ -475,7 +477,8 @@
         $('#black_radiobutton').on('click', function(event){
             var t = rotation.currentTrack();
             console.log("startRadio("+t.title+")");
-            $("#current_radio_name").html("Radio based on: " +t.title);
+            //$("#current_radio_name").html('<a class="radio_click" id="radio_click" href="#">Radio based on: ' +t.title+'</a>');
+            $("#current_radio_name").html('Radio based on: ' +t.title);
             $("#radio_section").show();
             $("#gray_radiobutton").show();
             $("#black_radiobutton").hide();
@@ -484,6 +487,14 @@
         });
 
         $('#gray_radiobutton').on('click', function(event){
+            $("#radio_section").hide();
+            $("#black_radiobutton").show();
+            $("#gray_radiobutton").hide();
+            radio=false;
+            $("#search_bar").show();
+        });
+
+        $('#current_radio_name').on('click', function(event){
             $("#radio_section").hide();
             $("#black_radiobutton").show();
             $("#gray_radiobutton").hide();
@@ -649,6 +660,15 @@
                         playing=true;
                         console.log(event);
                         var pos = parseInt(event.currentTarget.id);
+                        $('.res:nth-of-type(odd)').css({'background-color' : 'white'});
+                        $('.res:nth-of-type(even)').css({'background-color' : 'white'});
+                        $('.res:nth-of-type('+(pos+1)+')').css({'background-color' : '#E9E9E9'});
+                        /*$('li:nth-child(even)').css({'background-color' : 'white'});
+                        $('li:nth-child(odd)').css({'background-color' : 'white'});
+                        $('li:nth-child('+(pos+1)+')').css({'background-color' : '#E9E9E9'});
+                        $('li:nth-child('+(pos+1)+')').css({'color' : 'red'});
+                        */
+
                         console.log(event.currentTarget);
                         currentPlayingTrack.stop();
                         rotation = new Rotation(results);
