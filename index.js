@@ -74,6 +74,20 @@ app.post("/getTrackInfo", function (req, res) {
         }
       })
 });
+
+
+app.post("/getRecos", function (req, res) {
+      track_id = req.body.id;
+      var url = "https://guarded-crag-2399.herokuapp.com/recot/"+track_id;
+      console.log("getRecos: " + url);
+        
+      request(url, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+          var info = JSON.parse(body)
+          res.send(info);
+        }
+      })
+});
 //app.listen(3000);
 //console.log("The server is now running on port 3000.");
 

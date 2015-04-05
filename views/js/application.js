@@ -406,6 +406,7 @@
         var songs = [{"user": "", "title":"Four Tet - Lion (Jamie xx remix)","song_url":"Four Tet - Lion (Jamie xx remix)","soundcloud_id":"65161040"},{"user": "", "title":"Digitalism - Zdarlight - Chopstick & Johnjon remix","song_url":"Digitalism - Zdarlight - Chopstick & Johnjon remix","soundcloud_id":"71567061"},{"user": "","title":"A New Error","song_url":"https://soundcloud.com/apparat/a-new-error?in=apparat/sets/moderat-moderat","soundcloud_id":"24510445"},{"user": "","title":"DIGITALISM MAY 2013 US TOUR MIXTAPE","song_url":"http://soundcloud.com/digitalism_official/digitalism-may-mix","soundcloud_id":"90603702"},{"user": "","title":"Paul Kalkbrenner - Sky And Sand (Feat. Fritz Kalkbrenner)","song_url":"http://soundcloud.com/paulkalkbrenner/paul-kalkbrenner-sky-and","soundcloud_id":"37032471"},{"user": "","title":"Sad Trombone","song_url":"https://soundcloud.com/sheckylovejoy/sad-trombone","soundcloud_id":"18321000"}];
         console.log(songs);
         //songs will actually be a full track object coming from the server
+        
 
         var rotation = new Rotation(songs);
         var searchResults = "";
@@ -531,6 +532,29 @@
             $("#black_radiobutton").hide();
             radio=true;
             $("#search_bar").hide();
+
+            $.post("getRecos", {"id": t.soundcloud_id}, function (response) {
+                var data=response;
+                console.log(data);
+                var l = data.length;
+                var results = [];
+                
+                var i=0;
+                for (i=0; i<l; i++) {
+                   var track_id = data[i].id;
+                   user_name = data[i].username;
+                   title = data[i].title;
+                   song_url = ""
+                   results.push({"title": user_name+" - "+title,"song_url": song_url,"soundcloud_id":track_id});
+                }
+                
+                currentPlayingTrack.stop();
+                rotation = new Rotation(results);
+                currentTrack = rotation.currentTrack();
+                currentPlayingTrack = new Track(currentTrack.soundcloud_id, rotation, true);
+                currentPlayingTrack.play();
+            
+            });
         });
 
         $('#gray_radiobutton').on('click', function(event){
