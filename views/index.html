@@ -8,8 +8,10 @@
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-status-bar-style" content="white">
 	<link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+
 	
 	<!--custom css:-->
+
 	<link rel="shortcut icon" href="img/ghettoblaster-128">
 	<link href="css/style.css" rel="stylesheet" type="text/css" media="screen and (min-width:601px)" >
 	<!--<link href="css/mobile_horizontal.css" rel="stylesheet" type="text/css" media="only screen and (min-width: 481px) and (max-width: 600px)" >-->
@@ -29,13 +31,27 @@
 	<!--functionality-->
 	<script type="text/javascript" src="js/progressbar.js"></script>
 	<script type="text/javascript" src="js/application.js"></script>
+	<script src="http://d3js.org/d3.v3.min.js"></script>
+
+	<!--calendar-->
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+
+
 </head>
 <body>
+<div align="center">
+	<a href="#" class="profile_toggle" id="profile_toggle"><img class="profile_pic" src="img/icons/black_profile.png" width="25" alt="Profile"></a>
+	<div><a href="#" class="reset" id="reset"><img class="reset" src="img/icons/reset2.png" width="25" alt="reset"></a></div> 
+	<script>
+		$("#reset").hide();
+	</script>
 	<header> 
-		<div>
+		<div class="header_section" id="header_section">
 			<!--<img class="icon" src="img/gogb.gif" width="60" alt="Blasta.me icon">-->
 			<a href="" id="logo"><img class="logo" src="img/black_logo.gif" width="200" alt="Blasta.me Logo"></a>
-			<!--<a href="" class="profile_toggle"><img class="profile_pic" src="img/icons/black_profile.png" width="40" alt="Profile"></a>-->
 			<img class="sc" src="img/powered_by_sc.png" width="50" alt="powered by soundcoud">
 		</div>
 	</header>
@@ -43,18 +59,26 @@
 	
 
 	<main>
-	<div id="search_bar">
-		<form id="search-form">
-			<input type="search" id="search_input" placeholder="Song or Artist" style = "font-family: Courier;");>
+
+	<div class="calendar_section" id="calendar_section">
+		<!--<div id="date_heading" class="date_heading"><img class="pcontrol" src="img/icons/calendar2.png" width="25" alt="cal"></a></div>-->
+		<form id="date-form">
+			<input type="text" id="datepicker" placeholder="04/29/2015" style = "font-family: Courier;">
 		</form>
 	</div>
-		<div id="radio_section">
-			<div class="speaker" id="speaker">
+
+	<div id="search_bar">
+		<form id="search-form">
+			<input type="search" id="search_input" placeholder="Song or Artist" results="5"  style = "font-family: Courier;");>
+		</form>
+	</div>
+		<div class="radio_section" id="radio_section">
+			<!--<div class="speaker" id="speaker">
 				<img src="img/blackstation.png" width="30" alt="Listening to:">
-				<!--<img class="speaker" src="img/gray_speaker.png" width="12" alt="Listening to station:">-->
-			</div>
+				<!--<img class="speaker" src="img/gray_speaker.png" width="12" alt="Listening to station:">
+			</div>-->
 			<div class="radio_name" id="current_radio_name">
-				<a class="radio_name"> Digitalism </a>
+				<a class="radio_name"></a>
 			</div>
 			<!--when click on station shoe previous stations and a x kill it
 			<div class="close_radio" id="close_radio">
@@ -89,24 +113,26 @@
 					<div class="rbox" id="rbox">
 						<span id="black_radiobutton">
 							<div id="goradio" class="goradio">
-								<a href="#" class="radio_button"><img class="radio_img" src="img/icons/ghettoblaster-512-orange.png" width="60" alt="radio"></a>
+								<a href="#" class="radio_button"><img class="radio_img" src="img/icons/radiostation.jpeg" width="30" alt="radio"></a> <!--ghettoblaster-512-orange.png, ghettoblaster-512-grey.png-->
 							</div>
 							<div id="add_radiobutton" class = "add_radiobutton">
-								<a href="#" class="addkill"><img class="addkill_img" src="img/icons/addnew.png" width="15" alt=""></a></a>
+								<!--<a href="#" class="addkill"><img class="addkill_img" src="img/icons/addnew.png" width="15" alt=""></a></a>-->
 							</div>
 						</span>	
 						<span id="gray_radiobutton">
 							<div id="endradio" class="endradio">
-								<a href="#" class="radio_button"><img class="radio_img" src="img/icons/ghettoblaster-512-grey.png" width="60" alt="radio"></a></a>
+								<a href="#" class="radio_button"><img class="radio_img" src="img/icons/radiostationo.jpg" width="30" alt="radio"></a></a>
 							</div>
-							<div id="kill_radiobutton" class = "kill_radiobutton">
+							<!--<div id="kill_radiobutton" class = "kill_radiobutton">
 								<a href="#" class="addkill"><img id="endradio" class="addkill_img" src="img/icons/kill.png" width="18" alt=""></a></a>
-							</div>
+							</div>-->
 						</span>
 					</div>
-					<div class="track_user" id="track_user">
+					<script>$("#rbox").hide();
+					</script>
+					<div class="track_user" id="track_user" align="left">
 					</div>
-					<div class="track_title" id="track_title">
+					<div class="track_title" id="track_title" align="left">
 					</div>
 					
 				</div>
@@ -149,20 +175,36 @@
 			
 			<div class="like_section" id="like_section">
 				<div id="like">
-					<a href="#" id="love"class="love"><img class="rcontrol" src="img/icons/othumbsup.png" width="40" alt="love it"></a>
+					<a href="#" id="love"class="love"><img class="rcontrol" src="img/icons/thumbs.png" width="30" alt="love it"></a>
 				</div>
 				<div id="liked">
-					<a href="#" id="unlove" class="unlove"><img class="rcontrol" src="img/icons/grthumbsup.png" width="40" alt="love it"></a>
+					<a href="#" id="unlove" class="unlove"><img class="rcontrol" src="img/icons/grthumbsup.png" width="30" alt="love it"></a>
 				</div>
 			</div>
 			<div class="hate_section" id="hate_section">
 				<div id="dislike">
-					<a href="#" id="hate" class="hate" display="inline"><img class="rcontrol" src="img/icons/othumbsdown.png" width="40" alt="hate it" ></a>
+					<a href="#" id="hate" class="hate" display="inline"><img class="rcontrol" src="img/icons/thumbs2.png" width="30" alt="hate it" ></a>
 				</div>
 				<div id="disliked">
-					<a href="#" id="unhate" class="unhate" display="inline"><img class="rcontrol" src="img/icons/grthumbsdown.png" width="40" alt="hate it" ></a>
+					<a href="#" id="unhate" class="unhate" display="inline"><img class="rcontrol" src="img/icons/grthumbsdown.png" width="30" alt="hate it" ></a>
 				</div>
 			</div>
+			<div class="echonest_section" id="echonest_section">
+				<section class="graph">
+				</section>
+				<div class="echonest_frame" id = "echonest_frame">
+					<a href="#" id="hate" class="hate" display="inline"><img class="rcontrol" src="img/echonest_symbols2.png" width="235" alt="echonest" ></a>
+				</div>
+				<!--<div class="chart">
+				  <div style="width: 40px;">4</div>
+				  <div style="width: 80px;">8</div>
+				  <div style="width: 150px;">15</div>
+				  <div style="width: 160px;">16</div>
+				  <div style="width: 230px;">23</div>
+				  <div style="width: 420px;">42</div>
+				</div>-->
+			</div>
+			
 			<script>
 				$("#liked").hide();
 				$("#disliked").hide();
@@ -181,15 +223,49 @@
 			</div>
 		</div><!--end music section-->
 
-				
 
-		<div class="search_frame" id="search_frame">
-			<div class="search_heading" id="search_heading"></div>
+		
+
+		<div class="events_frame" id="events_frame" align="left">
+			<div class="events_heading" id="events_heading"></div>
+			<div class="events_results" id="events_results">
+				<ul class="events_list" id="events-list" style="height:350px;overflow-y:scroll">
+					<!--<li id="1" class="eres" ><a href="#"><img id="res1" class="preview_img" src="../img/soundcloud5.png" width="30" alt=""><span class="resname">Tue, 14 Apr 2015<br><span class="restitle">Encore.une.Fois Feat. Moodmusic / Opena Air Chilllounge & Indoor</span></span></a></li>-->
+				</ul>
+			</div>
+		</div><!--end events frame-->
+
+
+		<div class="lineup_frame" id="lineup_frame" align="left">
+			<div class="lineup_heading" id="lineup_heading"></div>
+				<ul class="lineup_list" id="lineup-list" style="height:250px;overflow-y:scroll">
+					<!--<li id="d1" class="lres" ><a href="#"><span class="djname">Jimpster</span></a></li>
+					<li id="d2" class="lres" ><a href="#"><span class="djname">Bonobo</span></a></li>
+					<li id="d3" class="lres" ><a href="#"><span class="djname">Atari</span></a></li>-->
+				</ul>
+				
+			<div class="flyer" id="flyer">
+				<!--<a href="#" id="back" class="back"><img class="scontrol" src="http://www.residentadvisor.net//images/events/flyer/2015/5/de-0529-685342-475306-front.jpg" width="340" alt=""></a>-->
+			</div>
+		</div><!--end events frame-->
+
+		<div class="search_frame" id="search_frame" align="left"><!--style="height:800px;overflow-y:scroll"-->
+			<div class="search_heading" id="search_heading" align="left"></div>
 			<div class="search_results" id="search_results">
-				<ul id="saved-list">
+				<ul id="saved-list" align="left">
 				</ul>
 			</div>
 		</div><!--end search frame-->
+
+		<div class="reco_frame" id="reco_frame" align="left" > <!--style="height:350px;overflow-y:scroll"-->
+			<div class="search_heading" id="search_heading" align="left"></div>
+			<div class="search_results" id="search_results">
+				<ul id="reco-list" align="left">
+				</ul>
+			</div>
+		</div><!--end search frame-->
+		<script>$("#reco_frame").hide();</script>
+
         
 		<div id="play-bar-frame">
 			<div class="playbar_icon" id="playbar_icon">
@@ -204,8 +280,9 @@
 		<script>$("#pb_pause").hide();</script>
         <script>$("#play-bar-frame").hide();</script>
 
-        <div class="profile_frame" id ="profile_frame">
-				<div class="h2" id="current_heading"><u>Current:</u></div>
+        
+        <div class="profile_frame" id ="profile_frame" align="left">
+				<div class="h2" id="current_heading"><u>Playing:</u></div>
 					<div class="h3" id="current_track_heading">Track:</div>
 						<div class="profile_element" id="current_track">
 							<ul id="playing_track">
@@ -216,7 +293,7 @@
 							<ul id="playing_radio">
 							</ul>
 						</div>
-				<div class="h2" id="profile_heading"><u>Profile:</u></div>
+				<div class="h2" id="profile_heading"><u>Preferences:</u></div>
 						<div class="h3" id="loves_heading">Loves:</div>
 						<div class="profile_element" id="loves">
 							<ul id="saved_likes">
@@ -227,7 +304,7 @@
 							<ul id="saved_hates">
 							</ul>
 						</div>
-				<div class="h2" id="history_heading"><u>History:</u></div>
+				<div class="h2" id="history_heading">History:</div>
 					<div class="h3" id="previous_radios_heading">Previous radios:</div>
 						<div class="profile_element" id="radio_history">
 							<ul id="saved_radios">
@@ -243,7 +320,6 @@
 						</ul>
 					</div>
 		</div><!--end profile-->
-
 		<script>$("#profile_frame").hide();</script>
 
 		<div data-role="footer" data-position="fixed" data-tap-toggle="false">
@@ -256,18 +332,19 @@
             	</ul> 
             </div> 
         	-->
-            <div class="manual-nav-bar" id="manual-nav-bar"> 
+            <!--<div class="manual-nav-bar" id="manual-nav-bar"> 
             	<ul> 
                 <li id="nav_home"><a href="#"><img src="../img/icons/home.png" width="42"></a></li> 
                 <li id="nav_search"><a href="#"><img src="../img/icons/search_cloud.png" width="50"></a></li> 
                 <li id="nav_radios"><a href="#"><img src="../img/icons/black_profile1.png" width="42"></a></li> 
             	</ul> 
-            </div> 
+            </div>--> 
         </div>  <!--end footer-->
 
 
 		
 
 	</main>
+</div>
 </body>
 </html>

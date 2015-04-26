@@ -6,8 +6,21 @@
 }
 
 header{
-	width: 610px;
+	width: 1000px;
 	padding-left: 0px;
+}
+
+.h3{
+	font-size: 12px;
+	font-family: "Courier";
+	display: block;
+}
+
+.h2{
+	font-size: 12px;
+	font-family: "Courier";
+	display: block;
+	text-decoration: underline;
 }
 
 
@@ -17,21 +30,240 @@ hr {
 	background-color: #FF6600;
 }
 
+
+main{
+	width: 1000px;
+	padding-left: 0px;
+}
+
+
+
+img.logo{
+	float: left;
+	padding-left: -10px;
+	padding-top: 20px;
+	margin: 0;
+	width: 230px;
+}
+
+img.sc{
+	/*float: right;*/
+	position: relative;
+	width: 80px;
+	top: 30px;
+	margin: 0;
+	left: 270px;
+}
+
+
+.radio_section{
+	position: absolute;
+	top: 90px;
+	float: left;
+	height: 30px;
+}
+
+.radio_name{
+	/*position: relative;*/
+	float: left;
+	/*top: 90px;
+	left: 0px;
+	/*border-bottom: 1px #CCC solid;*/
+	color: #777777;
+	/*display: block;*/
+	/*font-weight: bold;*/
+	font-size: 16px;
+	padding: 5px;
+	text-decoration: none;
+}
+
+
 .ui-input-search { 
 	padding: 5 5; 
-	width: 93%; 
+	width: 900px; 
 	padding-left: 5px;
 	height: 35px;
 	font-size: 16px;
-	position: relative;
+	position: absolute;
+	top: 80px;
 	/*background-position: 8px 50%; 
-	background-repeat: no-repeat; 
-	position: relative; */
+	background-repeat: no-repeat; */
 }
 
-.radio_section{
+.calendar_section{
 	position: relative;
-	height: 30px;
+	/*float: right;*/
+	top: 100px;
+	left: 215px;
+}
+
+
+
+.ui-input-text { 
+	padding: 5 5; 
+	width: 75px; 
+	padding-left: 5px;
+	height: 20px;
+	font-size: 10px;
+	position: relative;
+	left: 190px;
+	top: 80px;
+	font-family: "Courier";
+	/*background-position: 8px 50%; 
+	background-repeat: no-repeat; */
+}
+
+.date_heading{
+	align: left;
+	width: 80px;
+	position: relative;
+	top: 80px;
+	left: 300px;
+	font-family: "Courier";
+	font-size: 10px;
+}
+
+.ui-datepicker-div{
+	font-size: 62.5%;
+}
+
+div.ui-datepicker{
+ font-size:10px;
+}
+
+.events_frame{
+	position: relative;
+	/*float: right;*/
+	top: 150px;
+	left: 615px;
+}
+
+.events_heading{
+	align: left;
+	width: 380px;
+	position: relative;
+	top: 0px;
+	left: 0px;
+	font-family: "Courier";
+}
+
+.evname{
+  position: absolute;
+  /*display: inline-block;*/
+  padding-left: 10px;
+  padding-bottom: 0px;
+  padding-top: 10px;
+  font-size: 12px;
+  font-weight: bold;
+  text-shadow: none;
+  color: black;
+}
+
+.evtitle{
+  font-size: 10px;
+  text-shadow: none;
+  color: black;
+}
+
+.events_results{
+	width: 380px;
+	position: absolute;
+	/*left: 200px;*/
+	top: 10px;
+	color:gray;
+	font-family: "Courier";
+	font-size: 12px;
+}
+
+.events_list{
+	width: 340px;
+	position: relative;
+	left: 0px;
+	top: 10px;
+	color:gray;
+	font-family: "Courier";
+	font-size: 12px;
+	overflow: hidden; 
+}
+
+
+.eres
+{
+ border-bottom: 1px #CCC solid;
+ /*color: #000;
+ /*display: block;
+ font-weight: bold;*/
+ overflow: hidden; 
+ width: 340px;
+ height: 50px;
+ vertical-align: top;
+ /*text-overflow: ellipsis;*/
+ white-space: nowrap;
+ font-size: 14px;
+ /*padding: 0px; */
+ padding-bottom: 10px;
+ text-decoration: none;
+}
+
+
+.lineup_frame{
+	position: relative;
+	/*float: right;*/
+	top: 560px;
+	left: 615px;
+}
+
+.lineup_list{
+	position: absolute;
+	left: px;
+	/*text-align: left;*/
+	z-index: 2;
+	font-style: normal;
+	text-shadow: none;
+}
+
+.highlight{
+	/*color: white;*/
+	background-color: white;
+	/*text-decoration: none;*/
+}
+
+
+.flyer{
+	position: absolute;
+	top: 300px;
+	z-index: 1; 
+	/*display="inline">*/
+}
+
+
+.reco_frame{
+	position: absolute;
+	top: 520px;
+}
+
+
+.search_frame{
+	position: absolute;
+	width: 600px;
+	top: 520px;
+	float: left;
+}
+
+
+.search_heading{
+	width: 600px;
+	position: absolute;
+	top: 40px;
+}
+
+.search_results{
+	width: 600px;
+	position: relative;
+	top: 0px;
+	color:gray;
+	font-family: "Courier";
+	font-size: 10px;
 }
 
 
@@ -41,18 +273,7 @@ hr {
 	left: 30px;
 }
 
-.radio_name{
-	position: absolute;
-	top: 90px;
-	left: 20px;
-	/*border-bottom: 1px #CCC solid;*/
-	color: #777777;
-	display: block;
-	font-weight: bold;
-	font-size: 16px;
-	padding: 10px;
-	text-decoration: none;
-}
+
 
 .close_radio{
 	position: absolute;
@@ -67,15 +288,15 @@ hr {
 
 .playbar_icon{
 	position: absolute;
-	top: 140px;
-	left: 25px;
+	top: 120px;
+	left: 200px;
 	display: block;
 }
 
 .playbar_name{
 	position: absolute;
-	top: 135px;
-	left: 60px;
+	top: 115px;
+	left: 240px;
 	color: #000;
 	display: block;
 	font-weight: bold;
@@ -83,7 +304,6 @@ hr {
 	padding: 10px;
 	text-decoration: none;
 }
-
 
 body{
 	color: gray;
@@ -94,10 +314,7 @@ body{
 	font-color: gray;
 }
 
-main{
-	width: 600px;
-	padding-left: 0px;
-}
+
 
 .whitebox{
 	position: absolute;
@@ -117,7 +334,6 @@ main{
 }
 
 
-
 .mbox{
 	/*background: #EFEFEF;*/
 	position: relative;
@@ -130,24 +346,7 @@ main{
 	left: 55px;
 }
 
-.rbox{
-	position: absolute;
-	top: 175px;
-	left: 450px;
-	float: right;
-}
 
-.add_radiobutton{
-	position: absolute;
-	top:  2px;
-	left: 32px;
-}
-
-.kill_radiobutton{
-	position: absolute;
-	top:  0px;
-	left: 30px;
-}
 
 
 .music_frame{
@@ -181,7 +380,7 @@ main{
 	height: 30px;
 	font-family: "Courier";
 	font-size: 16px;
-	top: 100px;
+	top: 300px;
 	left: 320px;
 	position: absolute;
 }
@@ -193,7 +392,7 @@ main{
 	height: 30px;
 	font-family: "Courier";
 	font-size: 16px;
-	top: 80px;
+	top: 280px;
 	left: 320px;
 	position: absolute;
 }
@@ -341,16 +540,66 @@ main{
 }
 
 
+
+.graph {
+	position: absolute;
+	top: 42px;
+	left: 13px;
+	display: table;
+	margin: 0 auto;
+	margin-top: 0px;
+	z-index: 2;
+
+}
+
+rect:hover{
+    opacity: 0.4;
+}
+
+
+.echonest_section{
+	position: relative;
+	top: 100px;
+	left: 310px;
+}
+
+.echonest_frame{
+	position: absolute;
+	top: 0px;
+	left: 7px;
+	z-index: 1;
+}
+
 .like_section{
 	position: absolute;
-	top: 170px;
-	left: 320px;
+	top: 220px;
+	left: 340px;
 }
 
 .hate_section{
 	position: absolute;
-	top: 180px;
-	left: 385px;
+	top: 225px;
+	left: 395px;
+}
+
+
+.rbox{
+	position: absolute;
+	top: 228px;
+	left: 450px;
+	float: right;
+}
+
+.add_radiobutton{
+	position: absolute;
+	top:  2px;
+	left: 32px;
+}
+
+.kill_radiobutton{
+	position: absolute;
+	top:  0px;
+	left: 30px;
 }
 
 .back_section{
@@ -365,42 +614,31 @@ main{
 	left: 115px;
 }
 
-.search_frame{
-	position: absolute;
-	top: 180px;
-	left: 25px;
+.reset{
+	position: relative;
+	top: 3px;
 }
 
-.search_heading{
-	width: 600px;
-	position: absolute;
-	top: 0px;
-	left: 10px;
-}
 
-.search_results{
-	width: 600px;
-	position: absolute;
-	top: 0px;
-	color:gray;
-	font-family: "Courier";
-	font-size: 10px;
-}
+
+
+
 
 .profile_frame{
 	color: gray;
 	position: absolute;
 	/*padding: 10px;*/
 	font-family: "Courier";
-	font-size: 10px;
+	font-size: 12px;
 	top: 180px;
-	left: 25px;
+	left: 200px;
+	width: 600px;
 }
 
 
 img.radio_img{
-	height: 40px;
-	width: 40px;
+	height: 30px;
+	width: 30px;
 }
 
 img.icon{
@@ -410,25 +648,13 @@ img.icon{
 	margin: 0;
 }
 
-img.logo{
-	/*float: left;*/
-	padding-left: -10px;
-	padding-top: 20px;
-	margin: 0;
-	width: 230px;
-}
 
-img.sc{
-	position: absolute;
-	width: 80px;
-	top: 40px;
-	margin: 0;
-	left: 260px;
-}
 
 img.profile_pic{
 	float: right;
-	width: 40px;
+	position: relative;
+	width: 25px;
+	right: 20px;
 	padding-top: 5px;
 	margin: 0;
 	padding-right: 20px;
@@ -508,6 +734,8 @@ h1{
 	margin: 0;
 }
 
+
+
 ul {
  list-style: none;
  padding-left:0;
@@ -546,6 +774,11 @@ li > .image{
   padding-top: 5px;
 }
 
+.epreview_img{
+  padding-top: 10px;
+  vertical-align: middle;
+}
+
 .resname{
   display: inline-block;
   padding-left: 10px;
@@ -554,11 +787,13 @@ li > .image{
   font-size: 12px;
   font-weight: bold;
   text-shadow: none;
+  color: black;
 }
 
 .restitle{
   font-size: 10px;
   text-shadow: none;
+  color: black;
 }
 
 .rad
@@ -587,4 +822,5 @@ iframe.hidden
 {
 	display:none;
 }
+
 
