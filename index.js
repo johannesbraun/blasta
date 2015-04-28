@@ -30,6 +30,10 @@ app.get("/callback", function (req, res) {
    res.render("callback.html");
 });
 
+app.get("/ip", function (req, res) { 
+   res.render("ipgetter.html");
+});
+
 
 app.get("/player", function (req, res) { 
    res.render("player.html");
@@ -71,7 +75,7 @@ app.post("/search", function (req, res) {
 });
 
 app.post("/getTrackInfo", function (req, res) {
-      track_id = req.body.id;
+      track_id = req.body.tid;
       var url = "https://api.soundcloud.com/tracks/"+track_id+".json?client_id="+credentials.client_id;
       console.log("getInfo: " + url);
         
@@ -84,14 +88,15 @@ app.post("/getTrackInfo", function (req, res) {
 });
 
 
-app.post("/getRecos", function (req, res) {
-      track_id = req.body.id;
-      var url = "https://guarded-crag-2399.herokuapp.com/recot/"+track_id;
-      console.log("getRecos: " + url);
+app.post("/getEchoRecos", function (req, res) {
+      track_id = req.body.tid;
+      var url = "https://guarded-crag-2399.herokuapp.com/reco/"+track_id;
+      console.log("getEchoRecos: " + url);
         
       request(url, function (error, response, body) {
         if (!error && response.statusCode == 200) {
           var info = JSON.parse(body)
+          console.log(info);
           res.send(info);
         }
       })
@@ -99,7 +104,7 @@ app.post("/getRecos", function (req, res) {
 
 
 app.post("/getRecentRadios", function (req, res) {
-      user_id = req.body.id;
+      user_id = req.body.userid;
 
       var connection = mysql.createConnection({
         host     : 'blastafast.c7dfxf4q39rn.us-east-1.rds.amazonaws.com',
@@ -116,7 +121,7 @@ app.post("/getRecentRadios", function (req, res) {
                   on u.tid = t.tid \
                   where u.userid = " + user_id + "\
                   and last_startsradio_timestamp > coalesce(last_stopsradio_timestamp,0) \
-                  and NOW()-last_startsradio_timestamp < 300 \
+                  # and NOW()-last_played_timestamp < 300 \
                   order by last_startsradio_timestamp desc \
                   limit 1"
 
@@ -142,7 +147,7 @@ app.post("/getRecentRadios", function (req, res) {
 });
 
 app.post("/recenttracks", function (req, res) {
-      user_id = req.body.user;
+      user_id = req.body.userid;
 
       var connection = mysql.createConnection({
         host     : 'blastafast.c7dfxf4q39rn.us-east-1.rds.amazonaws.com',
@@ -161,6 +166,9 @@ app.post("/recenttracks", function (req, res) {
                   order by last_played_timestamp desc"
 
       console.log(stmt);
+      console.log(" ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+      console.log(" ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+ 
 
       connection.query(stmt, function(err, rows, fields) {
         if (!err){
@@ -182,7 +190,7 @@ app.post("/recenttracks", function (req, res) {
 });
 
 app.post("/recentradios", function (req, res) {
-      user_id = req.body.user;
+      user_id = req.body.userid;
 
       var connection = mysql.createConnection({
         host     : 'blastafast.c7dfxf4q39rn.us-east-1.rds.amazonaws.com',
@@ -202,8 +210,10 @@ app.post("/recentradios", function (req, res) {
                   order by last_startsradio_timestamp desc"
 
       console.log(stmt);
-
-      connection.query(stmt, function(err, rows, fields) {
+      console.log(" ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+      console.log(" ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+ 
+       connection.query(stmt, function(err, rows, fields) {
         if (!err){
           //console.log('mysql returns: ', rows);
 
@@ -223,7 +233,7 @@ app.post("/recentradios", function (req, res) {
 });
 
 app.post("/preferences", function (req, res) {
-      user_id = req.body.user;
+      user_id = req.body.userid;
 
       var connection = mysql.createConnection({
         host     : 'blastafast.c7dfxf4q39rn.us-east-1.rds.amazonaws.com',
@@ -243,6 +253,9 @@ app.post("/preferences", function (req, res) {
                   order by last_played_timestamp desc"
 
       console.log(stmt);
+      console.log(" ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+      console.log(" ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+ 
 
       connection.query(stmt, function(err, rows, fields) {
         if (!err){
@@ -264,7 +277,7 @@ app.post("/preferences", function (req, res) {
 });
 
 app.post("/radiocheck", function (req, res) {
-      track_id = req.body.id;
+      var track_id = req.body.tid;
 
       var connection = mysql.createConnection({
         host     : 'blastafast.c7dfxf4q39rn.us-east-1.rds.amazonaws.com',
@@ -278,6 +291,9 @@ app.post("/radiocheck", function (req, res) {
       var stmt = "select count(*) as available from cached_recos_fast where tid1 = "+track_id
 
       console.log(stmt);
+      console.log(" ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+      console.log(" ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+ 
 
       connection.query(stmt, function(err, rows, fields) {
         if (!err){
@@ -301,7 +317,7 @@ app.post("/radiocheck", function (req, res) {
 
 
 app.post("/getRadio", function (req, res) {
-      user_id = req.body.id;
+      user_id = req.body.userid;
 
       var connection = mysql.createConnection({
         host     : 'blastafast.c7dfxf4q39rn.us-east-1.rds.amazonaws.com',
@@ -312,9 +328,12 @@ app.post("/getRadio", function (req, res) {
 
       connection.connect();
 
-      var stmt = "select t.tid, t.userid, case when artwork_url is not null then artwork_url else avatar_url end as artwork_url ,\
-              t.permalink, t.title, t.username  \
+      var stmt = "select seedtid, t.tid, t.userid, case when artwork_url is not null then artwork_url else avatar_url end as artwork_url, \
+              t.permalink, t.title, t.username, last_startsradio_timestamp  \
               from radio_stations l \
+              inner join user_sessions u\
+              on u.userid = l.userid\
+              and u.tid =l.seedtid \
               inner join dj_unique_tracks_v3 t \
               on l.tid = t.tid \
               inner join dj_artwork a \
@@ -322,12 +341,16 @@ app.post("/getRadio", function (req, res) {
               and a.streamable = 1 \
               where l.userid = "+user_id+" \
               and coalesce(NOW()-played_timestamp,1000)>=1000 \
-              order by l.score desc limit 50"
+              and last_startsradio_timestamp > coalesce(last_stopsradio_timestamp,0)\
+              group by 1,2,3,4,5,6,7,8 \
+              order by last_startsradio_timestamp desc,  l.score desc limit 50" 
 
 
 
       console.log(stmt);
-
+      console.log(" ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+      console.log(" ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+ 
       connection.query(stmt, function(err, rows, fields) {
         if (!err){
           //console.log('mysql returns: ', rows);
@@ -348,7 +371,8 @@ app.post("/getRadio", function (req, res) {
 });
 
 app.post("/getRecos2", function (req, res) {
-      track_id = req.body.id;
+      track_id = req.body.tid;
+      var user_id = req.body.userid;
 
       var connection = mysql.createConnection({
         host     : 'blastafast.c7dfxf4q39rn.us-east-1.rds.amazonaws.com',
@@ -360,8 +384,8 @@ app.post("/getRecos2", function (req, res) {
       connection.connect();
 
       var stmt = "select t.tid, t.userid, case when l.aid1 = l.aid2 then 'y' else 'n' end as same_artist , case when artwork_url is not null then artwork_url else avatar_url end as artwork_url\
-              ,t.permalink, t.title, t.username, weighted_intersection, intersection, aioli_score, cosine, \
-              llr, case when llr >0 then llr else aioli_score end as ranking  \
+              ,t.permalink, t.title, t.username, weighted_intersection, intersection, cosine, cosine, \
+              llr, case when llr >0 then llr else cosine end as ranking  \
               from cached_recos_fast l \
               inner join dj_unique_tracks_v3 t \
               on l.tid2 = t.tid \
@@ -370,10 +394,12 @@ app.post("/getRecos2", function (req, res) {
               and a.streamable = 1 \
               where l.tid1 = "+track_id+" \
               and l.tid1 <> l.tid2 \
-              order by aioli_score desc limit 50"
+              order by cosine desc limit 50"
 
       console.log(stmt);
-
+      console.log(" ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+      console.log(" ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+ 
       connection.query(stmt, function(err, rows, fields) {
         if (!err){
           //console.log('mysql returns: ', rows);
@@ -395,7 +421,8 @@ app.post("/getRecos2", function (req, res) {
 
 
 app.post("/getSession", function (req, res) {
-      track_id = req.body.id;
+      var track_id = req.body.tid;
+      var user_id = req.body.userid;
 
       var connection = mysql.createConnection({
         host     : 'blastafast.c7dfxf4q39rn.us-east-1.rds.amazonaws.com',
@@ -416,15 +443,15 @@ app.post("/getSession", function (req, res) {
                     dj_profiles_v3 \
                     where djID in ( \
                       select djID \
-                      from ra_event_lineup \
+                      from new_ra_event_lineup \
                       where eventid in ( \
                         select eventid from \
                             (select e.eventid, eventName, venueName, flyer, attending, extract(day from eventDate) as eday, MONTHNAME(eventDate) as emonth, eventDate-NOW() as howsoon  \
-                                    from ra_events e  \
+                                    from new_ra_events e  \
                                     where eventDate-NOW() >0  \
                                     and e.eventid in ( \
                                       select l.eventid from \
-                                      ra_event_lineup l  \
+                                      new_ra_event_lineup l  \
                                       inner join dj_profiles_v3 p  \
                                       on p.djID = l.djID  \
                                       and p.number_of_tracks >0 \
@@ -436,6 +463,9 @@ app.post("/getSession", function (req, res) {
                   )order by plays desc"
 
       console.log(stmt);
+      console.log(" ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+      console.log(" ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+ 
 
       connection.query(stmt, function(err, rows, fields) {
         if (!err){
@@ -457,7 +487,7 @@ app.post("/getSession", function (req, res) {
 });
 
 app.post("/playFirst", function (req, res) {
-      track_id = req.body.id;
+      track_id = req.body.userid;
 
       var connection = mysql.createConnection({
         host     : 'blasta.chiim1n4uxwu.eu-central-1.rds.amazonaws.com',
@@ -478,15 +508,15 @@ app.post("/playFirst", function (req, res) {
                     dj_profiles_v3 \
                     where djID in ( \
                       select djID \
-                      from ra_event_lineup \
+                      from new_ra_event_lineup \
                       where eventid in ( \
                         select eventid from \
                             (select e.eventid, eventName, venueName, flyer, attending, extract(day from eventDate) as eday, MONTHNAME(eventDate) as emonth, eventDate-NOW() as howsoon  \
-                                    from ra_events e  \
+                                    from new_ra_events e  \
                                     where eventDate-NOW() >0  \
                                     and e.eventid in ( \
                                       select l.eventid from \
-                                      ra_event_lineup l  \
+                                      new_ra_event_lineup l  \
                                       inner join dj_profiles_v3 p  \
                                       on p.djID = l.djID  \
                                       and p.number_of_tracks >0 \
@@ -498,7 +528,9 @@ app.post("/playFirst", function (req, res) {
                   )order by plays desc"
 
       console.log(stmt);
-
+      console.log(" ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+      console.log(" ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+ 
       connection.query(stmt, function(err, rows, fields) {
         if (!err){
           //console.log('mysql returns: ', rows);
@@ -520,7 +552,8 @@ app.post("/playFirst", function (req, res) {
 
 
 app.post("/storeradio", function (req, res) {
-      track_id = req.body.id;
+      var track_id = req.body.tid;
+      var user_id = req.body.userid;
 
       var connection = mysql.createConnection({
         host     : 'blastafast.c7dfxf4q39rn.us-east-1.rds.amazonaws.com',
@@ -532,12 +565,14 @@ app.post("/storeradio", function (req, res) {
       connection.connect();
 
       var stmt = "insert ignore into radio_stations \
-                  select 1 as userid, r.tid1 as seedtid, r.tid2 as tid, r.aioli_score as score, NULL as played_timestamp, NULL as last_updated_timestamp  \
+                  select "+user_id+" as userid, r.tid1 as seedtid, r.tid2 as tid, r.cosine as score, NULL as played_timestamp, NULL as last_updated_timestamp  \
                   from cached_recos_fast r \
                   where r.tid1 = "+track_id
 
       console.log(stmt);
-
+      console.log(" ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+      console.log(" ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+ 
       connection.query(stmt, function(err, rows, fields) {
         if (!err){
           //console.log('mysql returns: ', rows);
@@ -555,7 +590,8 @@ app.post("/storeradio", function (req, res) {
 
 
 app.post("/likeupdateradio", function (req, res) {
-      var track_id = req.body.id;
+      var track_id = req.body.tid;
+      var user_id = req.body.userid;
 
       var connection = mysql.createConnection({
         host     : 'blastafast.c7dfxf4q39rn.us-east-1.rds.amazonaws.com',
@@ -567,20 +603,22 @@ app.post("/likeupdateradio", function (req, res) {
       connection.connect();
 
       var stmt = "insert into radio_stations \
-                  select 1, lastradio.tid as seedid, r.tid2 as tid, r.aioli_score score, NULL as played_timestamp, NOW() as last_updated_timestamp \
+                  select "+user_id+", lastradio.tid as seedid, r.tid2 as tid, r.cosine score, NULL as played_timestamp, NOW() as last_updated_timestamp \
                   from cached_recos_fast r \
                   left join ( \
                   select tid from user_sessions \
-                  where userid =1 \
+                  where userid ="+user_id+" \
                   and last_startsradio_timestamp > coalesce(last_stopsradio_timestamp,0) \
                   order by last_startsradio_timestamp desc \
                   limit 1) lastradio \
                   on 1=1  \
                   where r.tid1 = "+track_id+" \
-                  ON DUPLICATE KEY UPDATE score=score+ r.aioli_score, last_updated_timestamp = NOW();" 
+                  ON DUPLICATE KEY UPDATE score=score+ (0.5*r.cosine), last_updated_timestamp = NOW();" 
 
       console.log(stmt);
-
+      console.log(" ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+      console.log(" ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+ 
       connection.query(stmt, function(err, rows, fields) {
         if (!err){
           //console.log('mysql returns: ', rows);
@@ -593,7 +631,8 @@ app.post("/likeupdateradio", function (req, res) {
 });
 
 app.post("/playupdateradio", function (req, res) {
-      var track_id = req.body.id;
+      var track_id = req.body.tid;
+      var user_id = req.body.userid;
 
       var connection = mysql.createConnection({
         host     : 'blastafast.c7dfxf4q39rn.us-east-1.rds.amazonaws.com',
@@ -605,17 +644,19 @@ app.post("/playupdateradio", function (req, res) {
       connection.connect();
 
       var stmt = "update radio_stations r , (select tid from user_sessions \
-                  where userid =1 \
+                  where userid ="+user_id+" \
                   and last_startsradio_timestamp > coalesce(last_stopsradio_timestamp,0) \
                   order by last_startsradio_timestamp desc \
                   limit 1) lastradio \
                   set r.played_timestamp = NOW() \
-                  where userid = 1 \
+                  where userid = "+user_id+" \
                   and r.seedtid  = lastradio.tid \
                   and r.tid = " +track_id
 
       console.log(stmt);
-
+      console.log(" ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+      console.log(" ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+ 
       connection.query(stmt, function(err, rows, fields) {
         if (!err){
           //console.log('mysql returns: ', rows);
@@ -630,7 +671,8 @@ app.post("/playupdateradio", function (req, res) {
 
 
 app.post("/hateupdateradio", function (req, res) {
-      var track_id = req.body.id;
+      var track_id = req.body.tid;
+      var user_id = req.body.userid;
 
       var connection = mysql.createConnection({
         host     : 'blastafast.c7dfxf4q39rn.us-east-1.rds.amazonaws.com',
@@ -642,20 +684,22 @@ app.post("/hateupdateradio", function (req, res) {
       connection.connect();
 
       var stmt = "insert into radio_stations \
-                  select 1, lastradio.tid as seedid, r.tid2 as tid,  r.aioli_score*-1 as score, NULL as played_timestamp, NOW() as last_updated_timestamp \
+                  select "+user_id+", lastradio.tid as seedid, r.tid2 as tid,  r.cosine*-1 as score, NULL as played_timestamp, NOW() as last_updated_timestamp \
                   from cached_recos_fast r \
                   left join ( \
                   select tid from user_sessions \
-                  where userid =1 \
+                  where userid = "+user_id+" \
                   and last_startsradio_timestamp > coalesce(last_stopsradio_timestamp,0) \
                   order by last_startsradio_timestamp desc \
                   limit 1) lastradio \
                   on 1=1  \
                   where r.tid1 = "+track_id+" \
-                  ON DUPLICATE KEY UPDATE score=score- r.aioli_score, last_updated_timestamp = NOW();" 
+                  ON DUPLICATE KEY UPDATE score=score- r.cosine, last_updated_timestamp = NOW();" 
 
       console.log(stmt);
-
+      console.log(" ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+      console.log(" ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+ 
       connection.query(stmt, function(err, rows, fields) {
         if (!err){
           //console.log('mysql returns: ', rows);
@@ -668,7 +712,7 @@ app.post("/hateupdateradio", function (req, res) {
 });
 
 app.post("/reset", function (req, res) {
-      var user_id = req.body.id;
+      var user_id = req.body.userid;
 
       var connection = mysql.createConnection({
         host     : 'blastafast.c7dfxf4q39rn.us-east-1.rds.amazonaws.com',
@@ -685,7 +729,9 @@ app.post("/reset", function (req, res) {
                   where userid ="+user_id
 
       console.log(stmt);
-
+      console.log(" ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+      console.log(" ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+ 
       connection.query(stmt, function(err, rows, fields) {
         if (!err){
           //console.log('mysql returns: ', rows);
@@ -728,22 +774,22 @@ app.post("/getEvents", function (req, res) {
       connection.connect();
 
       /*var stmt = "select e.eventid, eventName, venueName, flyer, attending, extract(day from eventDate) as eday, MONTHNAME(eventDate) as emonth, eventDate-NOW() as howsoon \
-                  from ra_events e \
+                  from new_ra_events e \
                   where eventDate-NOW() >0  \
                   and e.eventid in \
                   (select l.eventid from \
-                  ra_event_lineup l \
+                  new_ra_event_lineup l \
                   inner join dj_profiles_v3 p \
                   on p.djID = l.djID  \
                   group by 1)  \
                   order by attending desc limit 20"*/
       var stmt = " select eventid, eventName, venueName, eventDate, now, now < eventDate, flyer, attending, extract(day from eventDate) as eday, MONTHNAME(eventDate) as emonth from( \
                   select e.eventid, eventName, venueName, eventDate, "+dateString+" as now, flyer, attending, extract(day from eventDate) as eday, MONTHNAME(eventDate) as emonth \
-                  from ra_events e  \
+                  from new_ra_events e  \
                     where \
                     e.eventid in ( \
                     select l.eventid from \
-                    ra_event_lineup l  \
+                    new_ra_event_lineup l  \
                     inner join dj_profiles_v3 p  \
                     on p.djID = l.djID  \
                     and p.number_of_tracks >0 \
@@ -753,6 +799,9 @@ app.post("/getEvents", function (req, res) {
                   order by eventDate, attending desc limit 50" 
 
       console.log(stmt);
+      console.log(" ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+      console.log(" ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+ 
 
       connection.query(stmt, function(err, rows, fields) {
         if (!err){
@@ -786,15 +835,17 @@ app.post("/getLineup", function (req, res) {
       connection.connect();
 
       var stmt = "select l.djID, l.djname, p.userid, e.eventid, eventName, venueName, flyer, attending, eventDate, eventDate-NOW() as howsoon \
-                  from ra_events e \
-                  left join ra_event_lineup l \
+                  from new_ra_events e \
+                  left join new_ra_event_lineup l \
                   on e.eventID = l.eventID \
-                  inner join dj_profiles_v3 p  \
+                  left join dj_profiles_v3 p  \
                   on p.djID = l.djID \
                   where  e.eventid = "+eventid
 
       console.log(stmt);
-
+      console.log(" ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+      console.log(" ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+ 
       connection.query(stmt, function(err, rows, fields) {
         if (!err){
           //console.log('mysql returns: ', rows);
@@ -816,27 +867,37 @@ app.post("/getLineup", function (req, res) {
 
 
 app.post("/getEchonest", function (req, res) {
-      track_id = req.body.id;
+      track_id = req.body.tid;
 
       var connection = mysql.createConnection({
-        host     : 'blasta2.chiim1n4uxwu.eu-central-1.rds.amazonaws.com',
-        user     : 'blasta2',
+        host     : 'blasta.chiim1n4uxwu.eu-central-1.rds.amazonaws.com',
+        user     : 'blasta',
         password : '27051980',
-        database : 'blasta2'
+        database : 'blasta'
       });
 
       connection.connect();
 
-      var stmt = "select e.tid, case when " +track_id +" = e.tid then 1 else 0 end as have_echo, coalesce(avg(danceability),0) as danceability, coalesce(avg(energy),0) as energy, coalesce(avg(acousticness),0) as acousticness, coalesce(avg(tempo)/200,0) as tempo, coalesce(avg(instrumentalness),0) as instrumentalness, coalesce(avg(valence),0) as valence, coalesce(avg(liveness),0) as liveness, coalesce(avg(speechiness),0) as speechiness, coalesce(avg(`key`)/12,0)  as `key`\
+      /*var stmt = "select e.tid, case when " +track_id +" = e.tid then 1 else 0 end as have_echo, coalesce(avg(danceability),0) as danceability, coalesce(avg(energy),0) as energy, coalesce(avg(acousticness),0) as acousticness, coalesce(avg(tempo)/200,0) as tempo, coalesce(avg(instrumentalness),0) as instrumentalness, coalesce(avg(valence),0) as valence, coalesce(avg(liveness),0) as liveness, coalesce(avg(speechiness),0) as speechiness, coalesce(avg(`key`)/12,0)  as `key`\
                   from dj_echonest e\
                   inner join dj_unique_tracks_v3 t \
                   on e.aid = t.userid \
                   where  t.tid =" +track_id +"\
                   and e.danceability is not null \
                   group by 1,2 \
+                  order by have_echo desc limit 1"*/
+
+      var stmt = "select tid, have_echo, coalesce(avg(danceability),0) as danceability, coalesce(avg(energy),0) as energy, coalesce(avg(acousticness),0) as acousticness, coalesce(avg(tempo),0) as tempo, coalesce(avg(instrumentalness),0) as instrumentalness, coalesce(avg(valence),0) as valence, coalesce(avg(liveness),0) as liveness, coalesce(avg(speechiness),0) as speechiness, coalesce(avg(`key`),0)  as `key`\
+                  from echoproxies e\
+                  where  tid =" +track_id +"\
+                  and danceability is not null \
+                  group by 1,2 \
                   order by have_echo desc limit 1"
 
       console.log(stmt);
+      console.log(" ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+      console.log(" ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+
 
       connection.query(stmt, function(err, rows, fields) {
         if (!err){
@@ -859,7 +920,8 @@ app.post("/getEchonest", function (req, res) {
 
 
 app.post("/likes", function (req, res) {
-      var track_id = req.body.id;
+      var track_id = req.body.tid;
+      var user_id = req.body.userid;
 
       var connection = mysql.createConnection({
         host     : 'blastafast.c7dfxf4q39rn.us-east-1.rds.amazonaws.com',
@@ -870,10 +932,12 @@ app.post("/likes", function (req, res) {
 
       connection.connect();
 
-      var stmt = "insert into user_sessions values (1, 1, "+track_id+", 1, NOW(), 0, NULL, 1, NOW(), 0, NULL, 0, NULL, 0, NULL) ON DUPLICATE KEY UPDATE likes=likes+1, last_liked_timestamp = NOW()"
+      var stmt = "insert into user_sessions values ("+user_id+", 1, "+track_id+", 1, NOW(), 0, NULL, 1, NOW(), 0, NULL, 0, NULL, 0, NULL) ON DUPLICATE KEY UPDATE likes=likes+1, last_liked_timestamp = NOW()"
 
       console.log(stmt);
-
+      console.log(" ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+      console.log(" ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+ 
       connection.query(stmt, function(err, rows, fields) {
         if (!err){
           //console.log('mysql returns: ', rows);
@@ -887,8 +951,9 @@ app.post("/likes", function (req, res) {
 
 
 app.post("/plays", function (req, res) {
-      var track_id = req.body.id;
-
+      var track_id = req.body.tid;
+      var user_id = req.body.userid;
+      console.log("user "+user_id+" plays "+track_id)
       var connection = mysql.createConnection({
         host     : 'blastafast.c7dfxf4q39rn.us-east-1.rds.amazonaws.com',
         user     : 'blastafast',
@@ -898,7 +963,7 @@ app.post("/plays", function (req, res) {
 
       connection.connect();
 
-      var stmt = "insert into user_sessions values (1, 1, "+track_id+", 1, NOW(), 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL) ON DUPLICATE KEY UPDATE plays=plays+1, last_played_timestamp = NOW()"
+      var stmt = "insert into user_sessions values ("+user_id+", 1, "+track_id+", 1, NOW(), 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL) ON DUPLICATE KEY UPDATE plays=plays+1, last_played_timestamp = NOW()"
 
       console.log(stmt);
 
@@ -914,7 +979,8 @@ app.post("/plays", function (req, res) {
 });
 
 app.post("/hates", function (req, res) {
-      var track_id = req.body.id;
+      var track_id = req.body.tid;
+      var user_id = req.body.userid;
 
       var connection = mysql.createConnection({
         host     : 'blastafast.c7dfxf4q39rn.us-east-1.rds.amazonaws.com',
@@ -925,10 +991,12 @@ app.post("/hates", function (req, res) {
 
       connection.connect();
 
-      var stmt = "insert into user_sessions values (1, 1, "+track_id+", 1, NOW(), 0, NULL, 0, NULL, 1, NOW(), 0, NULL, 0, NULL) ON DUPLICATE KEY UPDATE hates=hates+1, last_hated_timestamp = NOW()"
+      var stmt = "insert into user_sessions values ("+user_id+", 1, "+track_id+", 1, NOW(), 0, NULL, 0, NULL, 1, NOW(), 0, NULL, 0, NULL) ON DUPLICATE KEY UPDATE hates=hates+1, last_hated_timestamp = NOW()"
 
       console.log(stmt);
-
+      console.log(" ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+      console.log(" ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+ 
       connection.query(stmt, function(err, rows, fields) {
         if (!err){
           //console.log('mysql returns: ', rows);
@@ -943,7 +1011,8 @@ app.post("/hates", function (req, res) {
 
 
 app.post("/skips", function (req, res) {
-      var track_id = req.body.id;
+      var track_id = req.body.tid;
+      var user_id = req.body.userid;
 
       var connection = mysql.createConnection({
         host     : 'blastafast.c7dfxf4q39rn.us-east-1.rds.amazonaws.com',
@@ -954,10 +1023,12 @@ app.post("/skips", function (req, res) {
 
       connection.connect();
 
-      var stmt = "insert into user_sessions values (1, 1, "+track_id+", 1, NOW(), 1, NOW(), 0, NULL, 0, NULL, 0, NULL, 0, NULL) ON DUPLICATE KEY UPDATE skips=skips+1, last_skip_timestamp = NOW()"
+      var stmt = "insert into user_sessions values ("+user_id+", 1, "+track_id+", 1, NOW(), 1, NOW(), 0, NULL, 0, NULL, 0, NULL, 0, NULL) ON DUPLICATE KEY UPDATE skips=skips+1, last_skip_timestamp = NOW()"
 
       console.log(stmt);
-
+      console.log(" ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+      console.log(" ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+ 
       connection.query(stmt, function(err, rows, fields) {
         if (!err){
           //console.log('mysql returns: ', rows);
@@ -971,7 +1042,8 @@ app.post("/skips", function (req, res) {
 
 
 app.post("/startsradio", function (req, res) {
-      var track_id = req.body.id;
+      var track_id = req.body.tid;
+      var user_id = req.body.userid;
 
       var connection = mysql.createConnection({
         host     : 'blastafast.c7dfxf4q39rn.us-east-1.rds.amazonaws.com',
@@ -982,10 +1054,12 @@ app.post("/startsradio", function (req, res) {
 
       connection.connect();
 
-      var stmt = "insert into user_sessions values (1, 1, "+track_id+", 1, NOW(), 0, NULL, 0, NULL, 0, NULL, 1, NOW(), 0, NULL) ON DUPLICATE KEY UPDATE startsradio=startsradio+1, last_startsradio_timestamp = NOW()"
+      var stmt = "insert into user_sessions values ("+user_id+", 1, "+track_id+", 1, NOW(), 0, NULL, 0, NULL, 0, NULL, 1, NOW(), 0, NULL) ON DUPLICATE KEY UPDATE startsradio=startsradio+1, last_startsradio_timestamp = NOW()"
 
       console.log(stmt);
-
+      console.log(" ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+      console.log(" ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+ 
       connection.query(stmt, function(err, rows, fields) {
         if (!err){
           //console.log('mysql returns: ', rows);
@@ -999,7 +1073,7 @@ app.post("/startsradio", function (req, res) {
 
 
 app.post("/stopsradio", function (req, res) {
-      var track_id = req.body.id;
+      var user_id = req.body.userid;
 
       var connection = mysql.createConnection({
         host     : 'blastafast.c7dfxf4q39rn.us-east-1.rds.amazonaws.com',
@@ -1010,16 +1084,18 @@ app.post("/stopsradio", function (req, res) {
 
       connection.connect();
 
-      var stmt = "insert into user_sessions select 1, 1, tid, 1, NOW(), 0, NULL, 0, NULL, 0, NULL, 1, NOW(), 0, NULL \
+      var stmt = "insert into user_sessions select "+user_id+", 1, tid, 1, NOW(), 0, NULL, 0, NULL, 0, NULL, 1, NOW(), 0, NULL \
                   from (select tid from user_sessions \
-                  where userid =1 \
+                  where userid = "+user_id+" \
                   and last_startsradio_timestamp > coalesce(last_stopsradio_timestamp,0) \
                   order by last_startsradio_timestamp desc \
                   limit 1) lastradio \
                   ON DUPLICATE KEY UPDATE stopsradio=stopsradio+1, last_stopsradio_timestamp = NOW()"
 
       console.log(stmt);
-
+      console.log(" ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+      console.log(" ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+ 
       connection.query(stmt, function(err, rows, fields) {
         if (!err){
           //console.log('mysql returns: ', rows);
