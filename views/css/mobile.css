@@ -24,6 +24,8 @@ hr {
 	padding: 0 0; 
 	width: 90%; 
 	top: 5px;
+	position: absolute;
+	top: 80px;
 	/*background-position: 8px 50%; 
 	background-repeat: no-repeat; 
 	position: relative; */
@@ -365,6 +367,8 @@ main{
     left: 10px;
 }
 
+
+
 .search_heading{
 	position: relative;
 	left: 5px;
@@ -408,6 +412,8 @@ img.logo{
 	padding-top: 20px;
 	margin: 0;
 	width:190px;
+	position: absolute;
+	left: 40px;
 }
 
 img.sc{
