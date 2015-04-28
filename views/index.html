@@ -326,16 +326,22 @@
 		</div><!--end profile-->
 		<script>$("#profile_frame").hide();</script>
 
-		<div data-role="footer" data-position="fixed" data-tap-toggle="false">
-		<!--<div data-role="footer" class="nav-bar" data-position="fixed" data-tap-toggle="false">
-            <!--<div data-role="navbar" class="nav-bar" id="nav-bar"> 
+		
+		<div data-role="footer" class="nav-bar" id="nav-bar" data-position="fixed" data-tap-toggle="false">
+            <div data-role="navbar" class="nav-bar" id="nav-bar"> 
             	<ul id="nav_bar_list"> 
-                <li id="nav_home"><a href="" class="ui-btn-active ui-state-persist"><img src="../img/icons/home.png" width="40"></a></li> 
-                <li id="nav_search"><a href=""><img src="../img/icons/search_cloud.png" width="48"></a></li> 
-                <li id="nav_radios"><a href=""><img src="../img/ghettoblaster-512.png" width="40"></a></li> 
+                <li id="nav_home"><a href="" class="ui-btn-active ui-state-persist"><img src="../img/icons/home.png" width="60"></a></li> 
+                <li id="nav_search"><a href=""><img src="../img/icons/search_cloud.png" width="60"></a></li> 
             	</ul> 
             </div> 
-        	-->
+            <script>
+            $("#nav-bar").hide();
+            if(screen.width<600){
+            	$("#nav-bar").show();
+            }
+            </script>
+            
+        	
             <!--<div class="manual-nav-bar" id="manual-nav-bar"> 
             	<ul> 
                 <li id="nav_home"><a href="#"><img src="../img/icons/home.png" width="42"></a></li> 

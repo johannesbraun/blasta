@@ -253,47 +253,53 @@
             return array
         }*/
         toggleEchonest('off')
-        d3.select("section").selectAll("*").remove();
-        //$("#echograph").html("");
-        var initRandArray = randArray();
-        var newArray;
+        console.log(screen.width)
+        if(screen.width>600){
 
-        var w = 230;
-        var h = 45;
-        var barPadding = 1;
-        var mAx = d3.max(initRandArray)
-        var yScale = d3.scale.linear()
-                        .domain([0, mAx])
-                        .range([0, h])
-        
-        var svg = d3.select("section")
-            .append("svg")
-            .attr("width", w)
-            .attr("height", h)
+            d3.select("section").selectAll("*").remove();
+            //$("#echograph").html("");
+            var initRandArray = randArray();
+            var newArray;
 
-        svg.selectAll("rect")
-            .data(initRandArray)
-            .enter()
-            .append("rect")
-            .attr("x", function(d,i) {return i*(w/initRandArray.length)})
-            .attr("y", function(d) {return h - yScale(d)})
-            .attr("width", w / initRandArray.length - barPadding)
-            .attr("height", function(d){return yScale(d)})
-            .attr("fill", function(d) {
-            return "rgb(0, 0, 0)";
-        });
+            var w = 230;
+            var h = 45;
+            var barPadding = 1;
+            var mAx = d3.max(initRandArray)
+            var yScale = d3.scale.linear()
+                            .domain([0, mAx])
+                            .range([0, h])
+            
+            var svg = d3.select("section")
+                .append("svg")
+                .attr("width", w)
+                .attr("height", h)
 
-        /*svg.selectAll("text")
-            .data(initRandArray)
-            .enter()
-            .append("text")
-            .text(function(d){return d})
-            .attr("x", function(d, i){return (i*(w/initRandArray.length) + 20)})
-            .attr("y", function(d) {return h - yScale(d) + 15})
-            .attr("font-family", "sans-serif")
-            .attr("fill", "white")*/
+            svg.selectAll("rect")
+                .data(initRandArray)
+                .enter()
+                .append("rect")
+                .attr("x", function(d,i) {return i*(w/initRandArray.length)})
+                .attr("y", function(d) {return h - yScale(d)})
+                .attr("width", w / initRandArray.length - barPadding)
+                .attr("height", function(d){return yScale(d)})
+                .attr("fill", function(d) {
+                return "rgb(0, 0, 0)";
+            });
 
-        echoNestArray(tid, returnData, svg);
+            /*svg.selectAll("text")
+                .data(initRandArray)
+                .enter()
+                .append("text")
+                .text(function(d){return d})
+                .attr("x", function(d, i){return (i*(w/initRandArray.length) + 20)})
+                .attr("y", function(d) {return h - yScale(d) + 15})
+                .attr("font-family", "sans-serif")
+                .attr("fill", "white")*/
+
+            echoNestArray(tid, returnData, svg);
+        }else{
+            //nothing
+        }
         /*newArray = randArray();
             
         var rects = svg.selectAll("rect")
@@ -640,6 +646,7 @@
                     var a_height = 290;
                     var l_strokeWidth =11;//16
 
+
                     loadEchoNest(trackId);
                     loadRadioButton(trackId);
                     $.post("playupdateradio", {"tid": trackId, "userid":userid}, function (response) {
@@ -954,6 +961,17 @@
         //console.log(songs);
         //songs will actually be a full track object coming from the server
         
+        if(screen.width<600){
+            $("#calendar_section").hide()
+            $("#echonest_section").hide()
+            $("#search_frame").hide()
+            $("#reco_frame").hide
+            $("#events_frame").hide()
+            $("#flyer").hide()
+            $("#lineup_frame").hide()
+        }
+
+
         loadEvents("now");
         var script = document.createElement("script");
         script.type = "text/javascript";
