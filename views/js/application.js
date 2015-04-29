@@ -504,6 +504,8 @@
                         //console.log(event)
                         //startStation(djID)
                         $("#search_input").val(latinizeKeyword(djname));
+                        $("#search_input").blur();
+                        $("#search_input").css("color","gray");
 
                         $("#search_input").trigger("submit");
                         $("#search_bar").show();
@@ -516,6 +518,8 @@
                         //startStation(djID)
                         $("#search_input").val(latinizeKeyword(djname));
                         $("#search_input").trigger("submit");
+                        $("#search_input").blur();
+                        $("#search_input").css("color","gray");
                         $("#search_bar").show();
                     }
 
@@ -751,6 +755,8 @@
                         $("#search_input").val(username);
                         $("#search_input").trigger("submit");
                         $("#search_bar").show();
+                        $("#search_input").blur();
+                        $("#search_input").css("color","gray");
                     });
 
                     $('#recent_search').on('click', function(event){
@@ -758,11 +764,15 @@
                         //console.log(rq)
                         $("#search_input").val(rq);
                         $("#search_input").trigger("submit");
+                        $("#search_input").blur();
+                        $("#search_input").css("color","gray");
                     });
 
                     $('#prefix').on('click', function(event){
                         $("#search_input").val(prefix);
                         $("#search_input").trigger("submit");
+                        $("#search_input").blur();
+                        $("#search_input").css("color","gray");
                     });
 
                     //console.log("streamable " + streamable)
@@ -1019,6 +1029,8 @@
                 radio = true;
                 var ttl = data[0]['username'] + "-" +data[0]['title']; 
                 $("#search_input").val('Radio based on: ' +ttl);
+                $("#search_input").blur();
+                $("#search_input").css("color","gray");
 
                 $.post("getRadio", {"userid": userid}, function (response) {
                     var data=JSON.parse(response);
@@ -1310,7 +1322,7 @@
                 $("#play-bar-frame").hide()
                 $("#profile_frame").hide();
                 $("#music_section").show(); 
-                
+                $("#ipaddress").hide();
                 $("#search_bar").show();
                 $("#search_frame").show();
                 $("#events_frame").show();
@@ -1330,6 +1342,7 @@
                 $("#header_section").hide();
                 $("#lineup_frame").hide();
                 $("#flyer").hide();
+                $("#ipaddress").show();
                 //$("#reco_frame").hide()
                 $("#profile_frame").show();
                 $("#play-bar-frame").show()
@@ -1349,6 +1362,10 @@
             $("#black_radiobutton").show();
             $("#gray_radiobutton").hide();
             radio=false;
+            $("#search_input").val('Song or Artist')
+            $("#search_input").blur();
+            $("#search_input").css("color","gray"); 
+            $("#search_input").css("font-family","Courier");
             $("#search_bar").show();
             $("#playing_radio").empty();
 
@@ -1678,7 +1695,10 @@
             }else{
                 //$("#current_radio_name").html('Radio based on: ' +t.title);
                 $("#search_input").val('Radio based on: ' +t.title);
+
             }
+            $("#search_input").blur();
+            $("#search_input").css("color","gray"); 
             $("#playing_radio").empty();
             $("#playing_radio").append($("#playing_track").html()); 
             $("#saved_radios").append($("#playing_track").html());     
@@ -1806,6 +1826,8 @@
                 //$("#current_radio_name").html('Radio based on: ' +t.title);
                 $("#search_input").val('Similar audio features to: ' +t.title);
             }
+            $("#search_input").blur();
+            $("#search_input").css("color","gray");
             $("#playing_radio").empty();
             $("#playing_radio").append($("#playing_track").html()); 
             $("#saved_radios").append($("#playing_track").html());     
