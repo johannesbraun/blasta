@@ -513,7 +513,7 @@ app.post("/playFirst", function (req, res) {
                         select eventid from \
                             (select e.eventid, eventName, venueName, flyer, attending, extract(day from eventDate) as eday, MONTHNAME(eventDate) as emonth, eventDate-NOW() as howsoon  \
                                     from new_ra_events e  \
-                                    where eventDate- NOW() >0  \
+                                    where eventDate- NOW() >-864000  \
                                     and e.eventid in ( \
                                       select l.eventid from \
                                       new_ra_event_lineup l  \
@@ -758,7 +758,7 @@ app.post("/getEvents", function (req, res) {
       //var location_id = req.body.id;
       var dateText = req.body.dateText;
       console.log(dateText)
-      var dateString = "NOW()" //-864000
+      var dateString = "NOW()-864000"
       if (dateText != "now"){
           dateString = "STR_TO_DATE(\'"+dateText+"\',\'%m/%d/%Y\')"
       }
