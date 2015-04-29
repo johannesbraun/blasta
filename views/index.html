@@ -17,26 +17,6 @@
 	<!--<link href="css/mobile_horizontal.css" rel="stylesheet" type="text/css" media="only screen and (min-width: 481px) and (max-width: 600px)" >-->
 	<link href="css/mobile.css" rel="stylesheet" type="text/css" media="only screen and (max-width: 600px)" />
 	
-	<!-- jquery-->
-	<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-	<script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-
-	<!-- soundcloud api
-	<script type="text/javascript" src="https://w.soundcloud.com/player/api.js"></script>
-	<script type="text/javascript" src="js/stratus.js"></script>
-	-->
-	<script type="text/javascript" src="js/api.js"></script>
-	<script type="text/javascript" src="js/sdk.js"></script>
-	
-	<!--functionality-->
-	<script type="text/javascript" src="js/progressbar.js"></script>
-	<script type="text/javascript" src="js/application.js"></script>
-	<script src="http://d3js.org/d3.v3.min.js"></script>
-
-	<!--calendar-->
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
 
 
@@ -45,13 +25,11 @@
 	<form>
         <span id = "ipaddress" class = "ipaddress" float: right></span>
     </form>
+    
 
 <div align="center">
 	<a href="#" class="profile_toggle" id="profile_toggle"><img class="profile_pic" src="img/icons/black_profile.png" width="25" alt="Profile"></a>
 	<div><a href="#" class="reset" id="reset"><img class="reset" src="img/icons/reset2.png" width="25" alt="reset"></a></div> 
-	<script>
-		$("#reset").hide();
-	</script>
 	<header> 
 		<div class="header_section" id="header_section">
 			<!--<img class="icon" src="img/gogb.gif" width="60" alt="Blasta.me icon">-->
@@ -67,7 +45,7 @@
 	<div class="calendar_section" id="calendar_section">
 		<!--<div id="date_heading" class="date_heading"><img class="pcontrol" src="img/icons/calendar2.png" width="25" alt="cal"></a></div>-->
 		<form id="date-form">
-			<input type="text" id="datepicker" placeholder="04/29/2015" style = "font-family: Courier;">
+			<input type="text" id="datepicker" placeholder="04/30/2015" style = "font-family: Courier;">
 		</form>
 	</div>
 
@@ -89,11 +67,8 @@
 				<img src="img/icons/kill.png" width="15" alt="stop it">
 			</div>-->
 		</div>
-		<script>
-		$("#radio_section").hide();
-		$("#speaker").hide();
-		</script>
 		
+
 
 		<!--
 		<a href="javascript:play()"class="play"><img class="control" src="img/icons/roplay.png" width="50" alt="love it"></a>
@@ -132,8 +107,7 @@
 							</div>-->
 						</span>
 					</div>
-					<script>$("#rbox").hide();
-					</script>
+
 					<div class="track_user" id="track_user" align="left">
 					</div>
 					<div class="track_title" id="track_title" align="left">
@@ -171,10 +145,7 @@
 					<a href="#" id="play" class="play"><img class="pcontrol" src="img/icons/play.png" width="40" alt="play"></a>
 					<a href="#" id="pause" class="pause"><img class="pause" src="img/icons/pause.png" width="40" alt="play"></a>
 				</div>
-				
-				<script>$("#gray_radiobutton").hide();
-						$("#pause").hide();
-				</script>
+
 			</div><!--end mbox-->
 			
 			<div class="like_section" id="like_section">
@@ -209,16 +180,9 @@
 				</div>-->
 			</div>
 			
-			<script>
-				$("#liked").hide();
-				$("#disliked").hide();
-				if (screen.width<600){
-					$("#like").html('<a href="#" id="love"class="love"><img class="rcontrol" src="img/icons/gthumbsup.png" width="30" alt="love it"></a>');
-					$("#dislike").html('<a href="#" id="hate"class="hate"><img class="rcontrol" src="img/icons/thumbsdown.png" width="30" alt="hate it"></a>');
-					$("#liked").html('<a href="#" id="unlove" class="unlove"><img class="rcontrol" src="img/icons/thumbsup_pressed.png" width="40" alt="love it"></a>');
-					$("#disliked").html('<a href="#" id="unhate" class="unhate" display="inline"><img class="rcontrol" src="img/icons/thumbsdown_pressed.png" width="40" alt="hate it" ></a>');
-				}
-			</script>
+
+
+
 			<div class="back_section" id="back_section">
 				<a href="#" id="back" class="back"><img class="scontrol" src="img/icons/wb/bback.png" width="25" alt="back"></a>
 			</div>
@@ -268,7 +232,7 @@
 				</ul>
 			</div>
 		</div><!--end search frame-->
-		<script>$("#reco_frame").hide();</script>
+
 
         
 		<div id="play-bar-frame">
@@ -278,12 +242,10 @@
 				<!--<img class="speaker" src="img/gray_speaker.png" width="12" alt="Listening to station:">-->
 			</div>
 			<div class="playbar_name" id="playbar_name">
-				<a class="playbar">Something went wrong</a>
+				<a class="playbar"></a>
 			</div>
 		</div><!--end play bar-->
-		<script>$("#pb_pause").hide();</script>
-        <script>$("#play-bar-frame").hide();</script>
-
+		
         
         <div class="profile_frame" id ="profile_frame" align="left">
 				<div class="h2" id="current_heading"><u>Playing:</u></div>
@@ -324,37 +286,74 @@
 						</ul>
 					</div>
 		</div><!--end profile-->
-		<script>$("#profile_frame").hide();</script>
-
+		
 		
 		<div data-role="footer" class="nav-bar" id="nav-bar" data-position="fixed" data-tap-toggle="false">
-            <div data-role="navbar" class="nav-bar" id="nav-bar"> 
+            <!--<div data-role="navbar" class="nav-bar" id="nav-bar"> 
             	<ul id="nav_bar_list"> 
                 <li id="nav_home"><a href="" class="ui-btn-active ui-state-persist"><img src="../img/icons/home.png" width="60"></a></li> 
                 <li id="nav_search"><a href=""><img src="../img/icons/search_cloud.png" width="60"></a></li> 
             	</ul> 
-            </div> 
-            <script>
-            $("#nav-bar").hide();
-            if(screen.width<600){
-            	$("#nav-bar").show();
-            }
-            </script>
+            </div> -->
             
         	
-            <!--<div class="manual-nav-bar" id="manual-nav-bar"> 
+            <div class="manual-nav-bar" id="manual-nav-bar"> 
             	<ul> 
-                <li id="nav_home"><a href="#"><img src="../img/icons/home.png" width="42"></a></li> 
-                <li id="nav_search"><a href="#"><img src="../img/icons/search_cloud.png" width="50"></a></li> 
-                <li id="nav_radios"><a href="#"><img src="../img/icons/black_profile1.png" width="42"></a></li> 
+                <li id="nav_home"><a href="#"><img src="../img/icons/home.png" width="60"></a></li> 
+                <li id="nav_search"><a href="#"><img src="../img/icons/search_cloud.png" width="60"></a></li> 
             	</ul> 
-            </div>--> 
+            </div>
+            
         </div>  <!--end footer-->
-
-
-		
-
 	</main>
 </div>
+	<!-- soundcloud api
+	<script type="text/javascript" src="https://w.soundcloud.com/player/api.js"></script>
+	<script type="text/javascript" src="js/stratus.js"></script>
+	-->
+	<script type="text/javascript" src="js/api.js"></script>
+	<script type="text/javascript" src="js/sdk.js"></script>
+	
+	<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+	<script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+	<script src="http://d3js.org/d3.v3.min.js"></script>
+ 	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+ 	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+	<!--calendar-->
+ 	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+ 
+	<!--functionality-->
+	<script type="text/javascript" src="js/progressbar.js"></script>
+	<script type="text/javascript" src="js/application.js"></script>
+	<!-- jquery-->
+	<script>
+        $("#nav-bar").hide();
+        $("#profile_frame").hide();
+		$("#pb_pause").hide();
+        $("#play-bar-frame").hide();
+		$("#reco_frame").hide();
+		$("#radio_section").hide();
+		$("#speaker").hide();
+		$("#ipaddress").hide();
+		$("#reset").hide();
+		$("#rbox").hide();
+					
+		$("#gray_radiobutton").hide();
+		$("#pause").hide();
+				
+		$("#liked").hide();
+		$("#disliked").hide();
+		if (screen.width<600){
+			$("#nav-bar").show();
+			$("#like").html('<a href="#" id="love"class="love"><img class="rcontrol" src="img/icons/gthumbsup.png" width="30" alt="love it"></a>');
+			$("#dislike").html('<a href="#" id="hate"class="hate"><img class="rcontrol" src="img/icons/thumbsdown.png" width="30" alt="hate it"></a>');
+			$("#liked").html('<a href="#" id="unlove" class="unlove"><img class="rcontrol" src="img/icons/thumbsup_pressed.png" width="40" alt="love it"></a>');
+			$("#disliked").html('<a href="#" id="unhate" class="unhate" display="inline"><img class="rcontrol" src="img/icons/thumbsdown_pressed.png" width="40" alt="hate it" ></a>');
+		}
+	</script>
+
+
+
 </body>
 </html>

@@ -513,7 +513,7 @@ app.post("/playFirst", function (req, res) {
                         select eventid from \
                             (select e.eventid, eventName, venueName, flyer, attending, extract(day from eventDate) as eday, MONTHNAME(eventDate) as emonth, eventDate-NOW() as howsoon  \
                                     from new_ra_events e  \
-                                    where eventDate-NOW() >0  \
+                                    where eventDate- NOW() >0  \
                                     and e.eventid in ( \
                                       select l.eventid from \
                                       new_ra_event_lineup l  \
@@ -758,11 +758,11 @@ app.post("/getEvents", function (req, res) {
       //var location_id = req.body.id;
       var dateText = req.body.dateText;
       console.log(dateText)
-      var dateString = "NOW()"
+      var dateString = "NOW()" //-864000
       if (dateText != "now"){
           dateString = "STR_TO_DATE(\'"+dateText+"\',\'%m/%d/%Y\')"
       }
-      
+      console.log(dateString);
 
       var connection = mysql.createConnection({
         host     : 'blasta.chiim1n4uxwu.eu-central-1.rds.amazonaws.com',
@@ -795,7 +795,7 @@ app.post("/getEvents", function (req, res) {
                     and p.number_of_tracks >0 \
                     group by 1)  \
                   and attending >5  )p \
-                  where now < eventDate \
+                  where now <= eventDate\
                   order by eventDate, attending desc limit 50" 
 
       console.log(stmt);

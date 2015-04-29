@@ -393,6 +393,10 @@ main{
 	font-size: 10px;
 }
 
+.ipaddress{
+	float: right;
+}
+
 
 img.radio_img{
 	height: 40px;
@@ -413,7 +417,7 @@ img.logo{
 	margin: 0;
 	width:190px;
 	position: absolute;
-	left: 40px;
+	left: 20px;
 }
 
 img.sc{
@@ -421,7 +425,7 @@ img.sc{
 	width: 55px;
 	top: 42px;
 	margin: 0;
-	left: 205px;
+	left: 20px;
 }
 
 img.profile_pic{
