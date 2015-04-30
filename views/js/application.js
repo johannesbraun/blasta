@@ -1599,7 +1599,7 @@
                             var pos = parseInt(event.currentTarget.id);
                             $('.res:nth-of-type(odd)').css({'background-color' : 'white'});
                             $('.res:nth-of-type(even)').css({'background-color' : 'white'});
-                            $('.res:nth-of-type('+(pos)+')').css({'background-color' : '#E9E9E9'});
+                            $('.res:nth-of-type('+(pos+1)+')').css({'background-color' : '#E9E9E9'});
                             /*$('li:nth-child(even)').css({'background-color' : 'white'});
                             $('li:nth-child(odd)').css({'background-color' : 'white'});
                             $('li:nth-child('+(pos+1)+')').css({'background-color' : '#E9E9E9'});
