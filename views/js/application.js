@@ -412,6 +412,12 @@
                         console.log("Event clicked: "+eventid)
                         loadLineup(eventid)
                         changeEventSelectionBackground(parseInt(eventpos)+1);
+
+                        if(screen.width<600){
+                            $("#events_frame").hide()
+                            $("#flyer").show()
+                            $("#lineup_frame").show()
+                        }
                         /*var pos = parseInt(event.currentTarget.id);
                         $('.res:nth-of-type(odd)').css({'background-color' : 'white'});
                         $('.res:nth-of-type(even)').css({'background-color' : 'white'});
@@ -481,10 +487,10 @@
                    var djstring = djname.replace(/ /g, "_");
                    var aid = data[i]['userid'];
                    if(aid ===null){
-                    $("#lineup-list").append('<li id='+djstring+' class="djsres" ><a href="#"><span class="highlight">'+djname+'</span></a></li>'); 
+                    $("#lineup-list").append('<li id='+djstring+' class="djsres" ><a href="#"><span class="padded_link">'+djname+'</span></a></li>'); 
                    }
                    else{
-                    $("#lineup-list").append('<li id='+djstring+' class="djres" ><a href="#"><span class="highlight">'+djname+'</span></a></li>'); 
+                    $("#lineup-list").append('<li id='+djstring+' class="djres" ><a href="#"><span class="padded_link">'+djname+'</span></a></li>'); 
                    }
 
                 }
@@ -971,75 +977,820 @@
         //console.log(songs);
         //songs will actually be a full track object coming from the server
         
-        if(screen.width<600){
-            $("#calendar_section").hide()
-            $("#echonest_section").hide()
-            $("#search_frame").hide()
-            $("#reco_frame").hide
-            $("#events_frame").hide()
-            $("#flyer").hide()
-            $("#lineup_frame").hide()
-        }
+
+        var is_chrome = navigator.userAgent.toLowerCase().indexOf('chrome') == -1;
+
+        if (false) {
+            document.write("This is a toy project and tested on Chrome only")
+            //document.write(navigator.userAgent.toLowerCase())
+        }else{
 
 
-        loadEvents("now");
-        var script = document.createElement("script");
-        script.type = "text/javascript";
-        script.src = "http://www.telize.com/jsonip?callback=DisplayIP";
-        document.getElementsByTagName("head")[0].appendChild(script);
-        
-        var userid = 1;
+            if(screen.width<600){
+                $("#calendar_section").hide()
+                $("#echonest_section").hide()
+                $("#search_frame").hide()
+                $("#reco_frame").hide
+                $("#events_frame").hide()
+                $("#flyer").hide()
+                $("#lineup_frame").hide()
+                $('#nav_home').trigger("click");
 
-        if(localStorage['ip']===undefined){
-            //nada
-        } else{
-            userid = parseInt(localStorage['ip'].replace(/\./g,""));
-            console.log("local storage ip found: " + localStorage['ip']);
-        }
+            }
 
-        var rotation = new Rotation(songs, userid);
-        var searchResults = "";
-        var radio =false;
-        var playing=false;
-        var profile = false;
-        //rotation.setUserid(userid);
-        console.log("Userid: "+userid);
 
-        $.getJSON( "http://www.telize.com/jsonip?callback=?",
-            function(data){
-            userid = data.ip;
-            userid = parseInt(userid.replace(/\./g,""));
-            rotation.setUserid(userid);
-            console.log("Replaced userid with: "+userid+ " proof:"+ rotation.getUserid());
-        });  
+            loadEvents("now");
+            var script = document.createElement("script");
+            script.type = "text/javascript";
+            script.src = "http://www.telize.com/jsonip?callback=DisplayIP";
+            document.getElementsByTagName("head")[0].appendChild(script);
+            
+            var userid = 1;
 
-        var currentTrack = rotation.currentTrack();
-        //var currentPlayingTrack = new Track(currentTrack.soundcloud_id, rotation, false);
-        var currentPlayingTrack = []
+            if(localStorage['ip']===undefined){
+                //nada
+            } else{
+                userid = parseInt(localStorage['ip'].replace(/\./g,""));
+                console.log("local storage ip found: " + localStorage['ip']);
+            }
 
-        $.post("getRecentRadios", {"userid": userid}, function (response) {
-            var data=JSON.parse(response);
-            //console.log(data);
-            var l = data.length;
-        
-            if (l>0){
+            var rotation = new Rotation(songs, userid);
+            var searchResults = "";
+            var radio =false;
+            var playing=false;
+            var profile = false;
+            //rotation.setUserid(userid);
+            console.log("Userid: "+userid);
+
+            $.getJSON( "http://www.telize.com/jsonip?callback=?",
+                function(data){
+                userid = data.ip;
+                userid = parseInt(userid.replace(/\./g,""));
+                rotation.setUserid(userid);
+                console.log("Replaced userid with: "+userid+ " proof:"+ rotation.getUserid());
+            });  
+
+            var currentTrack = rotation.currentTrack();
+            //var currentPlayingTrack = new Track(currentTrack.soundcloud_id, rotation, false);
+            var currentPlayingTrack = []
+
+            $.post("getRecentRadios", {"userid": userid}, function (response) {
+                var data=JSON.parse(response);
+                //console.log(data);
+                var l = data.length;
+            
+                if (l>0){
+                    
+                    $("#gray_radiobutton").show();
+                    $("#black_radiobutton").hide();
+                    radio = true;
+                    var ttl = data[0]['username'] + "-" +data[0]['title']; 
+                    $("#search_input").val('Radio based on: ' +ttl);
+                    $("#search_input").blur();
+                    $("#search_input").css("color","gray");
+
+                    $.post("getRadio", {"userid": userid}, function (response) {
+                        var data=JSON.parse(response);
+                        //console.log(data);
+                        var l = data.length;
+                        var results = [];
+                        $("#saved-list").text("");
+                        console.log("Recent radio found:"+data[0]['seedtid']);
+
+                        var i=0;
+                        for (i=0; i<l; i++) {
+                           //console.log(data[i])
+                           var track_id = data[i]['tid'];
+                           user_name = data[i]['username'];
+                           title = data[i]['title'];
+                           song_url = ""
+
+                           var art = data[i]['artwork_url'];
+                           //console.log(art);
+
+                           if (art=="https://a1.sndcdn.com/images/default_avatar_large.png"){
+                                art = "../img/soundcloud5.png"
+                           }
+
+                        
+                           //console.log("should be playing" + track_id +" "+ title);
+                           results.push({"title": user_name+" - "+title,"song_url": song_url,"soundcloud_id":track_id});
+                           if (i>0){//don't skip the first track 
+                            $("#saved-list").append('<li id="'+i+'" class="res" ><a href="#"><img id="res'+i+'" class="preview_img" src="../img/soundcloud5.png" width="30" alt=""><span class="resname">'+user_name+'<br><span class="restitle">'+title+'</span></span></a></li>'); 
+                            }
+                            loadImage("res"+i, "src", art, "../img/soundcloud5.png", 30, 30);
+                        }
+
+                        
+                        rotation = new Rotation(results, userid);
+                        currentTrack = rotation.currentTrack();
+                        currentPlayingTrack = new Track(currentTrack.soundcloud_id, rotation, true)
+                        //currentPlayingTrack.setPos(ff, pos); # Error with line set :-(
+
+                        $("li").click(function( event ) {
+                            /*if(event.currentTarget.id =="nav_home" 
+                                || event.currentTarget.id =="nav_search"
+                                || event.currentTarget.id =="nav_radios")
+                            {*/
+                                //do nothing
+                            
+                            if(event.currentTarget.classList[0]=="res") {
+                                $('#play').hide();
+                                $('#pause').show();
+                                $("#pb_pause").show();
+                                $("#pb_play").hide();
+                                $('#liked').hide();
+                                $('#like').show();
+                                $('#disliked').hide();
+                                $('#dislike').show();
+                                playing=true;
+                                //console.log(event);
+                                var pos = parseInt(event.currentTarget.id);
+                                $('.res:nth-of-type(odd)').css({'background-color' : 'white'});
+                                $('.res:nth-of-type(even)').css({'background-color' : 'white'});
+                                $('.res:nth-of-type('+(pos)+')').css({'background-color' : '#E9E9E9'});
+                                /*$('li:nth-child(even)').css({'background-color' : 'white'});
+                                $('li:nth-child(odd)').css({'background-color' : 'white'});
+                                $('li:nth-child('+(pos+1)+')').css({'background-color' : '#E9E9E9'});
+                                $('li:nth-child('+(pos+1)+')').css({'color' : 'red'});
+                                */
+
+                                //console.log(event.currentTarget);
+                                currentPlayingTrack.stop();
+                                //rotation = new Rotation(results);
+                                rotation.goTo(pos+1);
+                                currentTrack = rotation.currentTrack();
+                                currentPlayingTrack = new Track(currentTrack.soundcloud_id, rotation, true);
+                                currentPlayingTrack.play();
+                                $('.trackTitle').html(currentTrack.title); 
+                                //$("#gray_radiobutton").hide();
+                                //$("#black_radiobutton").show();
+                                //console.log('hallo?')
+                                //$("#search_frame").show();
+                                //$("#radio_section").hide();
+                                //$("#playing_radio").empty();
+                                //radio=false;
+                                }
+                            });
+                    
+                     });
+
+                }else{
+                $.post("playFirst", {"userid": userid}, function (response) {
+                    var data=JSON.parse(response);
+                //console.log(data);
+                var l = data.length;
+                var results = [];
+                $("#saved-list").text("");
+                $('#liked').hide();
+                $('#like').show();
+
+                var i=0;
+                for (i=0; i<l; i++) {
+                   //console.log(data[i])
+                   var track_id = data[i]['tid'];
+                   user_name = data[i]['username'];
+                   title = data[i]['title'];
+                   song_url = ""
+                   var art = data[i].artwork_url;
+
+                   if (art=="https://a1.sndcdn.com/images/default_avatar_large.png"){
+                        art = "../img/soundcloud5.png"
+                    }
+                   //console.log("should be playing" + track_id +" "+ title);
+                   results.push({"title": user_name+" - "+title,"song_url": song_url,"soundcloud_id":track_id});
+                   if (i>1){//skip the first two 
+                    $("#saved-list").append('<li id="'+i+'" class="res" ><a href="#"><img id="res'+i+'" class="preview_img" src="../img/soundcloud5.png" width="30" alt=""><span class="resname">'+user_name+'<br><span class="restitle">'+title+'</span></span></a></li>'); 
+                    }
+                    loadImage("res"+i, "src", art, "../img/soundcloud5.png", 30, 30);
+                }
                 
+                //currentPlayingTrack.stop();
+                rotation = new Rotation(results, userid);
+                rotation.goTo(1);
+                currentTrack = rotation.currentTrack();
+                currentPlayingTrack = new Track(currentTrack.soundcloud_id, rotation, true);
+                //currentPlayingTrack.play();
+                $('.trackTitle').html(currentTrack.title);
+
+                $("li").click(function( event ) {
+                    //console.log("res event "+event.currentTarget.classList[0])
+                    /*if(event.currentTarget.id =="nav_home" 
+                        || event.currentTarget.id =="nav_search"
+                        || event.currentTarget.id =="nav_radios")
+                    {
+                        //do nothing*/
+                    if(event.currentTarget.classList[0]=="res") {
+                        $('#play').hide();
+                        $('#pause').show();
+                        $("#pb_pause").show();
+                        $("#pb_play").hide();
+                        $('#liked').hide();
+                        $('#like').show();
+                        $('#disliked').hide();
+                        $('#dislike').show();
+                        playing=true;
+                        //console.log(event);
+                        var pos = parseInt(event.currentTarget.id);
+                        $('.res:nth-of-type(odd)').css({'background-color' : 'white'});
+                        $('.res:nth-of-type(even)').css({'background-color' : 'white'});
+                        $('.res:nth-of-type('+(pos-1)+')').css({'background-color' : '#E9E9E9'});
+                        /*$('li:nth-child(even)').css({'background-color' : 'white'});
+                        $('li:nth-child(odd)').css({'background-color' : 'white'});
+                        $('li:nth-child('+(pos+1)+')').css({'background-color' : '#E9E9E9'});
+                        $('li:nth-child('+(pos+1)+')').css({'color' : 'red'});
+                        */
+
+                        console.log("Pos: "+pos);
+                        currentPlayingTrack.stop();
+                        //rotation = new Rotation(results);
+                        rotation.goTo(pos);
+                        currentTrack = rotation.currentTrack();
+                        currentPlayingTrack = new Track(currentTrack.soundcloud_id, rotation, true);
+                        currentPlayingTrack.play();
+                        $('.trackTitle').html(currentTrack.title); 
+                        //$("#gray_radiobutton").hide();
+                        //$("#black_radiobutton").show();
+                        //console.log('hallo?')
+                        //$("#search_frame").show();
+                        //$("#radio_section").hide();
+                        //$("#playing_radio").empty();
+                        //radio=false;
+                        }
+                    });
+            
+                });
+                }
+            });
+
+
+            $('#play').on('click', function(event){
+                currentPlayingTrack.play();
+                $('.trackTitle').html(currentTrack.title);
+                $('#pause').show();
+                $('#play').hide();
+                $('#pb_pause').show();
+                $('#pb_play').hide();
+                playing=true;
+            });
+
+
+            $('#artwork_link').on('click', function(event){
+                if(!playing){
+                    $('#play').trigger("click");
+                }else{
+                    $('#pause').trigger("click");
+                }
+            });
+
+            $('#pb_play').on('click', function(event){
+                $('#play').trigger("click");
+            });
+
+            $('#pause').on('click', function(event){
+                currentPlayingTrack.pause();
+                $('#pause').hide();
+                $('#play').show();
+                $('#pb_pause').hide();
+                $('#pb_play').show();
+                playing=false;
+            });
+
+            $('#pb_pause').on('click', function(event){
+                $('#pause').trigger("click");
+            });
+
+            $('#stop').on('click', function(event){
+                currentPlayingTrack.stop();
+                $('#pause').hide();
+                $('#play').show();
+                $('#pb_pause').hide();
+                $('#pb_play').show();
+            });
+
+            $('#next').on('click', function(event){
+                var t = rotation.currentTrack();
+                $.post("skips", {"tid": t.soundcloud_id, "userid":userid}, function (response) {
+                    //nada
+                });
+                currentPlayingTrack.stop();
+                currentTrack = rotation.nextTrack();
+                currentPlayingTrack = new Track(currentTrack.soundcloud_id, rotation, true);
+                currentPlayingTrack.play();
+                changeSelectionBackground(rotation.getPos()-1);
+                $('.trackTitle').html(currentTrack.title);
+                //$("#gray_radiobutton").hide();
+                //$("#black_radiobutton").show();
+                $('#pause').show();
+                $('#play').hide();
+                $('#pb_pause').show();
+                $('#pb_play').hide();
+                $('#liked').hide();
+                $('#like').show();
+                $('#disliked').hide();
+                $('#dislike').show();
+            });
+
+            $('#back').on('click', function(event){
+                currentPlayingTrack.stop();
+                currentTrack = rotation.previousTrack();
+                currentPlayingTrack = new Track(currentTrack.soundcloud_id, rotation, true);
+                currentPlayingTrack.play();
+                $('.trackTitle').html(currentTrack.title);
+                //$("#gray_radiobutton").hide();
+                //$("#black_radiobutton").show();
+                $('#pause').show();
+                $('#play').hide();
+                $('#pb_pause').show();
+                $('#pb_play').hide();
+                $('#liked').hide();
+                $('#like').show();
+                $('#disliked').hide();
+                $('#dislike').show();
+            });
+
+            $("#fastforward").on('click', function(event){
+                var parentOffset = $(this).parent().offset();
+                //console.log(parentOffset.left);
+                //console.log("event.pageX: "+event.pageX);
+
+                var ff = (event.pageX-parentOffset.left)/440;
+                if(screen.width<600){
+                    ff=(event.pageX-10)/290;
+                }
+                
+                
+                var pos = Math.round(localStorage.duration * ff)
+                console.log("Fast forward: "+ff +" "+ pos);
+                currentPlayingTrack.setPos(ff, pos);
+                //var posX = $(this).offset().left,
+                //posY = $(this).offset().top;
+                //alert(event.pageX + ' , ' + event.pageY) 
+                //alert((event.pageX - posX) + ' , ' + (event.pageY - posY));
+                $('#pause').show();
+                $('#play').hide();
+                $('#pb_pause').show();
+                $('#pb_play').hide();
+            });
+
+            $('#profile_toggle').on('click', function(event){
+
+                if (profile){
+                    $("#play-bar-frame").hide()
+                    $("#profile_frame").hide();
+                    $("#music_section").show(); 
+                    $("#ipaddress").hide();
+                    $("#search_bar").show();
+                    $("#search_frame").show();
+                    $("#events_frame").show();
+                    $("#calendar_section").show();
+                    $("#header_section").show();
+                    $("#lineup_frame").show();
+                    $("#flyer").show();
+                    $("#reset").hide();
+                    profile= false;
+                }else{
+                    $("#music_section").hide();
+                    $("#search_frame").hide();
+                    $("#radio_section").hide();
+                    $("#search_bar").hide();
+                    $("#events_frame").hide();
+                    $("#calendar_section").hide();
+                    $("#header_section").hide();
+                    $("#lineup_frame").hide();
+                    $("#flyer").hide();
+                    $("#ipaddress").show();
+                    //$("#reco_frame").hide()
+                    $("#profile_frame").show();
+                    $("#play-bar-frame").show()
+                    $("#reset").show();
+                    loadProfile(userid);
+                    profile = true;
+                    
+                }  
+            });
+
+            $('#gray_radiobutton').on('click', function(event){
+                var t = rotation.currentTrack();
+                $.post("stopsradio", {"tid": t.soundcloud_id, "userid":userid}, function (response) {
+                    //nada
+                });
+                $("#radio_section").hide();
+                $("#black_radiobutton").show();
+                $("#gray_radiobutton").hide();
+                radio=false;
+                $("#search_input").val('Song or Artist')
+                $("#search_input").blur();
+                $("#search_input").css("color","gray"); 
+                $("#search_input").css("font-family","Courier");
+                $("#search_bar").show();
+                $("#playing_radio").empty();
+
+            });
+
+            $('#gray_radiobutton').on('click', function(event){
+                var t = rotation.currentTrack();
+                $.post("stopsradio", {"tid": t.soundcloud_id, "userid":userid}, function (response) {
+                    //nada
+                });
+                $("#radio_section").hide();
+                $("#black_radiobutton").show();
+                $("#gray_radiobutton").hide();
+                radio=false;
+                $("#search_input").val('Song or Artist')
+                $("#search_input").blur();
+                $("#search_input").css("color","gray"); 
+                $("#search_input").css("font-family","Courier");
+                $("#search_bar").show();
+                $("#playing_radio").empty();
+
+            });
+
+            $("#flyer").on('click', function(event){
+                $("#events_frame").show()
+                $("#flyer").hide()
+                $("#lineup_frame").hide()
+            });
+            $("#hidevent").on('click', function(event){
+                $("#events_frame").show()
+                $("#flyer").hide()
+                $("#lineup_frame").hide()
+            });
+
+
+
+            $('#reset').on('click', function(event){
+                $.post("reset", {"userid": userid}, function (response) {
+                    //nada
+                    loadProfile(userid)
+                });
+            });
+
+            $('#current_radio_name').on('click', function(event){
+                $("#radio_section").hide();
+                $("#black_radiobutton").show();
+                $("#gray_radiobutton").hide();
+                $("#playing_radio").empty();
+                radio=false;
+                $("#search_bar").show();
+            });
+
+
+            $("#love").on('click', function(event){
+                var t = rotation.currentTrack();
+                console.log(userid + " likes " + t.soundcloud_id);
+                $('#liked').show();
+                $('#like').hide();
+                $('#disliked').hide();
+                $('#dislike').show();
+                $("#saved_likes").append($("#playing_track").html());  
+                // TODO: adjust radio
+                
+                $.post("likes", {"tid": t.soundcloud_id, "userid":userid}, function (response) {
+                    //nada
+                });
+                if(radio){
+                    $.post("likeupdateradio", {"tid": t.soundcloud_id, "userid":userid}, function (response) {
+                    //nada
+                    
+                        $.post("getRadio", {"userid": userid}, function (response) {
+                        var data=JSON.parse(response);
+                        //console.log(data);
+                        var l = data.length;
+                        var results = [];
+                        $("#saved-list").text("");
+                        $('#play').hide();
+                        $('#pause').show();
+
+                        //seed
+                        results.push({"title":t.title,"song_url": t.song_url,"soundcloud_id":t.soundcloud_id});
+                        $.post("playupdateradio", {"tid": t.soundcloud_id, "userid":userid}, function (response) {
+                              //need to update seed item as played in radio
+                        });
+                        var i=0;
+                        for (i=0; i<l; i++) {
+                           //console.log(data[i])
+                           var track_id = data[i]['tid'];
+                           user_name = data[i]['username'];
+                           title = data[i]['title'];
+                           song_url = ""
+
+                           var art = data[i]['artwork_url'];
+                           //console.log(art);
+
+                           if (art=="https://a1.sndcdn.com/images/default_avatar_large.png"){
+                                art = "../img/soundcloud5.png"
+                           }
+
+                        
+                           //console.log("should be playing" + track_id +" "+ title);
+                           results.push({"title": user_name+" - "+title,"song_url": song_url,"soundcloud_id":track_id});
+                           if (i>=0){//don't skip the first track 
+                            $("#saved-list").append('<li id="'+i+'" class="res" ><a href="#"><img id="res'+i+'" class="preview_img" src="../img/soundcloud5.png" width="30" alt=""><span class="resname">'+user_name+'<br><span class="restitle">'+title+'</span></span></a></li>'); 
+                            }
+                            loadImage("res"+i, "src", art, "../img/soundcloud5.png", 30, 30);
+                        }
+
+                        var dur = currentPlayingTrack.getDur();
+                        var pos = currentPlayingTrack.getPosition();
+                        var ff = pos/dur 
+                        //console.log(dur, ff, pos);
+                        currentPlayingTrack.stop();
+                        rotation = new Rotation(results, userid);
+                        currentTrack = rotation.currentTrack();
+                        currentPlayingTrack = new Track(currentTrack.soundcloud_id, rotation, true);
+                        currentPlayingTrack.play();
+                        //currentPlayingTrack.setPos(ff, pos); # Error with line set :-(
+
+                        $("li").click(function( event ) {
+                            /*if(event.currentTarget.id =="nav_home" 
+                                || event.currentTarget.id =="nav_search"
+                                || event.currentTarget.id =="nav_radios")
+                            {*/
+                                //do nothing
+                            
+                            if(event.currentTarget.classList[0]=="res") {
+                                $('#play').hide();
+                                $('#pause').show();
+                                $("#pb_pause").show();
+                                $("#pb_play").hide();
+                                $('#liked').hide();
+                                $('#like').show();
+                                $('#disliked').hide();
+                                $('#dislike').show();
+                                playing=true;
+                                //console.log(event);
+                                var pos = parseInt(event.currentTarget.id);
+                                $('.res:nth-of-type(odd)').css({'background-color' : 'white'});
+                                $('.res:nth-of-type(even)').css({'background-color' : 'white'});
+                                $('.res:nth-of-type('+(pos+1)+')').css({'background-color' : '#E9E9E9'});
+                                /*$('li:nth-child(even)').css({'background-color' : 'white'});
+                                $('li:nth-child(odd)').css({'background-color' : 'white'});
+                                $('li:nth-child('+(pos+1)+')').css({'background-color' : '#E9E9E9'});
+                                $('li:nth-child('+(pos+1)+')').css({'color' : 'red'});
+                                */
+
+                                console.log("Pos: "+pos);
+                                currentPlayingTrack.stop();
+                                //rotation = new Rotation(results);
+                                rotation.goTo(pos+1);
+                                currentTrack = rotation.currentTrack();
+                                currentPlayingTrack = new Track(currentTrack.soundcloud_id, rotation, true);
+                                currentPlayingTrack.play();
+                                $('.trackTitle').html(currentTrack.title); 
+                                //$("#gray_radiobutton").hide();
+                                //$("#black_radiobutton").show();
+                                //console.log('hallo?')
+                                //$("#search_frame").show();
+                                //$("#radio_section").hide();
+                                //$("#playing_radio").empty();
+                                //radio=false;
+                            } //end if
+                        });//end click
+                    
+                    });//end get radio
+                });//end likeupdate
+            }//end if radio
+            });// end love
+
+            $("#unlove").on('click', function(event){
+                console.log("unloved");
+                $('#like').show();
+                $('#liked').hide();
+                // TODO: adjust radio
+            });
+
+            $("#hate").on('click', function(event){
+                $('#disliked').show();
+                $('#dislike').hide();
+                $('#like').show();
+                $('#liked').hide();
+                
+                $("#saved_hates").append($("#playing_track").html());
+                // TODO: adjust radio
+                var t = rotation.currentTrack();
+                console.log(userid + " hates " + t.soundcloud_id);
+                $.post("hates", {"tid": t.soundcloud_id, "userid":userid}, function (response) {
+                    //nada
+                });
+                if(radio){
+                    $.post("hateupdateradio", {"tid": t.soundcloud_id, "userid":userid}, function (response) {
+                    //nada
+                    
+                        $.post("getRadio", {"userid": userid}, function (response) {
+                        var data=JSON.parse(response);
+                        //console.log(data);
+                        var l = data.length;
+                        var results = [];
+                        $("#saved-list").text("");
+
+
+                        //seed
+                        results.push({"title":t.title,"song_url": t.song_url,"soundcloud_id":t.soundcloud_id});
+                        $.post("playupdateradio", {"tid": t.soundcloud_id, "userid":userid}, function (response) {
+                              //need to update seed item as played in radio
+                        });
+                        var i=0;
+                        for (i=0; i<l; i++) {
+                           //console.log(data[i])
+                           var track_id = data[i]['tid'];
+                           user_name = data[i]['username'];
+                           title = data[i]['title'];
+                           song_url = ""
+
+                           var art = data[i]['artwork_url'];
+                           //console.log(art);
+
+                           if (art=="https://a1.sndcdn.com/images/default_avatar_large.png"){
+                                art = "../img/soundcloud5.png"
+                           }
+
+                        
+                           //console.log("should be playing" + track_id +" "+ title);
+                           results.push({"title": user_name+" - "+title,"song_url": song_url,"soundcloud_id":track_id});
+                           if (i>=0){//don't skip the first track 
+                            $("#saved-list").append('<li id="'+i+'" class="res" ><a href="#"><img id="res'+i+'" class="preview_img" src="../img/soundcloud5.png" width="30" alt=""><span class="resname">'+user_name+'<br><span class="restitle">'+title+'</span></span></a></li>'); 
+                            }
+                            loadImage("res"+i, "src", art, "../img/soundcloud5.png", 30, 30);
+                        }
+
+                        var dur = currentPlayingTrack.getDur();
+                        var pos = currentPlayingTrack.getPosition();
+                        var ff = pos/dur 
+                        //console.log(dur, ff, pos);
+                        currentPlayingTrack.stop();
+                        rotation = new Rotation(results, userid);
+                        rotation.goTo(1);
+                        currentTrack = rotation.currentTrack();
+                        currentPlayingTrack = new Track(currentTrack.soundcloud_id, rotation, true);
+                        currentPlayingTrack.play();
+                        //currentPlayingTrack.setPos(ff, pos); # Error with line set :-(
+
+                        $("li").click(function( event ) {
+                            /*if(event.currentTarget.id =="nav_home" 
+                                || event.currentTarget.id =="nav_search"
+                                || event.currentTarget.id =="nav_radios")
+                            {*/
+                                //do nothing
+                            
+                            if(event.currentTarget.classList[0]=="res") {
+                                $('#play').hide();
+                                $('#pause').show();
+                                $("#pb_pause").show();
+                                $("#pb_play").hide();
+                                $('#liked').hide();
+                                $('#like').show();
+                                $('#disliked').hide();
+                                $('#dislike').show();
+                                playing=true;
+                                //console.log(event);
+                                var pos = parseInt(event.currentTarget.id);
+                                $('.res:nth-of-type(odd)').css({'background-color' : 'white'});
+                                $('.res:nth-of-type(even)').css({'background-color' : 'white'});
+                                $('.res:nth-of-type('+(pos+1)+')').css({'background-color' : '#E9E9E9'});
+                                /*$('li:nth-child(even)').css({'background-color' : 'white'});
+                                $('li:nth-child(odd)').css({'background-color' : 'white'});
+                                $('li:nth-child('+(pos+1)+')').css({'background-color' : '#E9E9E9'});
+                                $('li:nth-child('+(pos+1)+')').css({'color' : 'red'});
+                                */
+
+                                console.log("Pos:" +pos);
+                                currentPlayingTrack.stop();
+                                //rotation = new Rotation(results);
+                                rotation.goTo(pos+1);
+                                currentTrack = rotation.currentTrack();
+                                currentPlayingTrack = new Track(currentTrack.soundcloud_id, rotation, true);
+                                currentPlayingTrack.play();
+                                $('.trackTitle').html(currentTrack.title); 
+                                //$("#gray_radiobutton").hide();
+                                //$("#black_radiobutton").show();
+                                //console.log('hallo?')
+                                //$("#search_frame").show();
+                                //$("#radio_section").hide();
+                                //$("#playing_radio").empty();
+                                //radio=false;
+                            }
+                        });
+                    
+                    });
+                 });
+                }
+            });
+
+            $("#unhate").on('click', function(event){
+                console.log("unhated");
+                $('#dislike').show();
+                $('#disliked').hide();
+                // TODO: adjust radio
+            });
+
+            $('#logo').on('click', function(event){
+                $('#nav_home').trigger("click");
+            });
+
+            $('#nav_home').on('click', function(event){
+                $("#nav_home").addClass("active");
+                $("#nav_search").removeClass("active");
+                $("#nav_radios").removeClass("active");
+                $("#music_section").show();
+                //$("#search_frame").hide();
+                $("#play-bar-frame").hide();
+                $("#profile_frame").hide();
+
+                $("#search_frame").hide()
+                $("#events_frame").hide()
+                $("#flyer").hide()
+                $("#lineup_frame").hide()
+
+            });
+
+             $('#nav_events').on('click', function(event){
+                $("#nav_home").removeClass("active");
+                $("#nav_search").removeClass("active");
+                $("#nav_events").addClass("active");
+                //$("#search_frame").hide();
+                $("#music_section").hide();
+                $("#play-bar-frame").show();
+                $("#radio_section").hide();
+                $("#search_bar").show();
+                $("#profile_frame").hide();
+
+                $("#search_frame").hide()
+                $("#events_frame").show()
+                $("#flyer").hide()
+                $("#lineup_frame").hide()
+
+            });
+
+            $('#nav_search').on('click', function(event){
+                $("#nav_home").removeClass("active");
+                $("#nav_search").addClass("active");
+                $("#nav_events").removeClass("active");
+                
+                $("#music_section").hide();
+                //$("#search_frame").show();
+                $("#play-bar-frame").show();
+                
+                $("#radio_section").hide();
+                $("#search_bar").show();
+                $("#profile_frame").hide();
+
+                $("#search_frame").show()
+                $("#events_frame").hide()
+                $("#flyer").hide()
+                $("#lineup_frame").hide()
+            });
+
+            $('#black_radiobutton').on('click', function(event){
+                var t = rotation.currentTrack();
+                $.post("startsradio", {"tid": t.soundcloud_id,  "userid":userid}, function (response) {
+                    //nada
+                });
+                $.post("storeradio", {"tid": t.soundcloud_id, "userid":userid}, function (response) {
+                    //nada
+                });
+
+                console.log(userid +" starts radio based on: "+t.title);
+                //$("#current_radio_name").html('<a class="radio_click" id="radio_click" href="#">Radio based on: ' +t.title+'</a>');
+                if(screen.width<600){
+                    $("#search_input").val('Radio: ' +t.title);
+                    
+                }else{
+                    //$("#current_radio_name").html('Radio based on: ' +t.title);
+                    $("#search_input").val('Radio based on: ' +t.title);
+
+                }
+                $("#search_input").blur();
+                $("#search_input").css("color","gray"); 
+                $("#playing_radio").empty();
+                $("#playing_radio").append($("#playing_track").html()); 
+                $("#saved_radios").append($("#playing_track").html());     
+                $("#radio_section").show();
                 $("#gray_radiobutton").show();
                 $("#black_radiobutton").hide();
-                radio = true;
-                var ttl = data[0]['username'] + "-" +data[0]['title']; 
-                $("#search_input").val('Radio based on: ' +ttl);
-                $("#search_input").blur();
-                $("#search_input").css("color","gray");
+                $('#liked').hide();
+                $('#like').show();
 
-                $.post("getRadio", {"userid": userid}, function (response) {
+                //$("#radio_section").show();
+                //$("#reco_frame").show()
+                //$("#search_bar").hide();
+                //$("#search_frame").hide();
+
+                radio=true;
+
+                $.post("getRecos2", {"tid": t.soundcloud_id, "userid":userid}, function (response) {
                     var data=JSON.parse(response);
                     //console.log(data);
                     var l = data.length;
                     var results = [];
                     $("#saved-list").text("");
-                    console.log("Recent radio found:"+data[0]['seedtid']);
 
+
+                    //seed
+                    results.push({"title":t.title,"song_url": t.song_url,"soundcloud_id":t.soundcloud_id});
+                    $.post("playupdateradio", {"tid": t.soundcloud_id, "userid":userid}, function (response) {
+                          //need to update seed item as played in radio
+                    });
                     var i=0;
                     for (i=0; i<l; i++) {
                        //console.log(data[i])
@@ -1064,11 +1815,17 @@
                         loadImage("res"+i, "src", art, "../img/soundcloud5.png", 30, 30);
                     }
 
-                    
+
+
+
+                    currentPlayingTrack.stop();
                     rotation = new Rotation(results, userid);
+                    //rotation.goTo(0);
                     currentTrack = rotation.currentTrack();
-                    currentPlayingTrack = new Track(currentTrack.soundcloud_id, rotation, true)
-                    //currentPlayingTrack.setPos(ff, pos); # Error with line set :-(
+                    currentPlayingTrack = new Track(currentTrack.soundcloud_id, rotation, true);
+                    currentPlayingTrack.play();
+                    $("#pause").show();
+                    $("#play").hide();
 
                     $("li").click(function( event ) {
                         /*if(event.currentTarget.id =="nav_home" 
@@ -1098,7 +1855,7 @@
                             $('li:nth-child('+(pos+1)+')').css({'color' : 'red'});
                             */
 
-                            //console.log(event.currentTarget);
+                            console.log("Pos:"+pos);
                             currentPlayingTrack.stop();
                             //rotation = new Rotation(results);
                             rotation.goTo(pos+1);
@@ -1113,312 +1870,59 @@
                             //$("#radio_section").hide();
                             //$("#playing_radio").empty();
                             //radio=false;
-                            }
-                        });
+                        }
+                    });
                 
-                 });
-
-            }else{
-            $.post("playFirst", {"userid": userid}, function (response) {
-                var data=JSON.parse(response);
-            //console.log(data);
-            var l = data.length;
-            var results = [];
-            $("#saved-list").text("");
-            $('#liked').hide();
-            $('#like').show();
-
-            var i=0;
-            for (i=0; i<l; i++) {
-               //console.log(data[i])
-               var track_id = data[i]['tid'];
-               user_name = data[i]['username'];
-               title = data[i]['title'];
-               song_url = ""
-               var art = data[i].artwork_url;
-
-               if (art=="https://a1.sndcdn.com/images/default_avatar_large.png"){
-                    art = "../img/soundcloud5.png"
-                }
-               //console.log("should be playing" + track_id +" "+ title);
-               results.push({"title": user_name+" - "+title,"song_url": song_url,"soundcloud_id":track_id});
-               if (i>1){//skip the first two 
-                $("#saved-list").append('<li id="'+i+'" class="res" ><a href="#"><img id="res'+i+'" class="preview_img" src="../img/soundcloud5.png" width="30" alt=""><span class="resname">'+user_name+'<br><span class="restitle">'+title+'</span></span></a></li>'); 
-                }
-                loadImage("res"+i, "src", art, "../img/soundcloud5.png", 30, 30);
-            }
-            
-            //currentPlayingTrack.stop();
-            rotation = new Rotation(results, userid);
-            rotation.goTo(1);
-            currentTrack = rotation.currentTrack();
-            currentPlayingTrack = new Track(currentTrack.soundcloud_id, rotation, true);
-            //currentPlayingTrack.play();
-            $('.trackTitle').html(currentTrack.title);
-
-            $("li").click(function( event ) {
-                //console.log("res event "+event.currentTarget.classList[0])
-                /*if(event.currentTarget.id =="nav_home" 
-                    || event.currentTarget.id =="nav_search"
-                    || event.currentTarget.id =="nav_radios")
-                {
-                    //do nothing*/
-                if(event.currentTarget.classList[0]=="res") {
-                    $('#play').hide();
-                    $('#pause').show();
-                    $("#pb_pause").show();
-                    $("#pb_play").hide();
-                    $('#liked').hide();
-                    $('#like').show();
-                    $('#disliked').hide();
-                    $('#dislike').show();
-                    playing=true;
-                    //console.log(event);
-                    var pos = parseInt(event.currentTarget.id);
-                    $('.res:nth-of-type(odd)').css({'background-color' : 'white'});
-                    $('.res:nth-of-type(even)').css({'background-color' : 'white'});
-                    $('.res:nth-of-type('+(pos-1)+')').css({'background-color' : '#E9E9E9'});
-                    /*$('li:nth-child(even)').css({'background-color' : 'white'});
-                    $('li:nth-child(odd)').css({'background-color' : 'white'});
-                    $('li:nth-child('+(pos+1)+')').css({'background-color' : '#E9E9E9'});
-                    $('li:nth-child('+(pos+1)+')').css({'color' : 'red'});
-                    */
-
-                    console.log("Pos: "+pos);
-                    currentPlayingTrack.stop();
-                    //rotation = new Rotation(results);
-                    rotation.goTo(pos);
-                    currentTrack = rotation.currentTrack();
-                    currentPlayingTrack = new Track(currentTrack.soundcloud_id, rotation, true);
-                    currentPlayingTrack.play();
-                    $('.trackTitle').html(currentTrack.title); 
-                    //$("#gray_radiobutton").hide();
-                    //$("#black_radiobutton").show();
-                    //console.log('hallo?')
-                    //$("#search_frame").show();
-                    //$("#radio_section").hide();
-                    //$("#playing_radio").empty();
-                    //radio=false;
-                    }
                 });
-        
             });
-            }
-        });
 
-
-        $('#play').on('click', function(event){
-            currentPlayingTrack.play();
-            $('.trackTitle').html(currentTrack.title);
-            $('#pause').show();
-            $('#play').hide();
-            $('#pb_pause').show();
-            $('#pb_play').hide();
-            playing=true;
-        });
-
-
-        $('#artwork_link').on('click', function(event){
-            if(!playing){
-                $('#play').trigger("click");
-            }else{
-                $('#pause').trigger("click");
-            }
-        });
-
-        $('#pb_play').on('click', function(event){
-            $('#play').trigger("click");
-        });
-
-        $('#pause').on('click', function(event){
-            currentPlayingTrack.pause();
-            $('#pause').hide();
-            $('#play').show();
-            $('#pb_pause').hide();
-            $('#pb_play').show();
-            playing=false;
-        });
-
-        $('#pb_pause').on('click', function(event){
-            $('#pause').trigger("click");
-        });
-
-        $('#stop').on('click', function(event){
-            currentPlayingTrack.stop();
-            $('#pause').hide();
-            $('#play').show();
-            $('#pb_pause').hide();
-            $('#pb_play').show();
-        });
-
-        $('#next').on('click', function(event){
-            var t = rotation.currentTrack();
-            $.post("skips", {"tid": t.soundcloud_id, "userid":userid}, function (response) {
-                //nada
-            });
-            currentPlayingTrack.stop();
-            currentTrack = rotation.nextTrack();
-            currentPlayingTrack = new Track(currentTrack.soundcloud_id, rotation, true);
-            currentPlayingTrack.play();
-            changeSelectionBackground(rotation.getPos()-1);
-            $('.trackTitle').html(currentTrack.title);
-            //$("#gray_radiobutton").hide();
-            //$("#black_radiobutton").show();
-            $('#pause').show();
-            $('#play').hide();
-            $('#pb_pause').show();
-            $('#pb_play').hide();
-            $('#liked').hide();
-            $('#like').show();
-            $('#disliked').hide();
-            $('#dislike').show();
-        });
-
-        $('#back').on('click', function(event){
-            currentPlayingTrack.stop();
-            currentTrack = rotation.previousTrack();
-            currentPlayingTrack = new Track(currentTrack.soundcloud_id, rotation, true);
-            currentPlayingTrack.play();
-            $('.trackTitle').html(currentTrack.title);
-            //$("#gray_radiobutton").hide();
-            //$("#black_radiobutton").show();
-            $('#pause').show();
-            $('#play').hide();
-            $('#pb_pause').show();
-            $('#pb_play').hide();
-            $('#liked').hide();
-            $('#like').show();
-            $('#disliked').hide();
-            $('#dislike').show();
-        });
-
-        $("#fastforward").on('click', function(event){
-            var parentOffset = $(this).parent().offset();
-            //console.log(parentOffset.left);
-            //console.log("event.pageX: "+event.pageX);
-
-            var ff = (event.pageX-parentOffset.left)/440;
-            if(screen.width<600){
-                ff=(event.pageX-10)/290;
-            }
-            
-            
-            var pos = Math.round(localStorage.duration * ff)
-            console.log("Fast forward: "+ff +" "+ pos);
-            currentPlayingTrack.setPos(ff, pos);
-            //var posX = $(this).offset().left,
-            //posY = $(this).offset().top;
-            //alert(event.pageX + ' , ' + event.pageY) 
-            //alert((event.pageX - posX) + ' , ' + (event.pageY - posY));
-            $('#pause').show();
-            $('#play').hide();
-            $('#pb_pause').show();
-            $('#pb_play').hide();
-        });
-
-        $('#profile_toggle').on('click', function(event){
-
-            if (profile){
-                $("#play-bar-frame").hide()
-                $("#profile_frame").hide();
-                $("#music_section").show(); 
-                $("#ipaddress").hide();
-                $("#search_bar").show();
-                $("#search_frame").show();
-                $("#events_frame").show();
-                $("#calendar_section").show();
-                $("#header_section").show();
-                $("#lineup_frame").show();
-                $("#flyer").show();
-                $("#reset").hide();
-                profile= false;
-            }else{
-                $("#music_section").hide();
-                $("#search_frame").hide();
-                $("#radio_section").hide();
-                $("#search_bar").hide();
-                $("#events_frame").hide();
-                $("#calendar_section").hide();
-                $("#header_section").hide();
-                $("#lineup_frame").hide();
-                $("#flyer").hide();
-                $("#ipaddress").show();
-                //$("#reco_frame").hide()
-                $("#profile_frame").show();
-                $("#play-bar-frame").show()
-                $("#reset").show();
-                loadProfile(userid);
-                profile = true;
+            $('#echoreco').on('click', function(event){
+                var t = rotation.currentTrack();
                 
-            }  
-        });
 
-        $('#gray_radiobutton').on('click', function(event){
-            var t = rotation.currentTrack();
-            $.post("stopsradio", {"tid": t.soundcloud_id, "userid":userid}, function (response) {
-                //nada
-            });
-            $("#radio_section").hide();
-            $("#black_radiobutton").show();
-            $("#gray_radiobutton").hide();
-            radio=false;
-            $("#search_input").val('Song or Artist')
-            $("#search_input").blur();
-            $("#search_input").css("color","gray"); 
-            $("#search_input").css("font-family","Courier");
-            $("#search_bar").show();
-            $("#playing_radio").empty();
+                console.log(userid +" starts EchoNest radio("+t.title+")");
+                //$("#current_radio_name").html('<a class="radio_click" id="radio_click" href="#">Radio based on: ' +t.title+'</a>');
+                if(screen.width<600){
+                    $("#current_radio_name").html('Similar audio features to:<br> ' +t.title);
+                    
+                }else{
+                    //$("#current_radio_name").html('Radio based on: ' +t.title);
+                    $("#search_input").val('Similar audio features to: ' +t.title);
+                }
+                $("#search_input").blur();
+                $("#search_input").css("color","gray");
+                $("#playing_radio").empty();
+                $("#playing_radio").append($("#playing_track").html()); 
+                $("#saved_radios").append($("#playing_track").html());     
+                $("#radio_section").show();
+                $("#gray_radiobutton").hide();
+                $("#black_radiobutton").show();
+                $('#liked').hide();
+                $('#like').show();
+                $('#hated').hide();
+                $('#hate').show();
 
-        });
+                //$("#radio_section").show();
+                //$("#reco_frame").show()
+                //$("#search_bar").hide();
+                //$("#search_frame").hide();
 
-        $('#reset').on('click', function(event){
-            $.post("reset", {"userid": userid}, function (response) {
-                //nada
-                loadProfile(userid)
-            });
-        });
+                radio=true;
 
-        $('#current_radio_name').on('click', function(event){
-            $("#radio_section").hide();
-            $("#black_radiobutton").show();
-            $("#gray_radiobutton").hide();
-            $("#playing_radio").empty();
-            radio=false;
-            $("#search_bar").show();
-        });
-
-
-        $("#love").on('click', function(event){
-            var t = rotation.currentTrack();
-            console.log(userid + " likes " + t.soundcloud_id);
-            $('#liked').show();
-            $('#like').hide();
-            $('#disliked').hide();
-            $('#dislike').show();
-            $("#saved_likes").append($("#playing_track").html());  
-            // TODO: adjust radio
-            
-            $.post("likes", {"tid": t.soundcloud_id, "userid":userid}, function (response) {
-                //nada
-            });
-            if(radio){
-                $.post("likeupdateradio", {"tid": t.soundcloud_id, "userid":userid}, function (response) {
-                //nada
-                
-                    $.post("getRadio", {"userid": userid}, function (response) {
-                    var data=JSON.parse(response);
-                    //console.log(data);
+                $.post("getEchoRecos", {"tid": t.soundcloud_id, "userid":userid}, function (response) {
+                    console.log("Echo response:")
+                    var data =response
+                    //var data=JSON.parse(response);
+                    //console.log("after")
+                    console.log(data);
                     var l = data.length;
                     var results = [];
                     $("#saved-list").text("");
-                    $('#play').hide();
-                    $('#pause').show();
+
 
                     //seed
                     results.push({"title":t.title,"song_url": t.song_url,"soundcloud_id":t.soundcloud_id});
-                    $.post("playupdateradio", {"tid": t.soundcloud_id, "userid":userid}, function (response) {
-                          //need to update seed item as played in radio
-                    });
+                    
                     var i=0;
                     for (i=0; i<l; i++) {
                        //console.log(data[i])
@@ -1437,22 +1941,23 @@
                     
                        //console.log("should be playing" + track_id +" "+ title);
                        results.push({"title": user_name+" - "+title,"song_url": song_url,"soundcloud_id":track_id});
-                       if (i>=0){//don't skip the first track 
+                       if (i>0){//don't skip the first track 
                         $("#saved-list").append('<li id="'+i+'" class="res" ><a href="#"><img id="res'+i+'" class="preview_img" src="../img/soundcloud5.png" width="30" alt=""><span class="resname">'+user_name+'<br><span class="restitle">'+title+'</span></span></a></li>'); 
                         }
                         loadImage("res"+i, "src", art, "../img/soundcloud5.png", 30, 30);
                     }
 
-                    var dur = currentPlayingTrack.getDur();
-                    var pos = currentPlayingTrack.getPosition();
-                    var ff = pos/dur 
-                    //console.log(dur, ff, pos);
+
+
+
                     currentPlayingTrack.stop();
                     rotation = new Rotation(results, userid);
+                    rotation.goTo(1);
                     currentTrack = rotation.currentTrack();
                     currentPlayingTrack = new Track(currentTrack.soundcloud_id, rotation, true);
                     currentPlayingTrack.play();
-                    //currentPlayingTrack.setPos(ff, pos); # Error with line set :-(
+                    $("#pause").show();
+                    $("#play").hide();
 
                     $("li").click(function( event ) {
                         /*if(event.currentTarget.id =="nav_home" 
@@ -1461,6 +1966,161 @@
                         {*/
                             //do nothing
                         
+                        if(event.currentTarget.classList[0]=="res") {
+                            $('#play').hide();
+                            $('#pause').show();
+                            $("#pb_pause").show();
+                            $("#pb_play").hide();
+                            $('#liked').hide();
+                            $('#like').show();
+                            $('#disliked').hide();
+                            $('#dislike').show();
+                            playing=true;
+                            //console.log(event);
+                            var pos = parseInt(event.currentTarget.id);
+                            $('.res:nth-of-type(odd)').css({'background-color' : 'white'});
+                            $('.res:nth-of-type(even)').css({'background-color' : 'white'});
+                            $('.res:nth-of-type('+(pos)+')').css({'background-color' : '#E9E9E9'});
+                            /*$('li:nth-child(even)').css({'background-color' : 'white'});
+                            $('li:nth-child(odd)').css({'background-color' : 'white'});
+                            $('li:nth-child('+(pos+1)+')').css({'background-color' : '#E9E9E9'});
+                            $('li:nth-child('+(pos+1)+')').css({'color' : 'red'});
+                            */
+
+                            console.log("Pos"+pos);
+                            currentPlayingTrack.stop();
+                            //rotation = new Rotation(results);
+                            rotation.goTo(pos+1);
+                            currentTrack = rotation.currentTrack();
+                            currentPlayingTrack = new Track(currentTrack.soundcloud_id, rotation, true);
+                            currentPlayingTrack.play();
+                            $('.trackTitle').html(currentTrack.title); 
+                            //$("#gray_radiobutton").hide();
+                            //$("#black_radiobutton").show();
+                            //console.log('hallo?')
+                            //$("#search_frame").show();
+                            //$("#radio_section").hide();
+                            //$("#playing_radio").empty();
+                            //radio=false;
+                        }
+                    });
+                
+                });
+            });
+
+
+            $('#datepicker').datepicker({
+               onSelect: function(dateText, inst) { 
+                console.log("Date selected: "+dateText);
+                loadEvents(dateText);
+                }
+            });
+
+            $("#search-form").submit(function(){ // TODO: store search history
+                var query = $("#search_input").val();
+                console.log("Search for '"+query+'"');
+                query = latinizeKeyword(query);
+                $("#saved_searches").append('<li id="recent_search" class="recent_search" ><a href="#" class="recent_search" id="recent_search">'+query+'</a></li>');
+                $("#search_results").hide();
+                $("#profile_frame").hide();
+                $("#search_heading").html("Searching for '"+query+"'...");
+                /*var timeInMs = Date.now();
+                var search_event = JSON.stringify({time: timeInMs, q: query});
+                addToLS("search_history", search_event);
+                $("#search_history").prepend(search_event);*/
+                //htmlAdd($"#search_history", search_event);
+                $("#search_input").blur();
+                $("#search_input").css("color","gray"); 
+                $("#search_input").css("font-family","Courier");
+                //$("#search_frame").show();
+                //$("#reco_frame").hide();
+                $("#radio_section").hide();
+                $("#gray_radiobutton").hide();
+                $("#black_radiobutton").show();
+                var t = rotation.currentTrack();
+                $.post("stopsradio", {"userid": userid}, function (response) {
+                    //nada
+                });
+            
+                $.post("search", {"q": query}, function (response) {
+                    var data=response;
+                    //console.log(data);
+                    var l = data.length;
+                    var results = [];
+                    $("#saved-list").text("");
+                    //$("#search_heading").html("<h3>"+l+" results for '"+query+"': "+"<a href=\"#\"><img class=\"close_search\" src=\"img/icons/kill.png\" width=\"15px\"></a></h3>");
+                    //$("#search_heading").html("<h3>"+l+" results for '"+query+"': </a></h3>");
+                    
+                    if(l>0){
+                        $("#search_heading").text("");
+                        $("#search_results").css("top","0px");
+                    }else{
+                        $("#search_heading").text("No results for '"+query+"'");
+                        $("#search_heading").css("top","18px");
+                    }
+
+                    $("#search_results").show();
+                    var i=0;
+
+                    var t = rotation.currentTrack();
+                    results.push({"title": t.title,"song_url": t.song_url,"soundcloud_id":t.soundcloud_id});
+
+                    for (i=0; i<l; i++) {
+                       var title = data[i].title;
+                       var track_id = data[i].id;
+                       var song_url = data[i].permalink_url;
+                       var dur = data[i].duration;
+                       var min = Math.floor((dur/1000/60) << 0);
+                       var sec = zeroPad(Math.floor((dur/1000) % 60),2);
+
+                       var user_name = data[i].user.username.charAt(0).toUpperCase() + data[i].user.username.slice(1);
+                       var art = data[i].artwork_url;
+                       if (art ==null){                     
+                         art = data[i].user.avatar_url;
+                       }
+                       if (art=="https://a1.sndcdn.com/images/default_avatar_large.png"){
+                            art = "../img/soundcloud5.png"
+                        }
+                       
+
+
+                       title=title.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '');
+                       user_name=user_name.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '');
+                       
+
+                       results.push({"title": user_name+" - "+title,"song_url": song_url,"soundcloud_id":track_id});
+                       //console.log('<li id="'+i+'"><a href="#">'+user_name+" - "+title+' ['+min+':'+sec+']</a></li>');
+                       //$("#search_results").append("<a href=\"javascript:nthResult("+i+")\">"+title+"</a><br>"); // how to link to play?
+                       
+                       $("#saved-list").append('<li id="'+i+'" class="res" ><a href="#"><img id="res'+i+'" class="preview_img" src="" width="30" alt=""><span class="resname">'+user_name+'<br><span class="restitle">'+title+' ['+min+':'+sec+']</span></span></a></li>'); 
+                       loadImage("res"+i, "src", art, "../img/soundcloud5.png", 30, 30);
+                    }
+
+
+                    currentPlayingTrack.stop();
+                    rotation = new Rotation(results, userid);
+                    rotation.goTo(1);
+                    currentTrack = rotation.currentTrack();
+                    currentPlayingTrack = new Track(currentTrack.soundcloud_id, rotation, true);
+                    currentPlayingTrack.play();
+                    $('.trackTitle').html(currentTrack.title); 
+                    $("#gray_radiobutton").hide();
+                    $("#black_radiobutton").show();
+                    //console.log('hallo?')
+                    //$("#search_frame").show();
+                    $("#radio_section").hide();
+                    $("#playing_radio").empty();
+                    radio=false;
+                    $("#play").hide();
+                    $("#pause").show();
+
+                    $("li").click(function( event ) {
+                        ///console.log("res event "+event.currentTarget.classList[0])
+                    /*if(event.currentTarget.id =="nav_home" 
+                        || event.currentTarget.id =="nav_search"
+                        || event.currentTarget.id =="nav_radios")
+                    {
+                        //do nothing*/
                         if(event.currentTarget.classList[0]=="res") {
                             $('#play').hide();
                             $('#pause').show();
@@ -1482,633 +2142,36 @@
                             $('li:nth-child('+(pos+1)+')').css({'color' : 'red'});
                             */
 
-                            console.log("Pos: "+pos);
+                            console.log("Pos"+pos);
+                            
                             currentPlayingTrack.stop();
-                            //rotation = new Rotation(results);
                             rotation.goTo(pos+1);
                             currentTrack = rotation.currentTrack();
                             currentPlayingTrack = new Track(currentTrack.soundcloud_id, rotation, true);
                             currentPlayingTrack.play();
-                            $('.trackTitle').html(currentTrack.title); 
-                            //$("#gray_radiobutton").hide();
-                            //$("#black_radiobutton").show();
-                            //console.log('hallo?')
-                            //$("#search_frame").show();
-                            //$("#radio_section").hide();
-                            //$("#playing_radio").empty();
-                            //radio=false;
-                        } //end if
-                    });//end click
-                
-                });//end get radio
-            });//end likeupdate
-        }//end if radio
-        });// end love
 
-        $("#unlove").on('click', function(event){
-            console.log("unloved");
-            $('#like').show();
-            $('#liked').hide();
-            // TODO: adjust radio
-        });
-
-        $("#hate").on('click', function(event){
-            $('#disliked').show();
-            $('#dislike').hide();
-            $('#like').show();
-            $('#liked').hide();
-            
-            $("#saved_hates").append($("#playing_track").html());
-            // TODO: adjust radio
-            var t = rotation.currentTrack();
-            console.log(userid + " hates " + t.soundcloud_id);
-            $.post("hates", {"tid": t.soundcloud_id, "userid":userid}, function (response) {
-                //nada
-            });
-            if(radio){
-                $.post("hateupdateradio", {"tid": t.soundcloud_id, "userid":userid}, function (response) {
-                //nada
-                
-                    $.post("getRadio", {"userid": userid}, function (response) {
-                    var data=JSON.parse(response);
-                    //console.log(data);
-                    var l = data.length;
-                    var results = [];
-                    $("#saved-list").text("");
-
-
-                    //seed
-                    results.push({"title":t.title,"song_url": t.song_url,"soundcloud_id":t.soundcloud_id});
-                    $.post("playupdateradio", {"tid": t.soundcloud_id, "userid":userid}, function (response) {
-                          //need to update seed item as played in radio
-                    });
-                    var i=0;
-                    for (i=0; i<l; i++) {
-                       //console.log(data[i])
-                       var track_id = data[i]['tid'];
-                       user_name = data[i]['username'];
-                       title = data[i]['title'];
-                       song_url = ""
-
-                       var art = data[i]['artwork_url'];
-                       //console.log(art);
-
-                       if (art=="https://a1.sndcdn.com/images/default_avatar_large.png"){
-                            art = "../img/soundcloud5.png"
-                       }
-
-                    
-                       //console.log("should be playing" + track_id +" "+ title);
-                       results.push({"title": user_name+" - "+title,"song_url": song_url,"soundcloud_id":track_id});
-                       if (i>=0){//don't skip the first track 
-                        $("#saved-list").append('<li id="'+i+'" class="res" ><a href="#"><img id="res'+i+'" class="preview_img" src="../img/soundcloud5.png" width="30" alt=""><span class="resname">'+user_name+'<br><span class="restitle">'+title+'</span></span></a></li>'); 
-                        }
-                        loadImage("res"+i, "src", art, "../img/soundcloud5.png", 30, 30);
-                    }
-
-                    var dur = currentPlayingTrack.getDur();
-                    var pos = currentPlayingTrack.getPosition();
-                    var ff = pos/dur 
-                    //console.log(dur, ff, pos);
-                    currentPlayingTrack.stop();
-                    rotation = new Rotation(results, userid);
-                    rotation.goTo(1);
-                    currentTrack = rotation.currentTrack();
-                    currentPlayingTrack = new Track(currentTrack.soundcloud_id, rotation, true);
-                    currentPlayingTrack.play();
-                    //currentPlayingTrack.setPos(ff, pos); # Error with line set :-(
-
-                    $("li").click(function( event ) {
-                        /*if(event.currentTarget.id =="nav_home" 
-                            || event.currentTarget.id =="nav_search"
-                            || event.currentTarget.id =="nav_radios")
-                        {*/
-                            //do nothing
-                        
-                        if(event.currentTarget.classList[0]=="res") {
-                            $('#play').hide();
-                            $('#pause').show();
-                            $("#pb_pause").show();
-                            $("#pb_play").hide();
-                            $('#liked').hide();
-                            $('#like').show();
-                            $('#disliked').hide();
-                            $('#dislike').show();
-                            playing=true;
-                            //console.log(event);
-                            var pos = parseInt(event.currentTarget.id);
-                            $('.res:nth-of-type(odd)').css({'background-color' : 'white'});
-                            $('.res:nth-of-type(even)').css({'background-color' : 'white'});
-                            $('.res:nth-of-type('+(pos)+')').css({'background-color' : '#E9E9E9'});
-                            /*$('li:nth-child(even)').css({'background-color' : 'white'});
-                            $('li:nth-child(odd)').css({'background-color' : 'white'});
-                            $('li:nth-child('+(pos+1)+')').css({'background-color' : '#E9E9E9'});
-                            $('li:nth-child('+(pos+1)+')').css({'color' : 'red'});
-                            */
-
-                            console.log("Pos:" +pos);
-                            currentPlayingTrack.stop();
-                            //rotation = new Rotation(results);
-                            rotation.goTo(pos+1);
+                            /*currentPlayingTrack.stop();
+                            rotation = new Rotation(results);
+                            rotation.goTo(pos);
                             currentTrack = rotation.currentTrack();
                             currentPlayingTrack = new Track(currentTrack.soundcloud_id, rotation, true);
                             currentPlayingTrack.play();
                             $('.trackTitle').html(currentTrack.title); 
-                            //$("#gray_radiobutton").hide();
-                            //$("#black_radiobutton").show();
+                            $("#gray_radiobutton").hide();
+                            $("#black_radiobutton").show();
                             //console.log('hallo?')
                             //$("#search_frame").show();
-                            //$("#radio_section").hide();
-                            //$("#playing_radio").empty();
-                            //radio=false;
+                            $("#radio_section").hide();
+                            $("#playing_radio").empty();
+                            radio=false;*/
                         }
                     });
-                
                 });
-             });
-            }
-        });
 
-        $("#unhate").on('click', function(event){
-            console.log("unhated");
-            $('#dislike').show();
-            $('#disliked').hide();
-            // TODO: adjust radio
-        });
-
-        $('#logo').on('click', function(event){
-            $('#nav_home').trigger("click");
-        });
-
-        $('#nav_home').on('click', function(event){
-            $("#nav_home").addClass("active");
-            $("#nav_search").removeClass("active");
-            $("#nav_radios").removeClass("active");
-            $("#music_section").show();
-            //$("#search_frame").hide();
-            $("#play-bar-frame").hide();
-            $("#profile_frame").hide();
-            if(radio){
-                $("#search_bar").hide();
-                $("#radio_section").show();
-            }
-        });
-
-         $('#nav_radios').on('click', function(event){
-            $("#nav_home").removeClass("active");
-            $("#nav_search").removeClass("active");
-            $("#nav_radios").addClass("active");
-            //$("#search_frame").hide();
-            $("#music_section").hide();
-            $("#play-bar-frame").show();
-            $("#radio_section").hide();
-            $("#search_bar").show();
-            $("#profile_frame").show();
-        });
-
-        $('#nav_search').on('click', function(event){
-            $("#nav_home").removeClass("active");
-            $("#nav_search").addClass("active");
-            $("#nav_radios").removeClass("active");
-            $("#music_section").hide();
-            //$("#search_frame").show();
-            $("#play-bar-frame").show();
-            $("#radio_section").hide();
-            $("#search_bar").show();
-            $("#profile_frame").hide();
-        });
-
-        $('#black_radiobutton').on('click', function(event){
-            var t = rotation.currentTrack();
-            $.post("startsradio", {"tid": t.soundcloud_id,  "userid":userid}, function (response) {
-                //nada
-            });
-            $.post("storeradio", {"tid": t.soundcloud_id, "userid":userid}, function (response) {
-                //nada
+                return false;
             });
 
-            console.log(userid +" starts radio based on: "+t.title);
-            //$("#current_radio_name").html('<a class="radio_click" id="radio_click" href="#">Radio based on: ' +t.title+'</a>');
-            if(screen.width<600){
-                $("#current_radio_name").html('Radio based on:<br> ' +t.title);
-                
-            }else{
-                //$("#current_radio_name").html('Radio based on: ' +t.title);
-                $("#search_input").val('Radio based on: ' +t.title);
-
-            }
-            $("#search_input").blur();
-            $("#search_input").css("color","gray"); 
-            $("#playing_radio").empty();
-            $("#playing_radio").append($("#playing_track").html()); 
-            $("#saved_radios").append($("#playing_track").html());     
-            $("#radio_section").show();
-            $("#gray_radiobutton").show();
-            $("#black_radiobutton").hide();
-            $('#liked').hide();
-            $('#like').show();
-
-            //$("#radio_section").show();
-            //$("#reco_frame").show()
-            //$("#search_bar").hide();
-            //$("#search_frame").hide();
-
-            radio=true;
-
-            $.post("getRecos2", {"tid": t.soundcloud_id, "userid":userid}, function (response) {
-                var data=JSON.parse(response);
-                //console.log(data);
-                var l = data.length;
-                var results = [];
-                $("#saved-list").text("");
-
-
-                //seed
-                results.push({"title":t.title,"song_url": t.song_url,"soundcloud_id":t.soundcloud_id});
-                $.post("playupdateradio", {"tid": t.soundcloud_id, "userid":userid}, function (response) {
-                      //need to update seed item as played in radio
-                });
-                var i=0;
-                for (i=0; i<l; i++) {
-                   //console.log(data[i])
-                   var track_id = data[i]['tid'];
-                   user_name = data[i]['username'];
-                   title = data[i]['title'];
-                   song_url = ""
-
-                   var art = data[i]['artwork_url'];
-                   //console.log(art);
-
-                   if (art=="https://a1.sndcdn.com/images/default_avatar_large.png"){
-                        art = "../img/soundcloud5.png"
-                   }
-
-                
-                   //console.log("should be playing" + track_id +" "+ title);
-                   results.push({"title": user_name+" - "+title,"song_url": song_url,"soundcloud_id":track_id});
-                   if (i>0){//don't skip the first track 
-                    $("#saved-list").append('<li id="'+i+'" class="res" ><a href="#"><img id="res'+i+'" class="preview_img" src="../img/soundcloud5.png" width="30" alt=""><span class="resname">'+user_name+'<br><span class="restitle">'+title+'</span></span></a></li>'); 
-                    }
-                    loadImage("res"+i, "src", art, "../img/soundcloud5.png", 30, 30);
-                }
-
-
-
-
-                currentPlayingTrack.stop();
-                rotation = new Rotation(results, userid);
-                //rotation.goTo(0);
-                currentTrack = rotation.currentTrack();
-                currentPlayingTrack = new Track(currentTrack.soundcloud_id, rotation, true);
-                currentPlayingTrack.play();
-                $("#pause").show();
-                $("#play").hide();
-
-                $("li").click(function( event ) {
-                    /*if(event.currentTarget.id =="nav_home" 
-                        || event.currentTarget.id =="nav_search"
-                        || event.currentTarget.id =="nav_radios")
-                    {*/
-                        //do nothing
-                    
-                    if(event.currentTarget.classList[0]=="res") {
-                        $('#play').hide();
-                        $('#pause').show();
-                        $("#pb_pause").show();
-                        $("#pb_play").hide();
-                        $('#liked').hide();
-                        $('#like').show();
-                        $('#disliked').hide();
-                        $('#dislike').show();
-                        playing=true;
-                        //console.log(event);
-                        var pos = parseInt(event.currentTarget.id);
-                        $('.res:nth-of-type(odd)').css({'background-color' : 'white'});
-                        $('.res:nth-of-type(even)').css({'background-color' : 'white'});
-                        $('.res:nth-of-type('+(pos)+')').css({'background-color' : '#E9E9E9'});
-                        /*$('li:nth-child(even)').css({'background-color' : 'white'});
-                        $('li:nth-child(odd)').css({'background-color' : 'white'});
-                        $('li:nth-child('+(pos+1)+')').css({'background-color' : '#E9E9E9'});
-                        $('li:nth-child('+(pos+1)+')').css({'color' : 'red'});
-                        */
-
-                        console.log("Pos:"+pos);
-                        currentPlayingTrack.stop();
-                        //rotation = new Rotation(results);
-                        rotation.goTo(pos+1);
-                        currentTrack = rotation.currentTrack();
-                        currentPlayingTrack = new Track(currentTrack.soundcloud_id, rotation, true);
-                        currentPlayingTrack.play();
-                        $('.trackTitle').html(currentTrack.title); 
-                        //$("#gray_radiobutton").hide();
-                        //$("#black_radiobutton").show();
-                        //console.log('hallo?')
-                        //$("#search_frame").show();
-                        //$("#radio_section").hide();
-                        //$("#playing_radio").empty();
-                        //radio=false;
-                    }
-                });
-            
-            });
-        });
-
-        $('#echoreco').on('click', function(event){
-            var t = rotation.currentTrack();
-            
-
-            console.log(userid +" starts EchoNest radio("+t.title+")");
-            //$("#current_radio_name").html('<a class="radio_click" id="radio_click" href="#">Radio based on: ' +t.title+'</a>');
-            if(screen.width<600){
-                $("#current_radio_name").html('Similar audio features to:<br> ' +t.title);
-                
-            }else{
-                //$("#current_radio_name").html('Radio based on: ' +t.title);
-                $("#search_input").val('Similar audio features to: ' +t.title);
-            }
-            $("#search_input").blur();
-            $("#search_input").css("color","gray");
-            $("#playing_radio").empty();
-            $("#playing_radio").append($("#playing_track").html()); 
-            $("#saved_radios").append($("#playing_track").html());     
-            $("#radio_section").show();
-            $("#gray_radiobutton").hide();
-            $("#black_radiobutton").show();
-            $('#liked').hide();
-            $('#like').show();
-            $('#hated').hide();
-            $('#hate').show();
-
-            //$("#radio_section").show();
-            //$("#reco_frame").show()
-            //$("#search_bar").hide();
-            //$("#search_frame").hide();
-
-            radio=true;
-
-            $.post("getEchoRecos", {"tid": t.soundcloud_id, "userid":userid}, function (response) {
-                console.log("Echo response:")
-                var data =response
-                //var data=JSON.parse(response);
-                //console.log("after")
-                console.log(data);
-                var l = data.length;
-                var results = [];
-                $("#saved-list").text("");
-
-
-                //seed
-                results.push({"title":t.title,"song_url": t.song_url,"soundcloud_id":t.soundcloud_id});
-                
-                var i=0;
-                for (i=0; i<l; i++) {
-                   //console.log(data[i])
-                   var track_id = data[i]['tid'];
-                   user_name = data[i]['username'];
-                   title = data[i]['title'];
-                   song_url = ""
-
-                   var art = data[i]['artwork_url'];
-                   //console.log(art);
-
-                   if (art=="https://a1.sndcdn.com/images/default_avatar_large.png"){
-                        art = "../img/soundcloud5.png"
-                   }
-
-                
-                   //console.log("should be playing" + track_id +" "+ title);
-                   results.push({"title": user_name+" - "+title,"song_url": song_url,"soundcloud_id":track_id});
-                   if (i>0){//don't skip the first track 
-                    $("#saved-list").append('<li id="'+i+'" class="res" ><a href="#"><img id="res'+i+'" class="preview_img" src="../img/soundcloud5.png" width="30" alt=""><span class="resname">'+user_name+'<br><span class="restitle">'+title+'</span></span></a></li>'); 
-                    }
-                    loadImage("res"+i, "src", art, "../img/soundcloud5.png", 30, 30);
-                }
-
-
-
-
-                currentPlayingTrack.stop();
-                rotation = new Rotation(results, userid);
-                rotation.goTo(1);
-                currentTrack = rotation.currentTrack();
-                currentPlayingTrack = new Track(currentTrack.soundcloud_id, rotation, true);
-                currentPlayingTrack.play();
-                $("#pause").show();
-                $("#play").hide();
-
-                $("li").click(function( event ) {
-                    /*if(event.currentTarget.id =="nav_home" 
-                        || event.currentTarget.id =="nav_search"
-                        || event.currentTarget.id =="nav_radios")
-                    {*/
-                        //do nothing
-                    
-                    if(event.currentTarget.classList[0]=="res") {
-                        $('#play').hide();
-                        $('#pause').show();
-                        $("#pb_pause").show();
-                        $("#pb_play").hide();
-                        $('#liked').hide();
-                        $('#like').show();
-                        $('#disliked').hide();
-                        $('#dislike').show();
-                        playing=true;
-                        //console.log(event);
-                        var pos = parseInt(event.currentTarget.id);
-                        $('.res:nth-of-type(odd)').css({'background-color' : 'white'});
-                        $('.res:nth-of-type(even)').css({'background-color' : 'white'});
-                        $('.res:nth-of-type('+(pos)+')').css({'background-color' : '#E9E9E9'});
-                        /*$('li:nth-child(even)').css({'background-color' : 'white'});
-                        $('li:nth-child(odd)').css({'background-color' : 'white'});
-                        $('li:nth-child('+(pos+1)+')').css({'background-color' : '#E9E9E9'});
-                        $('li:nth-child('+(pos+1)+')').css({'color' : 'red'});
-                        */
-
-                        console.log("Pos"+pos);
-                        currentPlayingTrack.stop();
-                        //rotation = new Rotation(results);
-                        rotation.goTo(pos+1);
-                        currentTrack = rotation.currentTrack();
-                        currentPlayingTrack = new Track(currentTrack.soundcloud_id, rotation, true);
-                        currentPlayingTrack.play();
-                        $('.trackTitle').html(currentTrack.title); 
-                        //$("#gray_radiobutton").hide();
-                        //$("#black_radiobutton").show();
-                        //console.log('hallo?')
-                        //$("#search_frame").show();
-                        //$("#radio_section").hide();
-                        //$("#playing_radio").empty();
-                        //radio=false;
-                    }
-                });
-            
-            });
-        });
-
-
-        $('#datepicker').datepicker({
-           onSelect: function(dateText, inst) { 
-            console.log("Date selected: "+dateText);
-            loadEvents(dateText);
-            }
-        });
-
-        $("#search-form").submit(function(){ // TODO: store search history
-            var query = $("#search_input").val();
-            console.log("Search for '"+query+'"');
-            query = latinizeKeyword(query);
-            $("#saved_searches").append('<li id="recent_search" class="recent_search" ><a href="#" class="recent_search" id="recent_search">'+query+'</a></li>');
-            $("#search_results").hide();
-            $("#profile_frame").hide();
-            $("#search_heading").html("Searching for '"+query+"'...");
-            /*var timeInMs = Date.now();
-            var search_event = JSON.stringify({time: timeInMs, q: query});
-            addToLS("search_history", search_event);
-            $("#search_history").prepend(search_event);*/
-            //htmlAdd($"#search_history", search_event);
-            $("#search_input").blur();
-            $("#search_input").css("color","gray"); 
-            $("#search_input").css("font-family","Courier");
-            //$("#search_frame").show();
-            //$("#reco_frame").hide();
-            $("#radio_section").hide();
-            $("#gray_radiobutton").hide();
-            $("#black_radiobutton").show();
-            var t = rotation.currentTrack();
-            $.post("stopsradio", {"userid": userid}, function (response) {
-                //nada
-            });
         
-            $.post("search", {"q": query}, function (response) {
-                var data=response;
-                //console.log(data);
-                var l = data.length;
-                var results = [];
-                $("#saved-list").text("");
-                //$("#search_heading").html("<h3>"+l+" results for '"+query+"': "+"<a href=\"#\"><img class=\"close_search\" src=\"img/icons/kill.png\" width=\"15px\"></a></h3>");
-                //$("#search_heading").html("<h3>"+l+" results for '"+query+"': </a></h3>");
-                
-                if(l>0){
-                    $("#search_heading").text("");
-                    $("#search_results").css("top","0px");
-                }else{
-                    $("#search_heading").text("No results for '"+query+"'");
-                    $("#search_heading").css("top","18px");
-                }
-
-                $("#search_results").show();
-                var i=0;
-
-                var t = rotation.currentTrack();
-                results.push({"title": t.title,"song_url": t.song_url,"soundcloud_id":t.soundcloud_id});
-
-                for (i=0; i<l; i++) {
-                   var title = data[i].title;
-                   var track_id = data[i].id;
-                   var song_url = data[i].permalink_url;
-                   var dur = data[i].duration;
-                   var min = Math.floor((dur/1000/60) << 0);
-                   var sec = zeroPad(Math.floor((dur/1000) % 60),2);
-
-                   var user_name = data[i].user.username.charAt(0).toUpperCase() + data[i].user.username.slice(1);
-                   var art = data[i].artwork_url;
-                   if (art ==null){                     
-                     art = data[i].user.avatar_url;
-                   }
-                   if (art=="https://a1.sndcdn.com/images/default_avatar_large.png"){
-                        art = "../img/soundcloud5.png"
-                    }
-                   
-
-
-                   title=title.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '');
-                   user_name=user_name.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '');
-                   
-
-                   results.push({"title": user_name+" - "+title,"song_url": song_url,"soundcloud_id":track_id});
-                   //console.log('<li id="'+i+'"><a href="#">'+user_name+" - "+title+' ['+min+':'+sec+']</a></li>');
-                   //$("#search_results").append("<a href=\"javascript:nthResult("+i+")\">"+title+"</a><br>"); // how to link to play?
-                   
-                   $("#saved-list").append('<li id="'+i+'" class="res" ><a href="#"><img id="res'+i+'" class="preview_img" src="" width="30" alt=""><span class="resname">'+user_name+'<br><span class="restitle">'+title+' ['+min+':'+sec+']</span></span></a></li>'); 
-                   loadImage("res"+i, "src", art, "../img/soundcloud5.png", 30, 30);
-                }
-
-
-                currentPlayingTrack.stop();
-                rotation = new Rotation(results, userid);
-                rotation.goTo(1);
-                currentTrack = rotation.currentTrack();
-                currentPlayingTrack = new Track(currentTrack.soundcloud_id, rotation, true);
-                currentPlayingTrack.play();
-                $('.trackTitle').html(currentTrack.title); 
-                $("#gray_radiobutton").hide();
-                $("#black_radiobutton").show();
-                //console.log('hallo?')
-                //$("#search_frame").show();
-                $("#radio_section").hide();
-                $("#playing_radio").empty();
-                radio=false;
-                $("#play").hide();
-                $("#pause").show();
-
-                $("li").click(function( event ) {
-                    ///console.log("res event "+event.currentTarget.classList[0])
-                /*if(event.currentTarget.id =="nav_home" 
-                    || event.currentTarget.id =="nav_search"
-                    || event.currentTarget.id =="nav_radios")
-                {
-                    //do nothing*/
-                    if(event.currentTarget.classList[0]=="res") {
-                        $('#play').hide();
-                        $('#pause').show();
-                        $("#pb_pause").show();
-                        $("#pb_play").hide();
-                        $('#liked').hide();
-                        $('#like').show();
-                        $('#disliked').hide();
-                        $('#dislike').show();
-                        playing=true;
-                        //console.log(event);
-                        var pos = parseInt(event.currentTarget.id);
-                        $('.res:nth-of-type(odd)').css({'background-color' : 'white'});
-                        $('.res:nth-of-type(even)').css({'background-color' : 'white'});
-                        $('.res:nth-of-type('+(pos+1)+')').css({'background-color' : '#E9E9E9'});
-                        /*$('li:nth-child(even)').css({'background-color' : 'white'});
-                        $('li:nth-child(odd)').css({'background-color' : 'white'});
-                        $('li:nth-child('+(pos+1)+')').css({'background-color' : '#E9E9E9'});
-                        $('li:nth-child('+(pos+1)+')').css({'color' : 'red'});
-                        */
-
-                        console.log("Pos"+pos);
-                        
-                        currentPlayingTrack.stop();
-                        rotation.goTo(pos+1);
-                        currentTrack = rotation.currentTrack();
-                        currentPlayingTrack = new Track(currentTrack.soundcloud_id, rotation, true);
-                        currentPlayingTrack.play();
-
-                        /*currentPlayingTrack.stop();
-                        rotation = new Rotation(results);
-                        rotation.goTo(pos);
-                        currentTrack = rotation.currentTrack();
-                        currentPlayingTrack = new Track(currentTrack.soundcloud_id, rotation, true);
-                        currentPlayingTrack.play();
-                        $('.trackTitle').html(currentTrack.title); 
-                        $("#gray_radiobutton").hide();
-                        $("#black_radiobutton").show();
-                        //console.log('hallo?')
-                        //$("#search_frame").show();
-                        $("#radio_section").hide();
-                        $("#playing_radio").empty();
-                        radio=false;*/
-                    }
-                });
-            });
-
-            return false;
-        });
-
-    $('#nav_home').trigger("click");
-
-
+        }
     });
+
