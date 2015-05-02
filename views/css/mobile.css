@@ -330,7 +330,7 @@ main{
 
 .rbox{
 	position: absolute;
-	top: 32px;
+	top: 38px;
 	left: 230px;
 }
 
@@ -368,10 +368,39 @@ main{
 }
 
 
-
 .search_heading{
 	position: relative;
 	left: 5px;
+}
+
+
+.events_frame{
+	width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 160px;
+    left: 10px;
+}
+
+.events_heading{
+	position: relative;
+	left: 5px;
+}
+
+.lineup_frame{
+	position: absolute;
+	/*float: right;*/
+	top: 160px;
+	left: 10px;
+}
+
+.lineup_list{
+	position: absolute;
+	left: px;
+	/*text-align: left;*/
+	z-index: 2;
+	font-style: normal;
+	text-shadow: none;
 }
 
 .profile_frame{
@@ -399,8 +428,8 @@ main{
 
 
 img.radio_img{
-	height: 40px;
-	width: 40px;
+	/*height: 40px;
+	width: 40px;*/
 }
 
 img.icon{
@@ -425,7 +454,7 @@ img.sc{
 	width: 55px;
 	top: 42px;
 	margin: 0;
-	left: 20px;
+	left: 220px;
 }
 
 img.profile_pic{
@@ -448,8 +477,8 @@ img.control{
 }
 
 img.rcontrol{
-	width: 40px;
-	height: 40px;
+	/*width: 40px;
+	height: 40px;*/
 }
 
 img.pcontrol{
@@ -524,6 +553,24 @@ ul {
 }
 
 
+.eres
+{
+ border-bottom: 1px #CCC solid;
+ /*color: #000;
+ /*display: block;
+ font-weight: bold;*/
+ overflow: hidden; 
+ width: 600px;
+ height: 40px;
+ vertical-align: top;
+ /*text-overflow: ellipsis;*/
+ white-space: nowrap;
+ /*font-size: 14px;*/
+ /*padding: 0px; */
+ padding-bottom: 2px;
+ text-decoration: none;
+}
+
 .res
 {
  border-bottom: 1px #CCC solid;
@@ -541,6 +588,82 @@ ul {
  padding-bottom: 2px;
  text-decoration: none;
 }
+
+.events_results{
+	width: 600px;
+	position: absolute;
+	/*left: 200px;*/
+	top: 0px;
+	color:gray;
+	font-family: "Courier";
+	font-size: 10px;
+}
+
+.events_list{
+	width: 600px;
+	position: relative;
+	left: 0px;
+	top: 0px;
+	color:gray;
+	font-family: "Courier";
+	font-size: 12px;
+	overflow: hidden; 
+}
+
+.evname{
+  position: absolute;
+  /*display: inline-block;*/
+  padding-left: 10px;
+  padding-bottom: 0px;
+  padding-top: 0px;
+  font-size: 12px;
+  font-weight: bold;
+  text-shadow: none;
+  color: black;
+}
+
+.evtitle{
+  font-size: 10px;
+  text-shadow: none;
+  color: black;
+}
+
+
+.lineup_frame{
+	position: relative;
+	/*float: right;*/
+	top: 160px;
+	left: 10px;
+	width: 600px;
+}
+
+.lineup_list{
+	position: absolute;
+	top: 10px;
+	left: 0px;
+	/*text-align: left;*/
+	z-index: 2;
+	font-style: normal;
+	text-shadow: none;
+}
+
+.hidevent{
+	position: absolute;
+	top: 10px;
+	left: 130px;
+	z-index: 4;
+}
+
+
+.flyer{
+	position: absolute;
+	top: 10px;
+	left: -10px;
+	z-index: 1; 
+	/*display="inline">*/
+}
+
+
 
 li > .image{
   display:inline;
