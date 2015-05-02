@@ -503,6 +503,7 @@
                 
 
                 $("li").click(function( event ) {
+                    $("#nav_search").trigger("click");
                     if(event.currentTarget.classList[0]=="djsres") {
                         var djstring = event.currentTarget.attributes[0].nodeValue
                         var djname = djstring.replace(/_/g, " ");
@@ -515,6 +516,7 @@
 
                         $("#search_input").trigger("submit");
                         $("#search_bar").show();
+
                     }
                     if(event.currentTarget.classList[0]=="djres") {
                         var djstring = event.currentTarget.attributes[0].nodeValue
@@ -1691,7 +1693,7 @@
             $('#nav_home').on('click', function(event){
                 $("#nav_home").addClass("active");
                 $("#nav_search").removeClass("active");
-                $("#nav_radios").removeClass("active");
+                $("#nav_events").removeClass("active");
                 $("#music_section").show();
                 //$("#search_frame").hide();
                 $("#play-bar-frame").hide();
