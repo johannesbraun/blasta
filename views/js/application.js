@@ -1235,13 +1235,13 @@
             });
 
 
-            $('#artwork_link').on('click', function(event){
+            /*$('#artwork_link').on('click', function(event){
                 if(!playing){
                     $('#play').trigger("click");
                 }else{
                     $('#pause').trigger("click");
                 }
-            });
+            });*/
 
             $('#pb_play').on('click', function(event){
                 $('#play').trigger("click");
