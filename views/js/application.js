@@ -1238,7 +1238,7 @@
             /*$('#artwork_link').on('click', function(event){
                 if(!playing){
                     $('#play').trigger("click");
-                }else{
+                }else{  
                     $('#pause').trigger("click");
                 }
             });*/
