@@ -19,16 +19,37 @@ hr {
 
 
 .ui-input-search { 
-	height: 35px;
-	font-size: 18px;
+	height: 30px;
+	font-size: 14px;
 	padding: 0 0; 
 	width: 90%; 
-	top: 5px;
 	position: absolute;
-	top: 80px;
+	top: 68px;
 	/*background-position: 8px 50%; 
 	background-repeat: no-repeat; 
 	position: relative; */
+}
+
+.calendar_section{
+	position: absolute;
+	/*float: right;*/
+	top: 80px;
+	left: 41px;
+	z-index:5;
+}
+
+.ui-input-text { 
+	padding: 5 5; 
+	width: 75px; 
+	padding-left: 5px;
+	height: 20px;
+	font-size: 10px;
+	position: relative;
+	left: 190px;
+	top: 80px;
+	font-family: "Courier";
+	/*background-position: 8px 50%; 
+	background-repeat: no-repeat; */
 }
 
 
@@ -58,6 +79,7 @@ hr {
   	padding-left: 12px;
 }
 
+
 .playbar_section{
 	position: relative;
 	height: 30px;
@@ -65,14 +87,14 @@ hr {
 
 .playbar_icon{
 	position: absolute;
-	top: 135px;
+	top: 125px;
 	left: 10px;
 	display: block;
 }
 
 .playbar_name{
 	position: absolute;
-	top: 133px;
+	top: 123px;
 	left: 42px;
 	color: #000;
 	display: block;
@@ -99,7 +121,7 @@ main{
 
 .music_section{
 	position: absolute;
-	top: 115px;
+	top: 95px;
 
 }
 
@@ -126,7 +148,7 @@ main{
 	width: 300px;
 	height: 300px;
 	position: absolute;
-	top: 130px;
+	top: 135px;
 	left: 0px;
 	z-index: 8;
 }
@@ -138,7 +160,6 @@ main{
 	background: white;
 	box-shadow: 1px -1px 0px 3px white;
 }
-
 
 
 
@@ -317,7 +338,7 @@ main{
 
 .hate_section{
 	position: absolute;
-	top: 153px;
+	top: 150px;
 	left: 240px;
 	z-index: 9;
 }
@@ -371,7 +392,10 @@ main{
 .search_heading{
 	position: relative;
 	left: 5px;
+	top: 20px;
 }
+
+
 
 
 .events_frame{
@@ -396,7 +420,7 @@ main{
 
 .lineup_list{
 	position: absolute;
-	left: px;
+	left: 10px;
 	/*text-align: left;*/
 	z-index: 2;
 	font-style: normal;
@@ -444,22 +468,22 @@ img.logo{
 	padding-left: 0px;
 	padding-top: 20px;
 	margin: 0;
-	width:190px;
+	width:150px;
 	position: absolute;
-	left: 20px;
+	left: 10px;
 }
 
 img.sc{
 	position: absolute;
 	width: 55px;
-	top: 42px;
+	top: 35px;
 	margin: 0;
 	left: 220px;
 }
 
 img.profile_pic{
 	float: right;
-	width: 30px;
+	width: 20px;
 	padding-top: 5px;
 	margin: 0;
 	padding-right: 17px;
@@ -477,8 +501,8 @@ img.control{
 }
 
 img.rcontrol{
-	/*width: 40px;
-	height: 40px;*/
+	width: 30px;
+	height: 30px;
 }
 
 img.pcontrol{
@@ -560,8 +584,8 @@ ul {
  /*display: block;
  font-weight: bold;*/
  overflow: hidden; 
- width: 600px;
- height: 40px;
+ width: 500px;
+ height: 50px;
  vertical-align: top;
  /*text-overflow: ellipsis;*/
  white-space: nowrap;
@@ -649,7 +673,7 @@ ul {
 
 .hidevent{
 	position: absolute;
-	top: 10px;
+	top: 5px;
 	left: 130px;
 	z-index: 4;
 }
@@ -683,10 +707,12 @@ li > .image{
   padding-top: 0px;
   font-size: 12px;
   font-weight: bold;
+  color: black;
 }
 
 .restitle{
   font-size: 10px;
+  color: black;
 }
 
 .rad
