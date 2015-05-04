@@ -45,14 +45,14 @@ img.logo{
 	padding-left: -10px;
 	padding-top: 20px;
 	margin: 0;
-	width: 230px;
+	width: 180px;
 }
 
 img.sc{
 	/*float: right;*/
 	position: relative;
 	width: 80px;
-	top: 30px;
+	top: 24px;
 	margin: 0;
 	left: 270px;
 }
@@ -66,9 +66,9 @@ img.sc{
 }
 
 .ltsc{
-	position: absolute;
-	left: 270px;
-	top: 30px;
+	position: relative;
+	left: 175px;
+	top: 20px;
 	z-index: 8;
 	opacity: 0.5;
 }
@@ -111,7 +111,7 @@ img.sc{
 .calendar_section{
 	position: relative;
 	/*float: right;*/
-	top: 100px;
+	top: 75px;
 	left: 215px;
 }
 
@@ -152,7 +152,7 @@ div.ui-datepicker{
 .events_frame{
 	position: relative;
 	/*float: right;*/
-	top: 150px;
+	top: 130px;
 	left: 615px;
 }
 
@@ -233,7 +233,7 @@ div.ui-datepicker{
 
 .lineup_list{
 	position: absolute;
-	left: px;
+	left: 5px;
 	/*text-align: left;*/
 	z-index: 2;
 	font-style: normal;
@@ -247,9 +247,17 @@ div.ui-datepicker{
 }
 
 
+.padded_link{
+	color:black; 
+	display: inline; 
+	background: white;
+	box-shadow: 1px -1px 0px 3px white;
+}
+
+
 .flyer{
 	position: absolute;
-	top: 300px;
+	top: 0px;
 	z-index: 1; 
 	/*display="inline">*/
 }
@@ -386,7 +394,7 @@ body{
 	width: 150px;
 	height: 150px;
 	position: absolute;
-	top: 70px;
+	top: 80px;
 	left: 0px;
 }
 
@@ -577,7 +585,7 @@ rect:hover{
 
 .echonest_section{
 	position: relative;
-	top: 100px;
+	top: 80px;
 	left: 310px;
 }
 
