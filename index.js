@@ -490,10 +490,10 @@ app.post("/playFirst", function (req, res) {
       track_id = req.body.userid;
 
       var connection = mysql.createConnection({
-        host     : 'blasta.chiim1n4uxwu.eu-central-1.rds.amazonaws.com',
-        user     : 'blasta',
-        password : '27051980',
-        database : 'blasta'
+        host     : 'blastafast.c7dfxf4q39rn.us-east-1.rds.amazonaws.com',
+        user     : 'blastafast',
+        password : 'blastafast',
+        database : 'blastafast'
       });
 
       connection.connect();
@@ -765,10 +765,10 @@ app.post("/getEvents", function (req, res) {
       console.log(dateString);
 
       var connection = mysql.createConnection({
-        host     : 'blasta.chiim1n4uxwu.eu-central-1.rds.amazonaws.com',
-        user     : 'blasta',
-        password : '27051980',
-        database : 'blasta'
+        host     : 'blastafast.c7dfxf4q39rn.us-east-1.rds.amazonaws.com',
+        user     : 'blastafast',
+        password : 'blastafast',
+        database : 'blastafast'
       });
 
       connection.connect();
@@ -826,10 +826,10 @@ app.post("/getLineup", function (req, res) {
       var eventid = req.body.id;
 
       var connection = mysql.createConnection({
-        host     : 'blasta.chiim1n4uxwu.eu-central-1.rds.amazonaws.com',
-        user     : 'blasta',
-        password : '27051980',
-        database : 'blasta'
+        host     : 'blastafast.c7dfxf4q39rn.us-east-1.rds.amazonaws.com',
+        user     : 'blastafast',
+        password : 'blastafast',
+        database : 'blastafast'
       });
 
       connection.connect();
@@ -870,10 +870,10 @@ app.post("/getEchonest", function (req, res) {
       track_id = req.body.tid;
 
       var connection = mysql.createConnection({
-        host     : 'blasta.chiim1n4uxwu.eu-central-1.rds.amazonaws.com',
-        user     : 'blasta',
-        password : '27051980',
-        database : 'blasta'
+        host     : 'blastafast.c7dfxf4q39rn.us-east-1.rds.amazonaws.com',
+        user     : 'blastafast',
+        password : 'blastafast',
+        database : 'blastafast'
       });
 
       connection.connect();

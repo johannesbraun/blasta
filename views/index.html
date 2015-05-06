@@ -3,21 +3,20 @@
 <title> blasta.me</title>
 <head>
 	<!--mobile:-->
-	<meta name="viewport" content="width=device-width, minimum-scale=0.2, maximum-scale=2.0">
+	<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=2.0">
 	<link rel="apple-touch-icon" href="img/ghettoblaster_256_padding.png">
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-status-bar-style" content="white">
 	<link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
-
+	
 	
 	<!--custom css:-->
 
-	<link rel="shortcut icon" href="img/ghettoblaster-128">
+	<link rel="shortcut icon" href="img/ghettoblaster-128.ico">
 	<link href="css/style.css" rel="stylesheet" type="text/css" media="screen and (min-width:601px)" >
 	<!--<link href="css/mobile_horizontal.css" rel="stylesheet" type="text/css" media="only screen and (min-width: 481px) and (max-width: 600px)" >-->
 	<link href="css/mobile.css" rel="stylesheet" type="text/css" media="only screen and (max-width: 600px)" />
 	
-
 
 
 </head>
@@ -33,7 +32,7 @@
 	<header> 
 		<div class="header_section" id="header_section">
 			<!--<img class="icon" src="img/gogb.gif" width="60" alt="Blasta.me icon">-->
-			<a href="" id="logo"><img class="logo" src="img/black_logo.gif" width="200" alt="Blasta.me Logo"></a>
+			<a href="" id="logo"><img class="logo" src="img/black_logo.gif" width="150" alt="Blasta.me Logo"></a>
 			<img class="sc" src="img/powered_by_sc.png" width="50" alt="powered by soundcoud">
 		</div>
 	</header>
@@ -45,7 +44,7 @@
 	<div class="calendar_section" id="calendar_section">
 		<!--<div id="date_heading" class="date_heading"><img class="pcontrol" src="img/icons/calendar2.png" width="25" alt="cal"></a></div>-->
 		<form id="date-form">
-			<input type="text" id="datepicker" placeholder="04/30/2015" style = "font-family: Courier;">
+			<input type="text" id="datepicker" placeholder="pick a date" style = "font-family: Courier;">
 		</form>
 	</div>
 
@@ -92,7 +91,7 @@
 					<div class="rbox" id="rbox">
 						<span id="black_radiobutton">
 							<div id="goradio" class="goradio">
-								<a href="#" class="radio_button"><img class="radio_img" src="img/icons/radiostation.jpeg" width="30" alt="radio"></a> <!--ghettoblaster-512-orange.png, ghettoblaster-512-grey.png-->
+								<a href="#" class="radio_button"><img class="radio_img" src="img/icons/radio5.png" height="30" alt="radio"></a> <!--ghettoblaster-512-orange.png, ghettoblaster-512-grey.png-->
 							</div>
 							<div id="add_radiobutton" class = "add_radiobutton">
 								<!--<a href="#" class="addkill"><img class="addkill_img" src="img/icons/addnew.png" width="15" alt=""></a></a>-->
@@ -100,7 +99,7 @@
 						</span>	
 						<span id="gray_radiobutton">
 							<div id="endradio" class="endradio">
-								<a href="#" class="radio_button"><img class="radio_img" src="img/icons/radiostationgrey.jpg" width="30" alt="radio"></a></a>
+								<a href="#" class="radio_button"><img class="radio_img" src="img/icons/radio5darkgrey.png" height="30" alt="radio"></a></a>
 							</div>
 							<!--<div id="kill_radiobutton" class = "kill_radiobutton">
 								<a href="#" class="addkill"><img id="endradio" class="addkill_img" src="img/icons/kill.png" width="18" alt=""></a></a>
@@ -141,6 +140,9 @@
 						</div>
 						</a>
 				</div>
+				<div id="ltsc" class="ltsc">
+				<a href="https://www.soundcloud.com" id="ltsc" class="ltsc"><img class="ltsc" src="img/icons/logoblacksc.png" width="60" alt="play"></a>
+				</div>
 				<div class="pbox" id="pbox">
 					<a href="#" id="play" class="play"><img class="pcontrol" src="img/icons/play.png" width="40" alt="play"></a>
 					<a href="#" id="pause" class="pause"><img class="pause" src="img/icons/pause.png" width="40" alt="play"></a>
@@ -167,8 +169,10 @@
 			<div class="echonest_section" id="echonest_section">
 				<section class="graph">
 				</section>
+				<div><a href="http://the.echonest.com" id="en" class="en"><img class="en" src="img/icons/pbecho.png" width="70" alt="play"></a>
+				</div>
 				<div class="echonest_frame" id = "echonest_frame">
-					<a href="#" id="echoreco" class="echoreco" display="inline"><img class="rcontrol" src="img/echonest_symbols2.png" width="235" alt="echonest" ></a>
+					<a href="#" id="echoreco" class="echoreco" display="inline"><img src="img/echonest_symbols2.png" width="235" alt="echonest" ></a>
 				</div>
 				<!--<div class="chart">
 				  <div style="width: 40px;">4</div>
@@ -211,7 +215,10 @@
 					<li id="d2" class="lres" ><a href="#"><span class="djname">Bonobo</span></a></li>
 					<li id="d3" class="lres" ><a href="#"><span class="djname">Atari</span></a></li>-->
 				</ul>
-				
+			<div class="hidevent" id="hidevent">
+				<a href="#"><img class="hidevent" src="img/icons/kill10.png" width="25" alt="hide"></a>
+			</div>
+			
 			<div class="flyer" id="flyer">
 				<!--<a href="#" id="back" class="back"><img class="scontrol" src="http://www.residentadvisor.net//images/events/flyer/2015/5/de-0529-685342-475306-front.jpg" width="340" alt=""></a>-->
 			</div>
@@ -235,7 +242,7 @@
 
 
         
-		<div id="play-bar-frame">
+		<div id="play-bar-frame" class="play-bar-frame">
 			<div class="playbar_icon" id="playbar_icon">
 				<a href="#" id="pb_play" class="pb_play"><img class="pb_play" src="img/icons/play.png" width="30" alt="play"></a>
 				<a href="#" id="pb_pause" class="pb_pause"><img class="pb_play" src="img/icons/pause.png" width="30" alt="play"></a>
@@ -297,14 +304,18 @@
             </div> -->
             
         	
-            <div class="manual-nav-bar" id="manual-nav-bar"> 
+            <div data-role="navbar" > 
             	<ul> 
-                <li id="nav_home"><a href="#"><img src="../img/icons/home.png" width="60"></a></li> 
-                <li id="nav_search"><a href="#"><img src="../img/icons/search_cloud.png" width="60"></a></li> 
+                <li id="nav_home" ><a href="#"><img src="../img/icons/home.png" height="30" ></a></li> 
+                <li id="nav_search" ><a href="#"><img src="../img/icons/list4.png" height="30" padding-top="15px" ></a></li> 
+                <li id="nav_events" ><a href="#"><img src="../img/icons/calendar2.png" height="30" ></a></li> 
+                
             	</ul> 
             </div>
             
         </div>  <!--end footer-->
+
+
 	</main>
 </div>
 	<!-- soundcloud api
@@ -329,6 +340,8 @@
 	<!-- jquery-->
 	<script>
         $("#nav-bar").hide();
+        //$("#ltsc").hide();
+        $("#hidevent").hide();
         $("#profile_frame").hide();
 		$("#pb_pause").hide();
         $("#play-bar-frame").hide();
@@ -341,11 +354,12 @@
 					
 		$("#gray_radiobutton").hide();
 		$("#pause").hide();
-				
+		
 		$("#liked").hide();
 		$("#disliked").hide();
 		if (screen.width<600){
 			$("#nav-bar").show();
+			$("#hidevent").show();
 			$("#like").html('<a href="#" id="love"class="love"><img class="rcontrol" src="img/icons/gthumbsup.png" width="30" alt="love it"></a>');
 			$("#dislike").html('<a href="#" id="hate"class="hate"><img class="rcontrol" src="img/icons/thumbsdown.png" width="30" alt="hate it"></a>');
 			$("#liked").html('<a href="#" id="unlove" class="unlove"><img class="rcontrol" src="img/icons/thumbsup_pressed.png" width="40" alt="love it"></a>');
